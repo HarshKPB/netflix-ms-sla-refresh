@@ -42,3 +42,26 @@ jobs:
           SLA_SHEET_ID: ${{ secrets.SLA_SHEET_ID }}
           INTAKE_SHEET_ID: ${{ secrets.INTAKE_SHEET_ID }}
         run: python sla_refresh.py
+
+      # Keep the Sprinklr session alive. The scrape re-saves a refreshed cookie to
+      # this file on success (sprinklr_to_asana line 257). Push it back into the
+      # secret so the next run starts from a fresh, slid-forward session instead of
+      # the frozen original. No-ops safely until GH_PAT is added.
+      - name: Persist refreshed Sprinklr session
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          F="$HOME/.netflix_sprinklr_session.json"
+          if [ -z "$GH_TOKEN" ]; then
+            echo "GH_PAT not set, skipping session write-back."; exit 0
+          fi
+          if [ ! -s "$F" ]; then
+            echo "No session file to persist, skipping."; exit 0
+          fi
+          # Must be valid JSON with cookies, or we would poison the secret.
+          if ! python -c "import json,sys; d=json.load(open('$F')); sys.exit(0 if d.get('cookies') else 1)"; then
+            echo "Session file not valid JSON with cookies, skipping."; exit 0
+          fi
+          gh secret set SPRINKLR_SESSION_JSON --repo "$GITHUB_REPOSITORY" < "$F"
+          echo "Refreshed Sprinklr session written back to secret."
