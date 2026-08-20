@@ -72,7 +72,6 @@
     <input type="search" id="q" placeholder="Search task, assignee...">
     <span class="chip on src-slack" data-f="src" data-v="Slack">Slack</span>
     <span class="chip on" data-f="src" data-v="Sprinklr">Sprinklr</span>
-    <span class="chip on" data-f="src" data-v="Other">Other</span>
     <span class="chip on src-open" data-f="st" data-v="open">Open</span>
     <span class="chip on src-done" data-f="st" data-v="done">Done</span>
   </div>
@@ -96,7 +95,7 @@ const COLS = [
   {k:"SLA_completion", t:"SLA done"},
 ];
 let DATA=[], sortK="request_arrival_time", sortDir=-1;
-const flt={src:new Set(["Slack","Sprinklr","Other"]), st:new Set(["open","done"])};
+const flt={src:new Set(["Slack","Sprinklr"]), st:new Set(["open","done"])};
 
 const durMin = s => { if(!s) return null; const m=s.match(/(\d+)h\s*(\d+)m/); return m? (+m[1])*60+(+m[2]) : null; };
 const fmtMin = v => { if(v==null) return "–"; const h=Math.floor(v/60),m=Math.round(v%60); return h+"h "+String(m).padStart(2,"0")+"m"; };
