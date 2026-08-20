@@ -343,6 +343,18 @@ def main():
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
     write_sheet(gc, rows)
+
+    # Optional: also emit data.json for the web dashboard. Only when WEB_DATA_DIR is set.
+    web_dir = os.environ.get("WEB_DATA_DIR")
+    if web_dir:
+        os.makedirs(web_dir, exist_ok=True)
+        today = dt.datetime.now(IST).strftime("%Y-%m-%d")
+        payload = {"generated": today, "headers": HEADERS,
+                   "rows": [{h: r[h] for h in HEADERS} for r in rows]}
+        with open(os.path.join(web_dir, "data.json"), "w") as fh:
+            json.dump(payload, fh)
+        print(f"wrote {web_dir}/data.json")
+
     n = {"Slack": 0, "Sprinklr": 0, "Other": 0}
     for r in rows:
         n[r["source"]] = n.get(r["source"], 0) + 1

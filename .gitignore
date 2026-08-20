@@ -6,3 +6,8 @@ service_account*.json
 sa*.json
 __pycache__/
 *.pyc
+
+# Never commit the dashboard data (customer names, internal requests) to this public repo.
+# It is generated at deploy time and shipped straight to Vercel, never to git.
+web/data.json
+.vercel/

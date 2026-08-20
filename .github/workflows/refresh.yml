@@ -41,6 +41,7 @@ jobs:
           GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
           SLA_SHEET_ID: ${{ secrets.SLA_SHEET_ID }}
           INTAKE_SHEET_ID: ${{ secrets.INTAKE_SHEET_ID }}
+          WEB_DATA_DIR: web
         run: python sla_refresh.py
 
       # Keep the Sprinklr session alive. The scrape re-saves a refreshed cookie to
@@ -65,3 +66,24 @@ jobs:
           fi
           gh secret set SPRINKLR_SESSION_JSON --repo "$GITHUB_REPOSITORY" < "$F"
           echo "Refreshed Sprinklr session written back to secret."
+
+      # Deploy the web dashboard to Vercel with the fresh data.json. The password gate
+      # lives in web/middleware.js and reads DASH_USER / DASH_PASS from the Vercel
+      # project env. No-ops safely until the Vercel secrets are added.
+      - name: Deploy dashboard to Vercel
+        if: success()
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "Vercel secrets not set, skipping dashboard deploy."; exit 0
+          fi
+          if [ ! -s web/data.json ]; then
+            echo "web/data.json missing, skipping deploy."; exit 0
+          fi
+          npm install -g vercel@latest
+          cd web
+          vercel deploy --prod --yes --token="$VERCEL_TOKEN"
+          echo "Dashboard deployed to Vercel."
