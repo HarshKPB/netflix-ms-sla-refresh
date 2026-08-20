@@ -103,15 +103,10 @@ const isOpen = r => !r["Request_fulfil_time"].trim();
 
 function kpis(){
   const t=DATA.length, done=DATA.filter(r=>!isOpen(r)).length, open=t-done;
-  const asg=DATA.map(r=>durMin(r["SLA_Assignement"])).filter(v=>v!=null);
-  const cmp=DATA.map(r=>durMin(r["SLA_completion"])).filter(v=>v!=null);
-  const med=a=>{ if(!a.length) return null; const s=[...a].sort((x,y)=>x-y); const i=Math.floor(s.length/2); return s.length%2? s[i]:(s[i-1]+s[i])/2; };
   const cards=[
     {n:t,l:"Total requests"},
     {n:done,l:"Completed",c:"green"},
     {n:open,l:"Open",c:"amber"},
-    {n:fmtMin(med(asg)),l:"Median pickup SLA",c:"accent"},
-    {n:fmtMin(med(cmp)),l:"Median completion SLA",c:"accent"},
   ];
   document.getElementById("kpis").innerHTML = cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join("");
