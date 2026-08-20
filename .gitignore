@@ -1,0 +1,8 @@
+# Never commit credentials or session files.
+*.env
+.netflix_automation.env
+*session*.json
+service_account*.json
+sa*.json
+__pycache__/
+*.pyc

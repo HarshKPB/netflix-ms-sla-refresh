@@ -1,0 +1,6 @@
+# Pinned. playwright ships a matching Chromium, so an unpinned bump would pull a
+# different browser build. Change on purpose, then re-run playwright install chromium.
+playwright==1.52.0
+requests==2.32.3
+gspread==6.1.2
+google-auth==2.35.0
