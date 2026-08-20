@@ -180,19 +180,22 @@ def build_rows(intake, asana, cases):
 
 def write_sheet(gc, rows):
     ss = gc.open_by_key(SLA_SHEET_ID)
+    # Add the new tab FIRST under a temp title. Google forbids deleting the last
+    # remaining sheet, so the replacement must exist before we remove the old ones.
+    tmp = "SLA_new"
     try:
-        old = ss.worksheet(SLA_TAB)
-        ss.del_worksheet(old)
+        ss.del_worksheet(ss.worksheet(tmp))   # clear a leftover temp from a failed run
     except gspread.WorksheetNotFound:
         pass
-    ws = ss.add_worksheet(title=SLA_TAB, rows=len(rows) + 10, cols=len(HEADERS))
-    # Move it to first position and remove any other leftover tabs.
+    ws = ss.add_worksheet(title=tmp, rows=len(rows) + 10, cols=len(HEADERS))
+    # Now remove every other tab (old SLA + any leftovers).
     for other in ss.worksheets():
         if other.id != ws.id:
             try:
                 ss.del_worksheet(other)
             except Exception:
                 pass
+    ws.update_title(SLA_TAB)
     grid = [HEADERS] + [[r[h] for h in HEADERS] for r in rows]
     # USER_ENTERED would let Sheets re-type; RAW keeps our exact text.
     ws.update(grid, value_input_option="RAW")
