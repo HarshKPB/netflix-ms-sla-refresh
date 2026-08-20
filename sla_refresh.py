@@ -187,8 +187,10 @@ def slack_link(info):
 
 
 def sprinklr_link(case):
+    # Opens the specific case in the dashboard. The working pattern is
+    # ?v=/SPR_TASK/<caseId>/OVERVIEW (URL-encoded), confirmed from a real case URL.
     cid = p.extract_case_id(case)
-    return f"{p.DASHBOARD_URL}?selectedTask={cid}" if cid else ""
+    return f"{p.DASHBOARD_URL}?v=%2FSPR_TASK%2F{cid}%2FOVERVIEW" if cid else ""
 
 
 def build_rows(intake, asana, cases):
