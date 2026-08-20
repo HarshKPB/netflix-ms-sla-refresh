@@ -45,7 +45,7 @@ DEFS_HEADERS = ["Column", "What it means (simple)", "How it is worked out"]
 DEFS = [
     ["source",
      "Where the request came from.",
-     "Slack = came from the Slack channel. Sprinklr = came from the Sprinklr request form. Other = anything else. No maths."],
+     "Slack = came from the Slack channel. Sprinklr = came from the Sprinklr request form. No maths."],
     ["task_name",
      "Short title of the request.",
      "Sprinklr: the case number and subject. Slack: the sender name and first line of their message. No maths."],
@@ -191,7 +191,9 @@ def build_rows(intake, asana, cases):
             continue
         s = classify(t["name"])
         if s == "Sprinklr":
-            continue
+            continue   # Sprinklr rows come from the scrape, not Asana, to avoid duplicates
+        if s == "Other":
+            continue   # only Slack and Sprinklr are real sources; drop anything else
         created = iso_ms(t.get("created_at"))
         done = iso_ms(t.get("completed_at")) if (t.get("completed") and t.get("completed_at")) else None
         info = intake.get(t["gid"])
