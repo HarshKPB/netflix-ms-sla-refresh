@@ -92,13 +92,6 @@
 <div class="wrap">
   <div class="kpis" id="kpis"></div>
 
-  <div class="card">
-    <h2>Requests per week by source
-      <span class="legend"><span><i style="background:var(--blue)"></i>Slack</span><span><i style="background:var(--red)"></i>Sprinklr</span></span>
-    </h2>
-    <div class="chartwrap"><svg id="chart" width="100%" height="220" preserveAspectRatio="none"></svg></div>
-  </div>
-
   <div class="controls">
     <input type="search" id="q" placeholder="Search task, assignee...">
     <span class="chip on src-slack" data-f="src" data-v="Slack">Slack</span>
@@ -188,44 +181,6 @@ function kpis(base){
     (c.d?`<div class="d ${c.d.cls}">${c.d.t}</div>`:``)+`</div>`).join("");
 }
 
-// Monday of the ISO week for a date.
-function weekStart(d){
-  const x=new Date(d); const day=(x.getDay()+6)%7; x.setDate(x.getDate()-day); x.setHours(0,0,0,0); return x;
-}
-function chart(base){
-  const svg=document.getElementById("chart");
-  const W=Math.max(640, svg.clientWidth||900), H=220, padL=34, padB=26, padT=10, padR=10;
-  // bucket arrivals by week per source
-  const buckets={};   // weekMs -> {Slack, Sprinklr}
-  base.forEach(r=>{
-    const d=arrivalDate(r); if(!d) return;
-    const w=+weekStart(d);
-    (buckets[w]=buckets[w]||{Slack:0,Sprinklr:0})[r.source]++;
-  });
-  const weeks=Object.keys(buckets).map(Number).sort((a,b)=>a-b);
-  if(weeks.length<1){ svg.innerHTML=`<text x="12" y="24" fill="#9a9aa8">No data in range</text>`; return; }
-  const maxY=Math.max(1,...weeks.map(w=>Math.max(buckets[w].Slack,buckets[w].Sprinklr)));
-  const x=i=>padL+(weeks.length===1?0:i*(W-padL-padR)/(weeks.length-1));
-  const y=v=>padT+(H-padT-padB)*(1-v/maxY);
-  const line=(src,color)=>{
-    const pts=weeks.map((w,i)=>`${x(i)},${y(buckets[w][src])}`).join(" ");
-    const dots=weeks.map((w,i)=>`<circle cx="${x(i)}" cy="${y(buckets[w][src])}" r="2.5" fill="${color}"/>`).join("");
-    return `<polyline fill="none" stroke="${color}" stroke-width="2" points="${pts}"/>${dots}`;
-  };
-  // gridlines + y labels
-  let grid="";
-  for(let g=0;g<=maxY;g+=Math.ceil(maxY/4)||1){
-    grid+=`<line x1="${padL}" y1="${y(g)}" x2="${W-padR}" y2="${y(g)}" stroke="#2a2a36"/>`+
-          `<text x="4" y="${y(g)+4}" fill="#9a9aa8" font-size="10">${g}</text>`;
-  }
-  // x labels (first, mid, last)
-  const lab=i=>{const d=new Date(weeks[i]);return (d.getMonth()+1)+"/"+d.getDate();};
-  const xl=[0,Math.floor((weeks.length-1)/2),weeks.length-1].filter((v,i,a)=>a.indexOf(v)===i);
-  let xlabels=xl.map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9a9aa8" font-size="10" text-anchor="middle">${lab(i)}</text>`).join("");
-  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
-  svg.innerHTML=grid+line("Slack","#5aa0ff")+line("Sprinklr","#e50914")+xlabels;
-}
-
 function head(){
   document.getElementById("head").innerHTML = COLS.map(c=>
     `<th data-k="${c.k}">${c.t} ${sortK===c.k?`<span class="arrow">${sortDir<0?'▼':'▲'}</span>`:''}</th>`).join("");
@@ -255,7 +210,7 @@ function currentRows(){
 }
 function render(){
   const base=DATA.filter(inRange);
-  kpis(base); chart(base);
+  kpis(base);
   const rows=currentRows();
   document.getElementById("body").innerHTML = rows.map(r=>{
     const st=isOpen(r)?'<span class="badge st-open">open</span>':'<span class="badge st-done">done</span>';
@@ -299,8 +254,6 @@ document.querySelectorAll("#range button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#range button").forEach(x=>x.classList.toggle("on",x===b));
   render();
 });
-window.addEventListener("resize",()=>chart(DATA.filter(inRange)));
-
 fetch("data.json").then(r=>r.json()).then(j=>{
   DATA=j.rows; GEN=j.generated||"";
   const when=j.generated_at||j.generated||"";
