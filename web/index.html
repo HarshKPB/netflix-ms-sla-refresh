@@ -14,14 +14,14 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);
     font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  header{padding:22px 28px;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  header{padding:20px 28px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
     background:linear-gradient(180deg,#141119,#0b0b0f)}
   .logo{width:10px;height:28px;background:var(--red);border-radius:3px;box-shadow:0 0 18px var(--red)}
   h1{font-size:19px;margin:0;font-weight:700;letter-spacing:.2px}
-  header .sub{color:var(--dim);font-size:12px;margin-left:auto}
-  .wrap{padding:22px 28px;max-width:1400px;margin:0 auto}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+  header .sub{color:var(--dim);font-size:12px;margin-left:auto;text-align:right}
+  .wrap{padding:20px 28px;max-width:1400px;margin:0 auto}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
   .kpi .n{font-size:26px;font-weight:700}
   .kpi .l{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
@@ -33,16 +33,28 @@
   .kpi .d.up{color:var(--amber)}
   .kpi .d.down{color:var(--green)}
   .kpi .d.flat{color:var(--dim)}
-  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px}
+  .card h2{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:0 0 12px}
+  .legend{display:inline-flex;gap:14px;font-size:12px;color:var(--dim);margin-left:10px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+  .chartwrap{overflow-x:auto}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
   input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--txt);
-    padding:10px 14px;border-radius:10px;min-width:260px;flex:1;outline:none}
+    padding:10px 14px;border-radius:10px;min-width:220px;flex:1;outline:none}
   input[type=search]:focus{border-color:var(--red)}
   .chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);
-    padding:8px 14px;border-radius:999px;cursor:pointer;user-select:none;font-size:12px;font-weight:600}
+    padding:8px 13px;border-radius:999px;cursor:pointer;user-select:none;font-size:12px;font-weight:600;white-space:nowrap}
   .chip.on{background:var(--red-dim);border-color:var(--red);color:#ffd7d9}
   .chip.on.src-slack{background:#12233a;border-color:var(--blue);color:#cfe4ff}
   .chip.on.src-open{background:#3a2c12;border-color:var(--amber);color:#ffe9c2}
   .chip.on.src-done{background:#123020;border-color:var(--green);color:#c2f5d8}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{background:var(--panel);color:var(--dim);border:0;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600}
+  .seg button.on{background:var(--red-dim);color:#ffd7d9}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:9px 14px;
+    border-radius:10px;cursor:pointer;font-size:12px;font-weight:600}
+  .btn:hover{border-color:var(--red)}
+  .spacer{flex:1}
   table{width:100%;border-collapse:collapse;background:var(--panel);
     border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   thead th{background:var(--panel2);text-align:left;padding:12px 14px;font-size:11px;
@@ -54,7 +66,6 @@
   .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
   .b-slack{background:#12233a;color:#8fc0ff}
   .b-sprinklr{background:var(--red-dim);color:#ff9ba0}
-  .b-other{background:#26262f;color:var(--dim)}
   .st-open{background:#3a2c12;color:var(--amber)}
   .st-done{background:#123020;color:var(--green)}
   .dur{font-variant-numeric:tabular-nums;color:#dcdce4}
@@ -62,7 +73,14 @@
   .tablewrap{overflow-x:auto;border-radius:var(--radius)}
   .foot{color:var(--dim);font-size:12px;margin-top:16px;text-align:center}
   .arrow{font-size:10px;color:var(--red)}
-  @media (max-width:640px){.name{max-width:200px}.wrap{padding:14px}}
+  @media (max-width:760px){
+    header{padding:14px 16px} .wrap{padding:14px 16px}
+    header .sub{margin-left:0;flex-basis:100%;text-align:left}
+    .kpis{grid-template-columns:repeat(auto-fit,minmax(46%,1fr));gap:10px}
+    .kpi .n{font-size:22px}
+    .controls{gap:8px} input[type=search]{min-width:100%;order:-1}
+    .name{max-width:180px}
+  }
 </style>
 </head>
 <body>
@@ -73,13 +91,28 @@
 </header>
 <div class="wrap">
   <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>Requests per week by source
+      <span class="legend"><span><i style="background:var(--blue)"></i>Slack</span><span><i style="background:var(--red)"></i>Sprinklr</span></span>
+    </h2>
+    <div class="chartwrap"><svg id="chart" width="100%" height="220" preserveAspectRatio="none"></svg></div>
+  </div>
+
   <div class="controls">
     <input type="search" id="q" placeholder="Search task, assignee...">
     <span class="chip on src-slack" data-f="src" data-v="Slack">Slack</span>
     <span class="chip on" data-f="src" data-v="Sprinklr">Sprinklr</span>
     <span class="chip on src-open" data-f="st" data-v="open">Open</span>
     <span class="chip on src-done" data-f="st" data-v="done">Done</span>
+    <span class="spacer"></span>
+    <span class="seg" id="range">
+      <button data-r="7">7d</button><button data-r="30">30d</button>
+      <button data-r="90" class="on">90d</button><button data-r="0">All</button>
+    </span>
+    <button class="btn" id="csv">Export CSV</button>
   </div>
+
   <div class="tablewrap">
     <table>
       <thead><tr id="head"></tr></thead>
@@ -99,45 +132,48 @@ const COLS = [
   {k:"Request_fulfil_time", t:"Finished"},
   {k:"SLA_completion", t:"SLA done"},
 ];
-let DATA=[], GEN="", sortK="request_arrival_time", sortDir=-1;
-const flt={src:new Set(["Slack","Sprinklr"]), st:new Set(["open","done"])};
+let DATA=[], GEN="", sortK="request_arrival_time", sortDir=-1, rangeDays=90;
 const DAY=864e5;
+const flt={src:new Set(["Slack","Sprinklr"]), st:new Set(["open","done"])};
+
+const refDate = () => GEN ? new Date(GEN+"T23:59:59") : new Date();
+const arrivalDate = r => {
+  const s=(r.request_arrival_time||"").slice(0,10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(s) ? new Date(s+"T00:00:00") : null;
+};
+const inRange = r => {
+  if(!rangeDays) return true;
+  const d=arrivalDate(r); if(!d) return false;
+  return (refDate()-d) < rangeDays*DAY && (refDate()-d) >= 0;
+};
+const isOpen = r => !r["Request_fulfil_time"].trim();
+const durMin = s => { if(!s) return null; const m=s.match(/(\d+)h\s*(\d+)m/); return m? (+m[1])*60+(+m[2]) : null; };
 
 // Weekly volume for one source, based on arrival time.
-// avg = arrivals in the last 8 weeks divided by 8. An 8-week window is used, not the
-// full history, because the Sprinklr feed is a rolling snapshot that reaches back
-// years, which would dilute a full-span average. WoW = last 7 days vs the prior 7
-// days, measured back from the data date, so a partial current week does not skew it.
-// wow is null when the prior 7-day window had zero (percent undefined).
+// avg = arrivals in the last 8 weeks / 8. An 8-week window is used, not the full
+// history, because the Sprinklr feed is a rolling snapshot reaching back years.
+// WoW = last 7 days vs the prior 7 days from the data date. null when prior week = 0.
 const AVG_WEEKS = 8;
 function weekStats(src){
-  const ref = GEN ? new Date(GEN+"T23:59:59") : new Date();
-  const ds = DATA.filter(r=>r.source===src)
-    .map(r=>(r.request_arrival_time||"").slice(0,10))
-    .filter(s=>/^\d{4}-\d{2}-\d{2}$/.test(s))
-    .map(s=>new Date(s+"T00:00:00"));
-  if(!ds.length) return {avg:0, wow:null, l:0, p:0};
+  const ref = refDate();
+  const ds = DATA.filter(r=>r.source===src).map(arrivalDate).filter(Boolean);
+  if(!ds.length) return {avg:0, wow:null};
   const recent = ds.filter(d=>(ref-d)>=0 && (ref-d)<AVG_WEEKS*7*DAY).length;
-  const avg = recent / AVG_WEEKS;
+  const avg = recent/AVG_WEEKS;
   const l = ds.filter(d=>(ref-d)>=0 && (ref-d)<7*DAY).length;
   const p = ds.filter(d=>(ref-d)>=7*DAY && (ref-d)<14*DAY).length;
   const wow = p>0 ? (l-p)/p*100 : null;
-  return {avg, wow, l, p};
+  return {avg, wow};
 }
 function wowNote(w){
   if(w===null) return {t:"WoW n/a", cls:"flat"};
-  const s = w>0?"+":"";
-  const cls = Math.abs(w)<0.5 ? "flat" : (w>0?"up":"down");
-  const arrow = Math.abs(w)<0.5 ? "" : (w>0?"▲ ":"▼ ");
+  const s=w>0?"+":"", cls=Math.abs(w)<0.5?"flat":(w>0?"up":"down");
+  const arrow=Math.abs(w)<0.5?"":(w>0?"▲ ":"▼ ");
   return {t:arrow+s+w.toFixed(0)+"% WoW", cls};
 }
 
-const durMin = s => { if(!s) return null; const m=s.match(/(\d+)h\s*(\d+)m/); return m? (+m[1])*60+(+m[2]) : null; };
-const fmtMin = v => { if(v==null) return "–"; const h=Math.floor(v/60),m=Math.round(v%60); return h+"h "+String(m).padStart(2,"0")+"m"; };
-const isOpen = r => !r["Request_fulfil_time"].trim();
-
-function kpis(){
-  const t=DATA.length, done=DATA.filter(r=>!isOpen(r)).length, open=t-done;
+function kpis(base){
+  const t=base.length, done=base.filter(r=>!isOpen(r)).length, open=t-done;
   const sl=weekStats("Slack"), sp=weekStats("Sprinklr");
   const sln=wowNote(sl.wow), spn=wowNote(sp.wow);
   const cards=[
@@ -151,6 +187,45 @@ function kpis(){
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
     (c.d?`<div class="d ${c.d.cls}">${c.d.t}</div>`:``)+`</div>`).join("");
 }
+
+// Monday of the ISO week for a date.
+function weekStart(d){
+  const x=new Date(d); const day=(x.getDay()+6)%7; x.setDate(x.getDate()-day); x.setHours(0,0,0,0); return x;
+}
+function chart(base){
+  const svg=document.getElementById("chart");
+  const W=Math.max(640, svg.clientWidth||900), H=220, padL=34, padB=26, padT=10, padR=10;
+  // bucket arrivals by week per source
+  const buckets={};   // weekMs -> {Slack, Sprinklr}
+  base.forEach(r=>{
+    const d=arrivalDate(r); if(!d) return;
+    const w=+weekStart(d);
+    (buckets[w]=buckets[w]||{Slack:0,Sprinklr:0})[r.source]++;
+  });
+  const weeks=Object.keys(buckets).map(Number).sort((a,b)=>a-b);
+  if(weeks.length<1){ svg.innerHTML=`<text x="12" y="24" fill="#9a9aa8">No data in range</text>`; return; }
+  const maxY=Math.max(1,...weeks.map(w=>Math.max(buckets[w].Slack,buckets[w].Sprinklr)));
+  const x=i=>padL+(weeks.length===1?0:i*(W-padL-padR)/(weeks.length-1));
+  const y=v=>padT+(H-padT-padB)*(1-v/maxY);
+  const line=(src,color)=>{
+    const pts=weeks.map((w,i)=>`${x(i)},${y(buckets[w][src])}`).join(" ");
+    const dots=weeks.map((w,i)=>`<circle cx="${x(i)}" cy="${y(buckets[w][src])}" r="2.5" fill="${color}"/>`).join("");
+    return `<polyline fill="none" stroke="${color}" stroke-width="2" points="${pts}"/>${dots}`;
+  };
+  // gridlines + y labels
+  let grid="";
+  for(let g=0;g<=maxY;g+=Math.ceil(maxY/4)||1){
+    grid+=`<line x1="${padL}" y1="${y(g)}" x2="${W-padR}" y2="${y(g)}" stroke="#2a2a36"/>`+
+          `<text x="4" y="${y(g)+4}" fill="#9a9aa8" font-size="10">${g}</text>`;
+  }
+  // x labels (first, mid, last)
+  const lab=i=>{const d=new Date(weeks[i]);return (d.getMonth()+1)+"/"+d.getDate();};
+  const xl=[0,Math.floor((weeks.length-1)/2),weeks.length-1].filter((v,i,a)=>a.indexOf(v)===i);
+  let xlabels=xl.map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9a9aa8" font-size="10" text-anchor="middle">${lab(i)}</text>`).join("");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  svg.innerHTML=grid+line("Slack","#5aa0ff")+line("Sprinklr","#e50914")+xlabels;
+}
+
 function head(){
   document.getElementById("head").innerHTML = COLS.map(c=>
     `<th data-k="${c.k}">${c.t} ${sortK===c.k?`<span class="arrow">${sortDir<0?'▼':'▲'}</span>`:''}</th>`).join("");
@@ -159,22 +234,29 @@ function head(){
   });
 }
 function esc(s){return (s||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-function badge(src){const m={Slack:'b-slack',Sprinklr:'b-sprinklr',Other:'b-other'}; return `<span class="badge ${m[src]||'b-other'}">${src}</span>`;}
-function render(){
+function badge(src){const m={Slack:'b-slack',Sprinklr:'b-sprinklr'}; return `<span class="badge ${m[src]||'b-slack'}">${src}</span>`;}
+
+function currentRows(){
   const q=document.getElementById("q").value.toLowerCase();
-  let rows=DATA.filter(r=>{
+  let rows=DATA.filter(inRange).filter(r=>{
     if(!flt.src.has(r.source)) return false;
     const st=isOpen(r)?"open":"done"; if(!flt.st.has(st)) return false;
     if(q && !((r.task_name+" "+r.assignee).toLowerCase().includes(q))) return false;
     return true;
   });
-  const isDur=sortK.startsWith("SLA"), isTime=sortK.includes("time");
+  const isDur=sortK.startsWith("SLA");
   rows.sort((a,b)=>{
     let x=a[sortK],y=b[sortK];
     if(isDur){x=durMin(x)??-1;y=durMin(y)??-1;}
     else {x=(x||"").toLowerCase();y=(y||"").toLowerCase();}
     return x<y?-1*sortDir:x>y?1*sortDir:0;
   });
+  return rows;
+}
+function render(){
+  const base=DATA.filter(inRange);
+  kpis(base); chart(base);
+  const rows=currentRows();
   document.getElementById("body").innerHTML = rows.map(r=>{
     const st=isOpen(r)?'<span class="badge st-open">open</span>':'<span class="badge st-done">done</span>';
     return `<tr>
@@ -191,17 +273,39 @@ function render(){
   head();
   document.getElementById("foot").textContent = `Showing ${rows.length} of ${DATA.length} requests`;
 }
+
+function toCSV(){
+  const rows=currentRows();
+  const head=COLS.map(c=>c.k);
+  const q=s=>`"${(s||"").replace(/"/g,'""')}"`;
+  const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(r[k])).join(",")));
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="netflix-sla-"+(GEN||"export")+".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 document.getElementById("q").oninput=render;
+document.getElementById("csv").onclick=toCSV;
 document.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
   const f=ch.dataset.f,v=ch.dataset.v;
   if(flt[f].has(v)){flt[f].delete(v);ch.classList.remove("on");}
   else {flt[f].add(v);ch.classList.add("on");}
-  kpis();render();
+  render();
 });
+document.querySelectorAll("#range button").forEach(b=>b.onclick=()=>{
+  rangeDays=+b.dataset.r;
+  document.querySelectorAll("#range button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+window.addEventListener("resize",()=>chart(DATA.filter(inRange)));
+
 fetch("data.json").then(r=>r.json()).then(j=>{
   DATA=j.rows; GEN=j.generated||"";
-  document.getElementById("gen").textContent = "Data as of "+j.generated+"  ·  auto-refreshed every 6h";
-  kpis();render();
+  const when=j.generated_at||j.generated||"";
+  document.getElementById("gen").textContent = "Updated "+when+" IST  ·  auto-refreshed every 6h";
+  render();
 }).catch(e=>{document.getElementById("body").innerHTML=`<tr><td colspan="8">Could not load data.json: ${e}</td></tr>`;});
 </script>
 </body>

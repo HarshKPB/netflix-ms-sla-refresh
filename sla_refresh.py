@@ -73,6 +73,8 @@ DEFS = [
 ]
 
 DEFS_TAB = os.environ.get("DEFS_TAB", "Definitions")
+HISTORY_TAB = os.environ.get("HISTORY_TAB", "History")
+HISTORY_HEADERS = ["run_at", "total", "slack", "sprinklr", "open", "completed"]
 
 _TEST_RE = re.compile(r"\bTEST\b|diagnostic from curl|^Task [123]$", re.I)
 
@@ -225,9 +227,10 @@ def write_sheet(gc, rows):
     except gspread.WorksheetNotFound:
         pass
     ws = ss.add_worksheet(title=tmp, rows=len(rows) + 10, cols=len(HEADERS))
-    # Now remove every other tab (old SLA + any leftovers).
+    # Remove old SLA and Definitions tabs, but PRESERVE the History tab (it accumulates
+    # run-over-run snapshots and must survive the rebuild).
     for other in ss.worksheets():
-        if other.id != ws.id:
+        if other.id != ws.id and other.title != HISTORY_TAB:
             try:
                 ss.del_worksheet(other)
             except Exception:
@@ -242,6 +245,34 @@ def write_sheet(gc, rows):
     dws.update([DEFS_HEADERS] + DEFS, value_input_option="RAW")
 
     format_sheet(ss, ws, dws, len(rows))
+    return ss
+
+
+def update_history(ss, rows, run_at):
+    """Append one snapshot row to the History tab and return recent snapshots.
+
+    The History tab is never wiped, so it accumulates one row per run over time.
+    This is what makes trends real instead of bound to the rolling scrape window.
+    """
+    counts = {"Slack": 0, "Sprinklr": 0}
+    done = 0
+    for r in rows:
+        counts[r["source"]] = counts.get(r["source"], 0) + 1
+        if r["Request_fulfil_time"].strip():
+            done += 1
+    total = len(rows)
+    snap = [run_at, total, counts.get("Slack", 0), counts.get("Sprinklr", 0),
+            total - done, done]
+    try:
+        hws = ss.worksheet(HISTORY_TAB)
+    except gspread.WorksheetNotFound:
+        hws = ss.add_worksheet(title=HISTORY_TAB, rows=1000, cols=len(HISTORY_HEADERS))
+        hws.update([HISTORY_HEADERS], value_input_option="RAW")
+    hws.append_row(snap, value_input_option="RAW")
+    values = hws.get_all_values()
+    body = values[1:] if values and values[0] and values[0][0] == "run_at" else values
+    recent = body[-120:]
+    return [dict(zip(HISTORY_HEADERS, row)) for row in recent]
 
 
 # Formatting is reapplied every run because the tabs are recreated each time.
@@ -342,18 +373,24 @@ def main():
     if not rows:
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
-    write_sheet(gc, rows)
+    ss = write_sheet(gc, rows)
+
+    now = dt.datetime.now(IST)
+    run_at = now.strftime("%Y-%m-%d %H:%M")
+    history = update_history(ss, rows, run_at)
 
     # Optional: also emit data.json for the web dashboard. Only when WEB_DATA_DIR is set.
     web_dir = os.environ.get("WEB_DATA_DIR")
     if web_dir:
         os.makedirs(web_dir, exist_ok=True)
-        today = dt.datetime.now(IST).strftime("%Y-%m-%d")
-        payload = {"generated": today, "headers": HEADERS,
+        payload = {"generated": now.strftime("%Y-%m-%d"),
+                   "generated_at": run_at,
+                   "headers": HEADERS,
+                   "history": history,
                    "rows": [{h: r[h] for h in HEADERS} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
-        print(f"wrote {web_dir}/data.json")
+        print(f"wrote {web_dir}/data.json ({len(history)} history rows)")
 
     n = {"Slack": 0, "Sprinklr": 0, "Other": 0}
     for r in rows:
