@@ -28,6 +28,11 @@
   .kpi.accent .n{color:var(--red)}
   .kpi.green .n{color:var(--green)}
   .kpi.amber .n{color:var(--amber)}
+  .kpi.blue .n{color:var(--blue)}
+  .kpi .d{font-size:12px;font-weight:600;margin-top:6px}
+  .kpi .d.up{color:var(--amber)}
+  .kpi .d.down{color:var(--green)}
+  .kpi .d.flat{color:var(--dim)}
   .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
   input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--txt);
     padding:10px 14px;border-radius:10px;min-width:260px;flex:1;outline:none}
@@ -94,8 +99,38 @@ const COLS = [
   {k:"Request_fulfil_time", t:"Finished"},
   {k:"SLA_completion", t:"SLA done"},
 ];
-let DATA=[], sortK="request_arrival_time", sortDir=-1;
+let DATA=[], GEN="", sortK="request_arrival_time", sortDir=-1;
 const flt={src:new Set(["Slack","Sprinklr"]), st:new Set(["open","done"])};
+const DAY=864e5;
+
+// Weekly volume for one source, based on arrival time.
+// avg = arrivals in the last 8 weeks divided by 8. An 8-week window is used, not the
+// full history, because the Sprinklr feed is a rolling snapshot that reaches back
+// years, which would dilute a full-span average. WoW = last 7 days vs the prior 7
+// days, measured back from the data date, so a partial current week does not skew it.
+// wow is null when the prior 7-day window had zero (percent undefined).
+const AVG_WEEKS = 8;
+function weekStats(src){
+  const ref = GEN ? new Date(GEN+"T23:59:59") : new Date();
+  const ds = DATA.filter(r=>r.source===src)
+    .map(r=>(r.request_arrival_time||"").slice(0,10))
+    .filter(s=>/^\d{4}-\d{2}-\d{2}$/.test(s))
+    .map(s=>new Date(s+"T00:00:00"));
+  if(!ds.length) return {avg:0, wow:null, l:0, p:0};
+  const recent = ds.filter(d=>(ref-d)>=0 && (ref-d)<AVG_WEEKS*7*DAY).length;
+  const avg = recent / AVG_WEEKS;
+  const l = ds.filter(d=>(ref-d)>=0 && (ref-d)<7*DAY).length;
+  const p = ds.filter(d=>(ref-d)>=7*DAY && (ref-d)<14*DAY).length;
+  const wow = p>0 ? (l-p)/p*100 : null;
+  return {avg, wow, l, p};
+}
+function wowNote(w){
+  if(w===null) return {t:"WoW n/a", cls:"flat"};
+  const s = w>0?"+":"";
+  const cls = Math.abs(w)<0.5 ? "flat" : (w>0?"up":"down");
+  const arrow = Math.abs(w)<0.5 ? "" : (w>0?"▲ ":"▼ ");
+  return {t:arrow+s+w.toFixed(0)+"% WoW", cls};
+}
 
 const durMin = s => { if(!s) return null; const m=s.match(/(\d+)h\s*(\d+)m/); return m? (+m[1])*60+(+m[2]) : null; };
 const fmtMin = v => { if(v==null) return "–"; const h=Math.floor(v/60),m=Math.round(v%60); return h+"h "+String(m).padStart(2,"0")+"m"; };
@@ -103,13 +138,18 @@ const isOpen = r => !r["Request_fulfil_time"].trim();
 
 function kpis(){
   const t=DATA.length, done=DATA.filter(r=>!isOpen(r)).length, open=t-done;
+  const sl=weekStats("Slack"), sp=weekStats("Sprinklr");
+  const sln=wowNote(sl.wow), spn=wowNote(sp.wow);
   const cards=[
     {n:t,l:"Total requests"},
     {n:done,l:"Completed",c:"green"},
     {n:open,l:"Open",c:"amber"},
+    {n:sl.avg.toFixed(1),l:"Slack req / week (8-wk avg)",c:"blue",d:sln},
+    {n:sp.avg.toFixed(1),l:"Sprinklr req / week (8-wk avg)",c:"accent",d:spn},
   ];
   document.getElementById("kpis").innerHTML = cards.map(c=>
-    `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join("");
+    `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
+    (c.d?`<div class="d ${c.d.cls}">${c.d.t}</div>`:``)+`</div>`).join("");
 }
 function head(){
   document.getElementById("head").innerHTML = COLS.map(c=>
@@ -159,7 +199,7 @@ document.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
   kpis();render();
 });
 fetch("data.json").then(r=>r.json()).then(j=>{
-  DATA=j.rows;
+  DATA=j.rows; GEN=j.generated||"";
   document.getElementById("gen").textContent = "Data as of "+j.generated+"  ·  auto-refreshed every 6h";
   kpis();render();
 }).catch(e=>{document.getElementById("body").innerHTML=`<tr><td colspan="8">Could not load data.json: ${e}</td></tr>`;});
