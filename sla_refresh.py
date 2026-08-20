@@ -239,6 +239,97 @@ def write_sheet(gc, rows):
     dws = ss.add_worksheet(title=DEFS_TAB, rows=len(DEFS) + 5, cols=len(DEFS_HEADERS))
     dws.update([DEFS_HEADERS] + DEFS, value_input_option="RAW")
 
+    format_sheet(ss, ws, dws, len(rows))
+
+
+# Formatting is reapplied every run because the tabs are recreated each time.
+HEADER_BG = {"red": 0.83, "green": 0.09, "blue": 0.13}   # Netflix-ish red
+HEADER_FG = {"red": 1, "green": 1, "blue": 1}
+BAND_BG = {"red": 0.96, "green": 0.96, "blue": 0.97}
+DEFS_HEADER_BG = {"red": 0.17, "green": 0.24, "blue": 0.31}   # dark slate
+
+
+def _hdr(sheet_id, ncols, bg):
+    return {"repeatCell": {
+        "range": {"sheetId": sheet_id, "startRowIndex": 0, "endRowIndex": 1,
+                  "startColumnIndex": 0, "endColumnIndex": ncols},
+        "cell": {"userEnteredFormat": {
+            "backgroundColor": bg,
+            "horizontalAlignment": "LEFT", "verticalAlignment": "MIDDLE",
+            "wrapStrategy": "WRAP",
+            "textFormat": {"bold": True, "foregroundColor": HEADER_FG, "fontSize": 10}}},
+        "fields": "userEnteredFormat(backgroundColor,horizontalAlignment,verticalAlignment,wrapStrategy,textFormat)"}}
+
+
+def _freeze(sheet_id, rows=1, cols=0):
+    return {"updateSheetProperties": {
+        "properties": {"sheetId": sheet_id,
+                       "gridProperties": {"frozenRowCount": rows, "frozenColumnCount": cols}},
+        "fields": "gridProperties(frozenRowCount,frozenColumnCount)"}}
+
+
+def _width(sheet_id, start, end, px):
+    return {"updateDimensionProperties": {
+        "range": {"sheetId": sheet_id, "dimension": "COLUMNS",
+                  "startIndex": start, "endIndex": end},
+        "properties": {"pixelSize": px}, "fields": "pixelSize"}}
+
+
+def _align(sheet_id, col, nrows, align, wrap=None):
+    fmt = {"horizontalAlignment": align, "verticalAlignment": "MIDDLE"}
+    fields = "horizontalAlignment,verticalAlignment"
+    if wrap:
+        fmt["wrapStrategy"] = wrap
+        fields += ",wrapStrategy"
+    return {"repeatCell": {
+        "range": {"sheetId": sheet_id, "startRowIndex": 1, "endRowIndex": nrows + 1,
+                  "startColumnIndex": col, "endColumnIndex": col + 1},
+        "cell": {"userEnteredFormat": fmt},
+        "fields": "userEnteredFormat(%s)" % fields}}
+
+
+def _band(sheet_id, nrows, ncols):
+    return {"addBanding": {"bandedRange": {
+        "range": {"sheetId": sheet_id, "startRowIndex": 1, "endRowIndex": nrows + 1,
+                  "startColumnIndex": 0, "endColumnIndex": ncols},
+        "rowProperties": {"firstBandColor": {"red": 1, "green": 1, "blue": 1},
+                          "secondBandColor": BAND_BG}}}}
+
+
+def format_sheet(ss, ws, dws, n):
+    sid, did = ws.id, dws.id
+    reqs = [
+        _hdr(sid, len(HEADERS), HEADER_BG),
+        _freeze(sid, rows=1, cols=2),
+        _band(sid, n, len(HEADERS)),
+        _width(sid, 0, 1, 70),     # source
+        _width(sid, 1, 2, 380),    # task_name
+        _width(sid, 2, 3, 210),    # assignee
+        _width(sid, 3, 4, 130),    # request_arrival_time
+        _width(sid, 4, 5, 150),    # Assigned/Emoji initiated
+        _width(sid, 5, 6, 120),    # SLA_Assignement
+        _width(sid, 6, 7, 130),    # Request_fulfil_time
+        _width(sid, 7, 8, 120),    # SLA_completion
+        _align(sid, 1, n, "LEFT", wrap="CLIP"),    # task_name: one-line clip
+        _align(sid, 3, n, "CENTER"), _align(sid, 4, n, "CENTER"),
+        _align(sid, 5, n, "CENTER"), _align(sid, 6, n, "CENTER"),
+        _align(sid, 7, n, "CENTER"),
+        # Definitions tab
+        _hdr(did, len(DEFS_HEADERS), DEFS_HEADER_BG),
+        _freeze(did, rows=1, cols=1),
+        _width(did, 0, 1, 200),    # Column
+        _width(did, 1, 2, 320),    # meaning
+        _width(did, 2, 3, 620),    # calculation
+        _align(did, 1, len(DEFS), "LEFT", wrap="WRAP"),
+        _align(did, 2, len(DEFS), "LEFT", wrap="WRAP"),
+        {"repeatCell": {
+            "range": {"sheetId": did, "startRowIndex": 1, "endRowIndex": len(DEFS) + 1,
+                      "startColumnIndex": 0, "endColumnIndex": 1},
+            "cell": {"userEnteredFormat": {"textFormat": {"bold": True}}},
+            "fields": "userEnteredFormat(textFormat)"}},
+    ]
+    ss.batch_update({"requests": reqs})
+
 
 def main():
     gc = gclient()
