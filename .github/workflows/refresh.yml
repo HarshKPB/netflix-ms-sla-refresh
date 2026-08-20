@@ -41,6 +41,7 @@ jobs:
           GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
           SLA_SHEET_ID: ${{ secrets.SLA_SHEET_ID }}
           INTAKE_SHEET_ID: ${{ secrets.INTAKE_SHEET_ID }}
+          SLACK_WORKSPACE: ${{ secrets.SLACK_WORKSPACE }}
           WEB_DATA_DIR: web
         run: python sla_refresh.py
 

@@ -63,6 +63,9 @@
   tbody td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
   tbody tr:hover{background:#1a1a24}
   .name{max-width:420px}
+  .name a{color:var(--txt);text-decoration:none;border-bottom:1px dotted #5a5a68}
+  .name a:hover{color:var(--blue);border-bottom-color:var(--blue)}
+  .ext{color:var(--dim);font-size:10px;margin-left:5px}
   .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
   .b-slack{background:#12233a;color:#8fc0ff}
   .b-sprinklr{background:var(--red-dim);color:#ff9ba0}
@@ -216,7 +219,9 @@ function render(){
     const st=isOpen(r)?'<span class="badge st-open">open</span>':'<span class="badge st-done">done</span>';
     return `<tr>
       <td>${badge(r.source)}</td>
-      <td class="name">${esc(r.task_name)}</td>
+      <td class="name">${r.link
+        ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.task_name)}</a><span class="ext">&#8599;</span>`
+        : esc(r.task_name)}</td>
       <td>${esc(r.assignee)||'<span class="muted">–</span>'}</td>
       <td class="dur muted">${esc(r.request_arrival_time)||'–'}</td>
       <td class="dur muted">${esc(r["Assigned/Emoji initiated"])||'–'}</td>
@@ -231,7 +236,7 @@ function render(){
 
 function toCSV(){
   const rows=currentRows();
-  const head=COLS.map(c=>c.k);
+  const head=COLS.map(c=>c.k).concat("link");
   const q=s=>`"${(s||"").replace(/"/g,'""')}"`;
   const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(r[k])).join(",")));
   const blob=new Blob([lines.join("\n")],{type:"text/csv"});

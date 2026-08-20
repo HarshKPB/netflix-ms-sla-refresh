@@ -141,10 +141,14 @@ def load_intake(gc):
     if len(values) < 2:
         return {}
     header = [h.strip().lower() for h in values[0]]
-    url_c = header.index("asana task url") if "asana task url" in header else -1
-    gid_c = header.index("asana task gid") if "asana task gid" in header else -1
-    ts_c = header.index("message ts") if "message ts" in header else -1
-    re_c = header.index("reactor (slack)") if "reactor (slack)" in header else -1
+
+    def col(name):
+        return header.index(name) if name in header else -1
+    url_c = col("asana task url")
+    gid_c = col("asana task gid")
+    ts_c = col("message ts")
+    re_c = col("reactor (slack)")
+    ch_c = col("channel id")
     from_url = re.compile(r"/task/(\d{6,})")
     slack_ts = re.compile(r"^\d{10}(\.\d+)?$")
     out = {}
@@ -163,8 +167,28 @@ def load_intake(gc):
             gid = cell(gid_c)
         if not gid:
             continue
-        out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c)}
+        out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c),
+                    "channel": cell(ch_c), "ts": raw}
     return out
+
+
+def slack_link(info):
+    """Build a Slack message permalink from the intake channel id and message ts.
+
+    Requires the workspace subdomain in SLACK_WORKSPACE (e.g. "premiumblend" for
+    premiumblend.slack.com). Returns "" when the subdomain or the parts are missing.
+    """
+    ws = os.environ.get("SLACK_WORKSPACE", "").strip()
+    ch = (info or {}).get("channel", "")
+    ts = (info or {}).get("ts", "")
+    if not (ws and ch and ts):
+        return ""
+    return f"https://{ws}.slack.com/archives/{ch}/p{ts.replace('.', '')}"
+
+
+def sprinklr_link(case):
+    cid = p.extract_case_id(case)
+    return f"{p.DASHBOARD_URL}?selectedTask={cid}" if cid else ""
 
 
 def build_rows(intake, asana, cases):
@@ -186,6 +210,7 @@ def build_rows(intake, asana, cases):
             "SLA_Assignement": hm(created, assigned),
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(assigned, done),
+            "link": sprinklr_link(c),
             "_s": int(created) if created else 0,
         })
     for t in asana:
@@ -209,6 +234,7 @@ def build_rows(intake, asana, cases):
             "SLA_Assignement": hm(arr, created),
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
+            "link": slack_link(info),
             "_s": int(created) if created else 0,
         })
     rows.sort(key=lambda r: r["_s"], reverse=True)
@@ -387,7 +413,7 @@ def main():
                    "generated_at": run_at,
                    "headers": HEADERS,
                    "history": history,
-                   "rows": [{h: r[h] for h in HEADERS} for r in rows]}
+                   "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
         print(f"wrote {web_dir}/data.json ({len(history)} history rows)")
