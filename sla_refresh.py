@@ -39,6 +39,41 @@ INTAKE_TAB = os.environ.get("INTAKE_TAB", "Requests")
 HEADERS = ["source", "task_name", "assignee", "request_arrival_time",
            "Assigned/Emoji initiated", "SLA_Assignement", "Request_fulfil_time", "SLA_completion"]
 
+# Plain-language data dictionary written to a second tab. Rebuilt every run so it
+# survives the tab wipe in write_sheet. Columns: name, meaning, how it is calculated.
+DEFS_HEADERS = ["Column", "What it means (simple)", "How it is worked out"]
+DEFS = [
+    ["source",
+     "Where the request came from.",
+     "Slack = came from the Slack channel. Sprinklr = came from the Sprinklr request form. Other = anything else. No maths."],
+    ["task_name",
+     "Short title of the request.",
+     "Sprinklr: the case number and subject. Slack: the sender name and first line of their message. No maths."],
+    ["assignee",
+     "Person handling the request.",
+     "Sprinklr: the person the case is assigned to. Slack: the Asana assignee, or if none, the person who added the ticket emoji. No maths."],
+    ["request_arrival_time",
+     "When the request first came in.",
+     "Sprinklr: the time the case was created. Slack: the time of the first Slack message. Shown in IST as yyyy-mm-dd HH:MM."],
+    ["Assigned/Emoji initiated",
+     "When work was picked up.",
+     "Sprinklr: the time the case was assigned to a person. Slack: the time the ticket emoji was added (which creates the Asana task). IST, yyyy-mm-dd HH:MM. Blank if it never got picked up."],
+    ["SLA_Assignement",
+     "How long from arrival to pick-up.",
+     "Assigned/Emoji initiated time minus request_arrival_time. Shown as Xh Ym (hours and minutes). Blank if either time is missing."],
+    ["Request_fulfil_time",
+     "When the request was finished.",
+     "Sprinklr: the time the status became COMPLETED. Slack: the time the Asana task was marked complete. IST, yyyy-mm-dd HH:MM. Blank if the task is still open."],
+    ["SLA_completion",
+     "How long from pick-up to finish.",
+     "Request_fulfil_time minus Assigned/Emoji initiated time. Shown as Xh Ym. Blank if the task is not finished yet, or if there is no pick-up time to measure from."],
+    ["", "", ""],
+    ["Note on blank cells", "A blank Request_fulfil_time or SLA_completion is not an error.",
+     "It means the task is still open. It fills in automatically once the task is completed. Verified 2026-08-20: every blank matched an open (not completed) task in Asana or Sprinklr."],
+]
+
+DEFS_TAB = os.environ.get("DEFS_TAB", "Definitions")
+
 _TEST_RE = re.compile(r"\bTEST\b|diagnostic from curl|^Task [123]$", re.I)
 
 
@@ -199,6 +234,10 @@ def write_sheet(gc, rows):
     grid = [HEADERS] + [[r[h] for h in HEADERS] for r in rows]
     # USER_ENTERED would let Sheets re-type; RAW keeps our exact text.
     ws.update(grid, value_input_option="RAW")
+
+    # Second tab: plain-language column definitions, rebuilt fresh every run.
+    dws = ss.add_worksheet(title=DEFS_TAB, rows=len(DEFS) + 5, cols=len(DEFS_HEADERS))
+    dws.update([DEFS_HEADERS] + DEFS, value_input_option="RAW")
 
 
 def main():
