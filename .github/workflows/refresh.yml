@@ -73,6 +73,7 @@ jobs:
       # project env. No-ops safely until the Vercel secrets are added.
       - name: Deploy dashboard to Vercel
         if: success()
+        continue-on-error: true
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
