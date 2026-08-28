@@ -18,6 +18,7 @@ import json
 import os
 import re
 import sys
+import time
 import logging
 
 logging.basicConfig(level=logging.CRITICAL)
@@ -129,6 +130,23 @@ def fetch_asana():
             return out
 
 
+_GS_TRANSIENT = {429, 500, 502, 503, 504}
+
+
+def _gs_retry(fn, *args, _tries=5, _base=2.0, **kwargs):
+    """Call a gspread op, retrying transient Google API errors (429/5xx) with
+    exponential backoff. Google Sheets returns 503 'service currently unavailable'
+    sporadically; a short retry clears it instead of failing the whole run."""
+    for attempt in range(_tries):
+        try:
+            return fn(*args, **kwargs)
+        except gspread.exceptions.APIError as e:
+            code = getattr(getattr(e, "response", None), "status_code", None)
+            if code not in _GS_TRANSIENT or attempt == _tries - 1:
+                raise
+            time.sleep(_base * (2 ** attempt))
+
+
 def load_intake(gc):
     """gid -> {ms, reactor} read live from the intake Google sheet via the service account.
 
@@ -136,8 +154,8 @@ def load_intake(gc):
     the GID parsed from the Asana Task URL, which is full text; the Asana Task GID column is
     sometimes numeric and loses precision.
     """
-    ws = gc.open_by_key(INTAKE_SHEET_ID).worksheet(INTAKE_TAB)
-    values = ws.get_all_values()
+    ws = _gs_retry(lambda: gc.open_by_key(INTAKE_SHEET_ID).worksheet(INTAKE_TAB))
+    values = _gs_retry(ws.get_all_values)
     if len(values) < 2:
         return {}
     header = [h.strip().lower() for h in values[0]]
@@ -246,7 +264,7 @@ def build_rows(intake, asana, cases):
 
 
 def write_sheet(gc, rows):
-    ss = gc.open_by_key(SLA_SHEET_ID)
+    ss = _gs_retry(gc.open_by_key, SLA_SHEET_ID)
     # Add the new tab FIRST under a temp title. Google forbids deleting the last
     # remaining sheet, so the replacement must exist before we remove the old ones.
     tmp = "SLA_new"
