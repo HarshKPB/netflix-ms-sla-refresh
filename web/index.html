@@ -357,17 +357,25 @@ function tCurrent(){
   return rows;
 }
 function tKpis(){
-  const open=TDATA.filter(r=>effStatus(r)!=="Resolved");
-  const us=open.filter(r=>effStatus(r)==="Awaiting us").length;
-  const sp=open.filter(r=>effStatus(r)==="Awaiting Sprinklr").length;
-  const hot=open.filter(r=>r.priority==="Urgent"||r.priority==="High").length;
-  const stale=open.filter(r=>(r.days_idle??0)>14).length;
+  const total=TDATA.length;
+  const openRows=TDATA.filter(r=>effStatus(r)!=="Resolved");
+  const us=TDATA.filter(r=>effStatus(r)==="Awaiting us").length;
+  const sp=TDATA.filter(r=>effStatus(r)==="Awaiting Sprinklr").length;
+  // Average closure time = mean(last_update - opened) over Resolved cases, shown as days + hours.
+  const DAYMS=864e5;
+  const durs=TDATA.filter(r=>effStatus(r)==="Resolved").map(r=>{
+    const o=Date.parse((r.opened||"")+"T00:00:00"), c=Date.parse((r.last_update||"")+"T00:00:00");
+    return (isNaN(o)||isNaN(c)||c<o)?null:(c-o)/DAYMS;
+  }).filter(v=>v!=null);
+  let avg="n/a";
+  if(durs.length){const m=durs.reduce((a,b)=>a+b,0)/durs.length;
+    avg=`${Math.floor(m)}d ${Math.round((m-Math.floor(m))*24)}h`;}
   const cards=[
-    {n:open.length,l:"Open cases"},
+    {n:total,l:"Total cases"},
+    {n:openRows.length,l:"Open",c:"amber"},
     {n:us,l:"Awaiting us",c:"accent"},
     {n:sp,l:"Awaiting Sprinklr",c:"blue"},
-    {n:hot,l:"Urgent / High",c:"amber"},
-    {n:stale,l:"No reply 14d+",c:"accent"},
+    {n:avg,l:"Avg closure time",c:"green"},
   ];
   document.getElementById("t-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join("");
