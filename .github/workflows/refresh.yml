@@ -45,6 +45,16 @@ jobs:
           WEB_DATA_DIR: web
         run: python sla_refresh.py
 
+      # Sync Sprinklr cases into the Asana project (create/update tasks, assignee,
+      # status, due date). Formerly a local launchd job that failed whenever the
+      # laptop was off or the session expired. Idempotent: it links existing tasks
+      # by case id, so a fresh runner with no state file does not create duplicates.
+      - name: Sync Sprinklr to Asana
+        if: success()
+        env:
+          ASANA_PAT: ${{ secrets.ASANA_PAT }}
+        run: python sprinklr_to_asana.py
+
       # Keep the Sprinklr session alive. The scrape re-saves a refreshed cookie to
       # this file on success (sprinklr_to_asana line 257). Push it back into the
       # secret so the next run starts from a fresh, slid-forward session instead of
