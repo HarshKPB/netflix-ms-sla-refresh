@@ -319,23 +319,34 @@ const TCOLS=[
   {k:"case_id",t:"Case"},{k:"title",t:"Title"},{k:"topic",t:"Topic"},
   {k:"priority",t:"Priority"},{k:"status",t:"Status"},{k:"owner",t:"Owner"},
   {k:"agent",t:"Sprinklr agent"},{k:"opened",t:"Opened"},
-  {k:"last_update",t:"Last update"},{k:"age_days",t:"Days open"},{k:"mark",t:"Set"},
+  {k:"last_update",t:"Last update"},{k:"days_open",t:"Days open"},{k:"mark",t:"Set"},
 ];
-let TDATA=[], TGEN="", tSortK="age_days", tSortDir=-1;
+let TDATA=[], TGEN="", tSortK="days_open", tSortDir=-1;
 const tflt={tst:new Set(["Awaiting us","Awaiting Sprinklr","Resolved"])};
 const PRI_RANK={Urgent:3,High:2,Normal:1};
 
-/* manual per-case status marks. Saved in this browser only (no backend on the static site). */
-const OV_KEY="nfx_ticket_overrides_v1";
+/* Status overrides: shared across the team via /api/override (which stores overrides.json
+   in the repo), with a localStorage cache for instant feedback. A human override wins over
+   the classifier for everyone. */
+const OV_KEY="nfx_ticket_overrides_v2";
 function ovLoad(){try{return JSON.parse(localStorage.getItem(OV_KEY)||"{}")||{};}catch(e){return {};}}
 function ovSave(o){try{localStorage.setItem(OV_KEY,JSON.stringify(o));}catch(e){}}
 let OV=ovLoad();
 const tkey=r=>r.case_id||("t:"+r.title);
-function effStatus(r){const o=OV[tkey(r)];
-  if(o==="Completed") return "Resolved";
-  if(o==="Open") return r.status==="Resolved"?"Awaiting us":r.status;
-  return r.status;}
-function isMarked(r){return !!OV[tkey(r)];}
+function effStatus(r){const o=OV[tkey(r)]; return (o&&o!=="Auto")?o:r.status;}
+function isMarked(r){const o=OV[tkey(r)]; return !!o&&o!=="Auto";}
+function ovSync(){fetch("/api/override").then(r=>r.ok?r.json():null).then(j=>{
+  if(j&&typeof j==="object"){OV={...OV,...j};ovSave(OV);tRender();}}).catch(()=>{});}
+function ovSet(key,status){
+  const prev=OV[key];
+  if(status==="Auto") delete OV[key]; else OV[key]=status;
+  ovSave(OV); tRender();
+  fetch("/api/override",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({case_id:key,status})}).then(r=>{if(!r.ok)throw 0;}).catch(()=>{
+      if(prev===undefined) delete OV[key]; else OV[key]=prev;
+      ovSave(OV); tRender(); alert("Could not save the status change. Check connection and retry.");
+    });
+}
 
 function tCurrent(){
   const q=document.getElementById("t-q").value.toLowerCase();
@@ -347,7 +358,7 @@ function tCurrent(){
   });
   rows.sort((a,b)=>{
     let x=a[tSortK],y=b[tSortK];
-    if(tSortK==="age_days"){x=x??-1;y=y??-1;}
+    if(tSortK==="days_open"){x=x??-1;y=y??-1;}
     else if(tSortK==="priority"){x=PRI_RANK[x]||0;y=PRI_RANK[y]||0;}
     else if(tSortK==="status"){x=effStatus(a).toLowerCase();y=effStatus(b).toLowerCase();}
     else if(tSortK==="mark"){x=OV[tkey(a)]||"";y=OV[tkey(b)]||"";}
@@ -393,7 +404,7 @@ function ageCell(d){ if(d==null) return '<span class="muted">–</span>';
   const cls=d>30?'age-hot':(d>14?'age-warm':''); return `<span class="dur ${cls}">${d}d</span>`;}
 function setSelect(r){const o=OV[tkey(r)]||"Auto";const k=encodeURIComponent(tkey(r));
   return `<select class="setsel" data-k="${k}">`+
-    ["Auto","Completed","Open"].map(v=>`<option value="${v}"${o===v?" selected":""}>${v}</option>`).join("")+
+    ["Auto","Awaiting us","Awaiting Sprinklr","Resolved"].map(v=>`<option value="${v}"${o===v?" selected":""}>${v}</option>`).join("")+
     `</select>`;}
 function tRender(){
   tKpis();
@@ -408,14 +419,12 @@ function tRender(){
     <td>${esc(r.agent)||'<span class="muted">–</span>'}</td>
     <td class="dur muted">${esc(r.opened)||'–'}</td>
     <td class="dur muted">${esc(r.last_update)||'–'}</td>
-    <td>${ageCell(r.age_days)}</td>
+    <td>${ageCell(r.days_open)}</td>
     <td>${setSelect(r)}</td>
   </tr>`).join("");
   tHead();
   document.querySelectorAll(".setsel").forEach(sel=>sel.onchange=()=>{
-    const k=decodeURIComponent(sel.dataset.k), v=sel.value;
-    if(v==="Auto") delete OV[k]; else OV[k]=v;
-    ovSave(OV); tRender();
+    ovSet(decodeURIComponent(sel.dataset.k), sel.value);
   });
   document.getElementById("t-foot").textContent=
     `Showing ${rows.length} of ${TDATA.length} cases  ·  status = who has the ball from the last human reply (portal link is source of truth)  ·  Set marks save on this browser only`;
@@ -441,7 +450,7 @@ document.querySelectorAll("#view-tickets .chip").forEach(ch=>ch.onclick=()=>{
 });
 fetch("tickets.json").then(r=>r.json()).then(j=>{
   TDATA=j.rows||[]; TGEN=j.generated||"";
-  tRender();
+  tRender(); ovSync();
 }).catch(e=>{document.getElementById("t-body").innerHTML=`<tr><td colspan="11">Could not load tickets.json: ${e}</td></tr>`;});
 </script>
 </body>
