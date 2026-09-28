@@ -50,8 +50,17 @@ def main():
             op = s.get("opened_est")
             if op and (not r.get("opened") or op < r["opened"]):
                 r["opened"] = op
+            note = (s.get("latest_note") or s.get("note") or "").strip()
+            r["evidence"] = note[:200]
+            # confidence: a hard close/ask/thanks signal is high; soft answer/investigating gets flagged
+            hard = ("clos", "solved", "corrected", "rerun", "could you", "please ",
+                    "kindly", "time slot", "thank", "\U0001f44d", "waiting to hear back",
+                    "assume the case is solved", "glad", "reopen", "do contact", "hope this")
+            r["needs_review"] = not any(h in note.lower() for h in hard)
         else:
-            r["status"] = "Unknown (check portal)"
+            r["status"] = "Needs review"
+            r["evidence"] = ""
+            r["needs_review"] = True
             unknown.append(cid or r.get("title"))
         od, ld = d(r.get("opened")), d(r.get("last_update"))
         r["days_open"] = (today - od).days if od else None
@@ -65,9 +74,23 @@ def main():
     c = Counter(r["status"] for r in tj["rows"])
     print("status counts:", dict(c), file=sys.stderr)
     if unknown:
-        print("UNKNOWN (no body classification):", unknown, file=sys.stderr)
-    else:
-        print("all rows classified", file=sys.stderr)
+        print("NEEDS REVIEW (no classification):", unknown, file=sys.stderr)
+
+    # regression guard: compare against locked ground truth
+    import os
+    truth_path = "status_truth.json"
+    if os.path.exists(truth_path):
+        truth = {k: v for k, v in json.load(open(truth_path)).items() if not k.startswith("_")}
+        by_id = {r.get("case_id"): r["status"] for r in tj["rows"]}
+        misses = [(k, truth[k], by_id.get(k, "MISSING")) for k in truth if by_id.get(k) != truth[k]]
+        if misses:
+            print(f"REGRESSION: {len(misses)} case(s) disagree with status_truth.json:", file=sys.stderr)
+            for k, want, got in misses:
+                print(f"  {k}: truth={want} got={got}", file=sys.stderr)
+        else:
+            print(f"regression check: all {len(truth)} truth cases match", file=sys.stderr)
+    flagged = sum(1 for r in tj["rows"] if r.get("needs_review"))
+    print(f"needs_review flagged: {flagged}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()

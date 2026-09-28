@@ -103,6 +103,7 @@
   .setsel{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:5px 8px;font-size:12px;cursor:pointer}
   .setsel:focus{outline:none;border-color:var(--red)}
   .markdot{color:var(--amber);font-weight:900;margin-left:2px}
+  .review{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:999px;font-size:10px;font-weight:700;background:#3a2c12;color:var(--amber);cursor:help;vertical-align:middle}
   @media (max-width:760px){ .tabs{padding:0 10px} .tabbtn{padding:12px 10px;font-size:12px} }
 </style>
 </head>
@@ -394,7 +395,7 @@ function tRender(){
     <td class="name">${r.gmail_link?`<a href="${esc(r.gmail_link)}" target="_blank" rel="noopener">${esc(r.title)}</a><span class="ext">&#8599;</span>`:esc(r.title)}</td>
     <td>${esc(r.topic)}</td>
     <td><span class="badge pri-${esc(r.priority)}">${esc(r.priority)}</span></td>
-    <td>${stBadge(effStatus(r))}${isMarked(r)?'<span class="markdot" title="manually set">•</span>':''}</td>
+    <td title="${esc(r.evidence||'')}">${stBadge(effStatus(r))}${isMarked(r)?'<span class="markdot" title="manually set">•</span>':''}${(r.needs_review && !isMarked(r))?'<span class="review" title="low confidence: '+esc(r.evidence||'')+'">review</span>':''}</td>
     <td>${esc(r.owner)||'<span class="muted">–</span>'}</td>
     <td>${esc(r.agent)||'<span class="muted">–</span>'}</td>
     <td class="dur muted">${esc(r.opened)||'–'}</td>
@@ -413,7 +414,7 @@ function tRender(){
 }
 function tCSV(){
   const rows=tCurrent();
-  const head=["case_id","title","topic","priority","inferred_status","effective_status","marked_as","owner","agent","opened","last_update","days_open","days_idle","portal_link","gmail_link"];
+  const head=["case_id","title","topic","priority","inferred_status","effective_status","marked_as","needs_review","evidence","owner","agent","opened","last_update","days_open","days_idle","portal_link","gmail_link"];
   const q=s=>`"${(s==null?"":s).toString().replace(/"/g,'""')}"`;
   const val=(r,k)=> k==="inferred_status"?r.status : k==="effective_status"?effStatus(r) : k==="marked_as"?(OV[tkey(r)]||"") : r[k];
   const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(val(r,k))).join(",")));
