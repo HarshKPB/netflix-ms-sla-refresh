@@ -58,7 +58,7 @@ def require_secret(name: str) -> str:
 DASHBOARD_URL     = "https://netflix.sprinklr.com/social/engagement/dashboard/665a42eb0f76ce53e5fd151e"
 
 ASANA_PAT         = require_secret("ASANA_PAT")
-ASANA_PROJECT_GID = "1214152562106900"
+ASANA_PROJECT_GID = os.environ.get("ASANA_PROJECT_GID", "1214792401514445")  # Netflix PB Task Tracker (the team's real tracker). Override via env if needed.
 ASANA_BASE_URL    = "https://app.asana.com/api/1.0"
 
 SESSION_FILE      = os.path.expanduser("~/.netflix_sprinklr_session.json")
@@ -443,31 +443,27 @@ def _asana_headers() -> dict:
 
 _USER_CACHE: dict = {}
 
+# Resolve assignee display names from the Premium Blend workspace, not the tracker's
+# own workspace. The tracker lives in the netflix.com workspace, whose user list the PAT
+# cannot read (400). Asana user GIDs are global, so a GID resolved from the PB workspace
+# is valid to assign on the tracker as long as the person is a guest there.
+PEOPLE_WORKSPACE_GID = os.environ.get("PEOPLE_WORKSPACE_GID", "1170770444924063")  # Premium Blend
+
 def _load_user_cache():
     global _USER_CACHE
     if _USER_CACHE:
         return
     try:
         r = requests.get(
-            f"{ASANA_BASE_URL}/projects/{ASANA_PROJECT_GID}",
-            headers=_asana_headers(),
-            params={"opt_fields": "workspace.gid"},
-            timeout=15,
-        )
-        r.raise_for_status()
-        workspace_gid = r.json()["data"]["workspace"]["gid"]
-
-        r2 = requests.get(
-            f"{ASANA_BASE_URL}/workspaces/{workspace_gid}/users",
+            f"{ASANA_BASE_URL}/workspaces/{PEOPLE_WORKSPACE_GID}/users",
             headers=_asana_headers(),
             params={"opt_fields": "gid,name"},
             timeout=15,
         )
-        r2.raise_for_status()
-        for u in r2.json().get("data", []):
+        r.raise_for_status()
+        for u in r.json().get("data", []):
             _USER_CACHE[u["name"].lower()] = u["gid"]
-
-        log.info("Asana user cache: %d members", len(_USER_CACHE))
+        log.info("Asana user cache: %d members (workspace %s)", len(_USER_CACHE), PEOPLE_WORKSPACE_GID)
     except Exception as e:
         log.warning("Could not load Asana user cache: %s", e)
 
@@ -506,12 +502,25 @@ def create_asana_task(item: dict) -> dict:
 
 
 def update_asana_task(gid: str, item: dict) -> dict:
+    payload = _build_payload(item)
     r = requests.put(
         f"{ASANA_BASE_URL}/tasks/{gid}",
         headers=_asana_headers(),
-        json=_build_payload(item),
+        json=payload,
         timeout=30,
     )
+    # If the assignee is not a guest in the tracker's workspace, Asana 400s the whole
+    # PUT. Retry without the assignee so name/status/due still update.
+    if not r.ok and "assignee" in payload.get("data", {}):
+        log.warning("  update with assignee failed for %s [%s]; retrying without assignee",
+                    gid, r.status_code)
+        payload["data"].pop("assignee", None)
+        r = requests.put(
+            f"{ASANA_BASE_URL}/tasks/{gid}",
+            headers=_asana_headers(),
+            json=payload,
+            timeout=30,
+        )
     if not r.ok:
         raise RuntimeError(f"Update failed [{r.status_code}]: {r.text[:300]}")
     return r.json()["data"]
