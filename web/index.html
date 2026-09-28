@@ -318,7 +318,7 @@ const TCOLS=[
   {k:"case_id",t:"Case"},{k:"title",t:"Title"},{k:"topic",t:"Topic"},
   {k:"priority",t:"Priority"},{k:"status",t:"Status"},{k:"owner",t:"Owner"},
   {k:"agent",t:"Sprinklr agent"},{k:"opened",t:"Opened"},
-  {k:"last_update",t:"Last update"},{k:"age_days",t:"Age"},{k:"mark",t:"Set"},
+  {k:"last_update",t:"Last update"},{k:"age_days",t:"Days open"},{k:"mark",t:"Set"},
 ];
 let TDATA=[], TGEN="", tSortK="age_days", tSortDir=-1;
 const tflt={tst:new Set(["Awaiting us","Awaiting Sprinklr","Resolved"])};
@@ -360,13 +360,13 @@ function tKpis(){
   const us=open.filter(r=>effStatus(r)==="Awaiting us").length;
   const sp=open.filter(r=>effStatus(r)==="Awaiting Sprinklr").length;
   const hot=open.filter(r=>r.priority==="Urgent"||r.priority==="High").length;
-  const stale=open.filter(r=>(r.age_days??0)>14).length;
+  const stale=open.filter(r=>(r.days_idle??0)>14).length;
   const cards=[
     {n:open.length,l:"Open cases"},
     {n:us,l:"Awaiting us",c:"accent"},
     {n:sp,l:"Awaiting Sprinklr",c:"blue"},
     {n:hot,l:"Urgent / High",c:"amber"},
-    {n:stale,l:"Stale > 14 days",c:"accent"},
+    {n:stale,l:"No reply 14d+",c:"accent"},
   ];
   document.getElementById("t-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join("");
@@ -381,7 +381,7 @@ function tHead(){
 function stBadge(s){const m={"Awaiting us":"st-await-us","Awaiting Sprinklr":"st-await-sp","Resolved":"st-resolved"};
   return `<span class="badge ${m[s]||'st-await-us'}">${esc(s)}</span>`;}
 function ageCell(d){ if(d==null) return '<span class="muted">–</span>';
-  const cls=d>14?'age-hot':(d>7?'age-warm':''); return `<span class="dur ${cls}">${d}d</span>`;}
+  const cls=d>30?'age-hot':(d>14?'age-warm':''); return `<span class="dur ${cls}">${d}d</span>`;}
 function setSelect(r){const o=OV[tkey(r)]||"Auto";const k=encodeURIComponent(tkey(r));
   return `<select class="setsel" data-k="${k}">`+
     ["Auto","Completed","Open"].map(v=>`<option value="${v}"${o===v?" selected":""}>${v}</option>`).join("")+
@@ -409,11 +409,11 @@ function tRender(){
     ovSave(OV); tRender();
   });
   document.getElementById("t-foot").textContent=
-    `Showing ${rows.length} of ${TDATA.length} cases  ·  status inferred from last reply (portal link is authoritative)  ·  your Set marks save on this browser only`;
+    `Showing ${rows.length} of ${TDATA.length} cases  ·  status = who has the ball from the last human reply (portal link is source of truth)  ·  Set marks save on this browser only`;
 }
 function tCSV(){
   const rows=tCurrent();
-  const head=["case_id","title","topic","priority","inferred_status","effective_status","marked_as","owner","agent","opened","last_update","age_days","portal_link","gmail_link"];
+  const head=["case_id","title","topic","priority","inferred_status","effective_status","marked_as","owner","agent","opened","last_update","days_open","days_idle","portal_link","gmail_link"];
   const q=s=>`"${(s==null?"":s).toString().replace(/"/g,'""')}"`;
   const val=(r,k)=> k==="inferred_status"?r.status : k==="effective_status"?effStatus(r) : k==="marked_as"?(OV[tkey(r)]||"") : r[k];
   const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(val(r,k))).join(",")));
