@@ -166,8 +166,20 @@ The table below lists each tracked file and its purpose.
 | `requirements.txt` | Pinned Python dependencies. Playwright is pinned because it ships a matching browser build. |
 | `.github/workflows/refresh.yml` | The scheduled GitHub Actions workflow. |
 | `.gitignore` | Blocks local secret, session, and service account files from being committed. |
+| `web/index.html` | The password gated dashboard served by Vercel. It has two tabs, SLA Queue and Sprinklr Support Tickets, and fetches `web/data.json` and `web/tickets.json` at load. |
+| `build_tickets.py` | Builds `web/tickets.json` from Gmail dumps of the Sprinklr support desk, one row per case grouped by ticket number. |
 | `RENEW_GH_PAT.md` | Step by step guide to renew the `GH_PAT` token before it expires. |
 | `README.md` | This document. |
+
+## The Sprinklr support tickets tab
+
+The dashboard has a second tab named Sprinklr Support Tickets, alongside the original SLA Queue tab. It tracks the support cases that the Managed Services team raises with Sprinklr's vendor support desk, which are a different dataset from the internal request queue shown on the SLA tab. The data comes from the Gmail thread history of the support desk sender, care@prod.sprinklrsupport.com. Every Sprinklr email carries a seven digit Ticket Number and a portal Review Link of the form https://community.sprinklr.com/support/requests/(number), so the tab keys one row per Ticket Number and groups every email thread that shares that number into a single case.
+
+For each case the tab shows the Sprinklr ticket number (linked to the portal), the cleaned subject (linked to the Gmail thread), a topic guess, a priority read from the subject tags, a status, the Premium Blend or Netflix owner, the latest Sprinklr agent who replied, the opened date, the last update date, and the age in days since the last update. The status is a ball in court value computed from the latest message only: a last reply from Sprinklr means the case is Awaiting us, a last reply from our side means it is Awaiting Sprinklr, and survey or resolution wording in the latest message marks it Resolved. The status is inferred, so the portal Review Link stays the authoritative source of truth. The table sorts by age descending by default so the stalest cases surface first, and the header cards summarise open cases, the Awaiting us count, the Awaiting Sprinklr count, the Urgent or High count, and the count stale beyond fourteen days.
+
+Each row has a Set control with three choices, Auto, Completed, and Open. Auto uses the inferred status. Completed forces the case to Resolved, and Open forces it back to open. These manual marks are saved in the viewer's own browser only (the site is static and has no shared database yet), so they are a personal triage layer and are not shared across the team. A case that is manually set shows a small dot next to its status, and the KPI cards, filters, and CSV export all reflect the effective status after any manual mark.
+
+The transform lives in `build_tickets.py` at the repository root, alongside `sla_refresh.py`. It reads one or more Gmail search dumps in the `search_threads` JSON shape and writes `web/tickets.json`. As of 2026-09-28 the committed `web/tickets.json` is a sample built from the fifty most recent support desk threads, which resolved to thirty distinct cases. This sample is a static snapshot. It does not yet refresh on the six hour schedule, because the scheduled job in `.github/workflows/refresh.yml` produces `web/data.json` but does not yet produce `web/tickets.json`. Making the tab refresh automatically requires a step in that workflow that pulls the care@prod.sprinklrsupport.com threads through the Gmail API and then calls `build_tickets.py`, which in turn requires Gmail read access for the credential the job uses.
 
 ## Troubleshooting
 

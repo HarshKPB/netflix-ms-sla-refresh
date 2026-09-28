@@ -66,7 +66,7 @@
   .name a{color:var(--txt);text-decoration:none;border-bottom:1px dotted #5a5a68}
   .name a:hover{color:var(--blue);border-bottom-color:var(--blue)}
   .ext{color:var(--dim);font-size:10px;margin-left:5px}
-  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
   .b-slack{background:#12233a;color:#8fc0ff}
   .b-sprinklr{background:var(--red-dim);color:#ff9ba0}
   .st-open{background:#3a2c12;color:var(--amber)}
@@ -84,6 +84,26 @@
     .controls{gap:8px} input[type=search]{min-width:100%;order:-1}
     .name{max-width:180px}
   }
+  /* tabs + tickets */
+  .tabs{display:flex;gap:4px;padding:0 28px;border-bottom:1px solid var(--line);background:#0d0d13}
+  .tabbtn{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--dim);
+    padding:13px 16px;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:.2px}
+  .tabbtn:hover{color:var(--txt)}
+  .tabbtn.on{color:var(--txt);border-bottom-color:var(--red)}
+  .st-await-us{background:var(--red-dim);color:#ff9ba0}
+  .st-await-sp{background:#12233a;color:#8fc0ff}
+  .st-resolved{background:#123020;color:var(--green)}
+  .pri-Urgent{background:#4a1114;color:#ff8a90}
+  .pri-High{background:#3a2c12;color:var(--amber)}
+  .pri-Normal{background:#1c1c26;color:var(--dim)}
+  .age-hot{color:#ff9ba0;font-weight:700}
+  .age-warm{color:var(--amber)}
+  .cid a{color:var(--blue);text-decoration:none;font-variant-numeric:tabular-nums}
+  .cid a:hover{text-decoration:underline}
+  .setsel{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:5px 8px;font-size:12px;cursor:pointer}
+  .setsel:focus{outline:none;border-color:var(--red)}
+  .markdot{color:var(--amber);font-weight:900;margin-left:2px}
+  @media (max-width:760px){ .tabs{padding:0 10px} .tabbtn{padding:12px 10px;font-size:12px} }
 </style>
 </head>
 <body>
@@ -92,7 +112,11 @@
   <h1>Netflix MS SLA Tracker</h1>
   <div class="sub" id="gen"></div>
 </header>
-<div class="wrap">
+<nav class="tabs">
+  <button class="tabbtn on" data-view="sla">SLA Queue</button>
+  <button class="tabbtn" data-view="tickets">Sprinklr Support Tickets</button>
+</nav>
+<div class="wrap view" id="view-sla">
   <div class="kpis" id="kpis"></div>
 
   <div class="controls">
@@ -116,6 +140,22 @@
     </table>
   </div>
   <div class="foot" id="foot"></div>
+</div>
+
+<div class="wrap view" id="view-tickets" hidden>
+  <div class="kpis" id="t-kpis"></div>
+  <div class="controls">
+    <input type="search" id="t-q" placeholder="Search case, title, owner, agent, topic...">
+    <span class="chip on" data-f="tst" data-v="Awaiting us">Awaiting us</span>
+    <span class="chip on" data-f="tst" data-v="Awaiting Sprinklr">Awaiting Sprinklr</span>
+    <span class="chip on" data-f="tst" data-v="Resolved">Resolved</span>
+    <span class="spacer"></span>
+    <button class="btn" id="t-csv">Export CSV</button>
+  </div>
+  <div class="tablewrap">
+    <table><thead><tr id="t-head"></tr></thead><tbody id="t-body"></tbody></table>
+  </div>
+  <div class="foot" id="t-foot"></div>
 </div>
 <script>
 const COLS = [
@@ -265,6 +305,135 @@ fetch("data.json").then(r=>r.json()).then(j=>{
   document.getElementById("gen").textContent = "Updated "+when+" IST  ·  auto-refreshed every 6h";
   render();
 }).catch(e=>{document.getElementById("body").innerHTML=`<tr><td colspan="8">Could not load data.json: ${e}</td></tr>`;});
+
+/* ---------- tab switching ---------- */
+document.querySelectorAll(".tabbtn").forEach(b=>b.onclick=()=>{
+  const v=b.dataset.view;
+  document.querySelectorAll(".tabbtn").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".view").forEach(s=>{s.hidden = s.id!=="view-"+v;});
+});
+
+/* ---------- Sprinklr support tickets ---------- */
+const TCOLS=[
+  {k:"case_id",t:"Case"},{k:"title",t:"Title"},{k:"topic",t:"Topic"},
+  {k:"priority",t:"Priority"},{k:"status",t:"Status"},{k:"owner",t:"Owner"},
+  {k:"agent",t:"Sprinklr agent"},{k:"opened",t:"Opened"},
+  {k:"last_update",t:"Last update"},{k:"age_days",t:"Age"},{k:"mark",t:"Set"},
+];
+let TDATA=[], TGEN="", tSortK="age_days", tSortDir=-1;
+const tflt={tst:new Set(["Awaiting us","Awaiting Sprinklr","Resolved"])};
+const PRI_RANK={Urgent:3,High:2,Normal:1};
+
+/* manual per-case status marks. Saved in this browser only (no backend on the static site). */
+const OV_KEY="nfx_ticket_overrides_v1";
+function ovLoad(){try{return JSON.parse(localStorage.getItem(OV_KEY)||"{}")||{};}catch(e){return {};}}
+function ovSave(o){try{localStorage.setItem(OV_KEY,JSON.stringify(o));}catch(e){}}
+let OV=ovLoad();
+const tkey=r=>r.case_id||("t:"+r.title);
+function effStatus(r){const o=OV[tkey(r)];
+  if(o==="Completed") return "Resolved";
+  if(o==="Open") return r.status==="Resolved"?"Awaiting us":r.status;
+  return r.status;}
+function isMarked(r){return !!OV[tkey(r)];}
+
+function tCurrent(){
+  const q=document.getElementById("t-q").value.toLowerCase();
+  let rows=TDATA.filter(r=>{
+    if(!tflt.tst.has(effStatus(r))) return false;
+    if(q){const hay=(r.case_id+" "+r.title+" "+r.owner+" "+r.agent+" "+r.topic).toLowerCase();
+      if(!hay.includes(q)) return false;}
+    return true;
+  });
+  rows.sort((a,b)=>{
+    let x=a[tSortK],y=b[tSortK];
+    if(tSortK==="age_days"){x=x??-1;y=y??-1;}
+    else if(tSortK==="priority"){x=PRI_RANK[x]||0;y=PRI_RANK[y]||0;}
+    else if(tSortK==="status"){x=effStatus(a).toLowerCase();y=effStatus(b).toLowerCase();}
+    else if(tSortK==="mark"){x=OV[tkey(a)]||"";y=OV[tkey(b)]||"";}
+    else {x=(x||"").toString().toLowerCase();y=(y||"").toString().toLowerCase();}
+    return x<y?-1*tSortDir:x>y?1*tSortDir:0;
+  });
+  return rows;
+}
+function tKpis(){
+  const open=TDATA.filter(r=>effStatus(r)!=="Resolved");
+  const us=open.filter(r=>effStatus(r)==="Awaiting us").length;
+  const sp=open.filter(r=>effStatus(r)==="Awaiting Sprinklr").length;
+  const hot=open.filter(r=>r.priority==="Urgent"||r.priority==="High").length;
+  const stale=open.filter(r=>(r.age_days??0)>14).length;
+  const cards=[
+    {n:open.length,l:"Open cases"},
+    {n:us,l:"Awaiting us",c:"accent"},
+    {n:sp,l:"Awaiting Sprinklr",c:"blue"},
+    {n:hot,l:"Urgent / High",c:"amber"},
+    {n:stale,l:"Stale > 14 days",c:"accent"},
+  ];
+  document.getElementById("t-kpis").innerHTML=cards.map(c=>
+    `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div></div>`).join("");
+}
+function tHead(){
+  document.getElementById("t-head").innerHTML=TCOLS.map(c=>
+    `<th data-k="${c.k}">${c.t} ${tSortK===c.k?`<span class="arrow">${tSortDir<0?'▼':'▲'}</span>`:''}</th>`).join("");
+  document.querySelectorAll("#t-head th").forEach(th=>th.onclick=()=>{
+    const k=th.dataset.k; if(tSortK===k) tSortDir*=-1; else{tSortK=k;tSortDir=-1;} tRender();
+  });
+}
+function stBadge(s){const m={"Awaiting us":"st-await-us","Awaiting Sprinklr":"st-await-sp","Resolved":"st-resolved"};
+  return `<span class="badge ${m[s]||'st-await-us'}">${esc(s)}</span>`;}
+function ageCell(d){ if(d==null) return '<span class="muted">–</span>';
+  const cls=d>14?'age-hot':(d>7?'age-warm':''); return `<span class="dur ${cls}">${d}d</span>`;}
+function setSelect(r){const o=OV[tkey(r)]||"Auto";const k=encodeURIComponent(tkey(r));
+  return `<select class="setsel" data-k="${k}">`+
+    ["Auto","Completed","Open"].map(v=>`<option value="${v}"${o===v?" selected":""}>${v}</option>`).join("")+
+    `</select>`;}
+function tRender(){
+  tKpis();
+  const rows=tCurrent();
+  document.getElementById("t-body").innerHTML=rows.map(r=>`<tr>
+    <td class="cid">${r.portal_link?`<a href="${esc(r.portal_link)}" target="_blank" rel="noopener">${esc(r.case_id||'link')}</a>`:esc(r.case_id||'–')}</td>
+    <td class="name">${r.gmail_link?`<a href="${esc(r.gmail_link)}" target="_blank" rel="noopener">${esc(r.title)}</a><span class="ext">&#8599;</span>`:esc(r.title)}</td>
+    <td>${esc(r.topic)}</td>
+    <td><span class="badge pri-${esc(r.priority)}">${esc(r.priority)}</span></td>
+    <td>${stBadge(effStatus(r))}${isMarked(r)?'<span class="markdot" title="manually set">•</span>':''}</td>
+    <td>${esc(r.owner)||'<span class="muted">–</span>'}</td>
+    <td>${esc(r.agent)||'<span class="muted">–</span>'}</td>
+    <td class="dur muted">${esc(r.opened)||'–'}</td>
+    <td class="dur muted">${esc(r.last_update)||'–'}</td>
+    <td>${ageCell(r.age_days)}</td>
+    <td>${setSelect(r)}</td>
+  </tr>`).join("");
+  tHead();
+  document.querySelectorAll(".setsel").forEach(sel=>sel.onchange=()=>{
+    const k=decodeURIComponent(sel.dataset.k), v=sel.value;
+    if(v==="Auto") delete OV[k]; else OV[k]=v;
+    ovSave(OV); tRender();
+  });
+  document.getElementById("t-foot").textContent=
+    `Showing ${rows.length} of ${TDATA.length} cases  ·  status inferred from last reply (portal link is authoritative)  ·  your Set marks save on this browser only`;
+}
+function tCSV(){
+  const rows=tCurrent();
+  const head=["case_id","title","topic","priority","inferred_status","effective_status","marked_as","owner","agent","opened","last_update","age_days","portal_link","gmail_link"];
+  const q=s=>`"${(s==null?"":s).toString().replace(/"/g,'""')}"`;
+  const val=(r,k)=> k==="inferred_status"?r.status : k==="effective_status"?effStatus(r) : k==="marked_as"?(OV[tkey(r)]||"") : r[k];
+  const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(val(r,k))).join(",")));
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="sprinklr-tickets-"+(TGEN||"export")+".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+document.getElementById("t-q").oninput=tRender;
+document.getElementById("t-csv").onclick=tCSV;
+document.querySelectorAll("#view-tickets .chip").forEach(ch=>ch.onclick=()=>{
+  const f=ch.dataset.f,v=ch.dataset.v;
+  if(tflt[f].has(v)){tflt[f].delete(v);ch.classList.remove("on");}
+  else{tflt[f].add(v);ch.classList.add("on");}
+  tRender();
+});
+fetch("tickets.json").then(r=>r.json()).then(j=>{
+  TDATA=j.rows||[]; TGEN=j.generated||"";
+  tRender();
+}).catch(e=>{document.getElementById("t-body").innerHTML=`<tr><td colspan="11">Could not load tickets.json: ${e}</td></tr>`;});
 </script>
 </body>
 </html>
