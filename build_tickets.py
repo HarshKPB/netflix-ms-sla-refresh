@@ -226,13 +226,41 @@ def main(argv):
         else:
             status = "Awaiting us"
 
-        # owner = the Premium Blend / Netflix person on the case
-        pb = [a for a in (x for m in msgs for x in all_addrs(m))
-              if is_ours(a) and a.lower() != GROUP_ALIAS]
-        if pb:
-            owner = Counter(a.lower() for a in pb).most_common(1)[0][0].split("@")[0]
+        # owner = the Premium Blend MS person handling the case. Only premium-blend.com
+        # counts. Netflix addresses are the client, not the MS owner, so they never win.
+        # Prefer whoever the first email is addressed to (the requester), else the most
+        # frequent PB participant.
+        # owner = the Premium Blend person who INITIATED the case. From the earliest
+        # message: if a PB person opened it, that sender; otherwise the PB person that
+        # Sprinklr's first acknowledgement is addressed to (the requester). Netflix
+        # addresses are the client, never the owner.
+        def pb_addr(a):
+            return domain(a).endswith("premium-blend.com") and a.lower() != GROUP_ALIAS
+        def recips(m):
+            out = []
+            for k in ("toRecipients", "ccRecipients"):
+                v = m.get(k)
+                out += v if isinstance(v, list) else ([v] if v else [])
+            return out
+        owner = ""
+        m0 = msgs[0]
+        if pb_addr(first_str(m0, "sender")):
+            owner = first_str(m0, "sender").split("@")[0]
         else:
-            owner = "netflix (group)"
+            tos = [a for a in recips(m0) if pb_addr(a)]
+            if tos:
+                owner = tos[0].split("@")[0]
+        if not owner:  # fallback: earliest PB sender anywhere in the case
+            for m in msgs:
+                if pb_addr(first_str(m, "sender")):
+                    owner = first_str(m, "sender").split("@")[0]; break
+        if not owner:  # last resort: most frequent PB, else Netflix-raised, else unassigned
+            pb = [a for a in (x for m in msgs for x in all_addrs(m)) if pb_addr(a)]
+            if pb:
+                owner = Counter(a.lower() for a in pb).most_common(1)[0][0].split("@")[0]
+            else:
+                nf = [a for a in (x for m in msgs for x in all_addrs(m)) if domain(a).endswith("netflix.com")]
+                owner = (Counter(a.lower() for a in nf).most_common(1)[0][0].split("@")[0] + " (NF)") if nf else "unassigned"
 
         # latest human Sprinklr agent
         agent = ""

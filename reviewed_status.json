@@ -1,13 +1,13 @@
 {
-  "_note": "Statuses for the 10 cases whose latest thread returned inline on 2026-09-28, judged from the latest message. The scheduled Claude routine will reclassify all cases each run on your subscription.",
-  "4064944": {"status": "Resolved", "agent": "Binaya Mund", "opened_est": "2026-08-03", "last_update": "2026-08-06", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
-  "4064947": {"status": "Resolved", "agent": "Binaya Mund", "opened_est": "2026-08-15", "last_update": "2026-08-18", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
-  "4029520": {"status": "Awaiting Sprinklr", "agent": "Sateesh Kota", "opened_est": "2026-07-15", "last_update": "2026-08-25", "note": "We are continuing to follow-up with our Product team"},
-  "4074551": {"status": "Resolved", "agent": "Aruna Kumari", "opened_est": "2026-08-27", "last_update": "2026-08-31", "note": "we can go ahead and close this ticket (customer)"},
-  "4075170": {"status": "Resolved", "agent": "Aruna Kumari", "opened_est": "2026-08-29", "last_update": "2026-09-02", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
-  "4071815": {"status": "Awaiting Sprinklr", "agent": "Binaya Mund", "opened_est": "2026-09-09", "last_update": "2026-09-21", "note": "still pending with our engineering team, we will keep you updated"},
-  "4080815": {"status": "Resolved", "agent": "Srishty Priya", "opened_est": "2026-09-14", "last_update": "2026-09-21", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
-  "4073958": {"status": "Resolved", "agent": "Gopal Kumar", "opened_est": "2026-09-22", "last_update": "2026-09-23", "note": "we will proceed with closing case #4073958"},
-  "4085088": {"status": "Resolved", "agent": "Shaik Sameer", "opened_est": "2026-09-24", "last_update": "2026-09-25", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
-  "4075373": {"status": "Awaiting us", "agent": "Gopal Kumar", "opened_est": "2026-08-28", "last_update": "2026-08-30", "note": "Could you please share how the tagging was done?"}
+  "_note": "Statuses + initiators for the 10 cases whose latest thread returned inline on 2026-09-28, judged from the message bodies. owner = the Premium Blend person who opened the case. The scheduled Claude routine reclassifies all cases each run.",
+  "4064944": {"status": "Resolved", "owner": "hoku", "agent": "Binaya Mund", "opened_est": "2026-08-03", "last_update": "2026-08-06", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
+  "4064947": {"status": "Resolved", "owner": "hoku", "agent": "Binaya Mund", "opened_est": "2026-08-15", "last_update": "2026-08-18", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
+  "4029520": {"status": "Awaiting Sprinklr", "owner": "varsha-a", "agent": "Sateesh Kota", "opened_est": "2026-07-15", "last_update": "2026-08-25", "note": "We are continuing to follow-up with our Product team"},
+  "4074551": {"status": "Resolved", "owner": "beatriz", "agent": "Aruna Kumari", "opened_est": "2026-08-27", "last_update": "2026-08-31", "note": "we can go ahead and close this ticket (customer)"},
+  "4075170": {"status": "Resolved", "owner": "beatriz", "agent": "Aruna Kumari", "opened_est": "2026-08-29", "last_update": "2026-09-02", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
+  "4071815": {"status": "Awaiting Sprinklr", "owner": "francis", "agent": "Binaya Mund", "opened_est": "2026-09-09", "last_update": "2026-09-21", "note": "still pending with our engineering team, we will keep you updated"},
+  "4080815": {"status": "Resolved", "owner": "varsha-a", "agent": "Srishty Priya", "opened_est": "2026-09-14", "last_update": "2026-09-21", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
+  "4073958": {"status": "Resolved", "owner": "marshall", "agent": "Gopal Kumar", "opened_est": "2026-09-22", "last_update": "2026-09-23", "note": "we will proceed with closing case #4073958"},
+  "4085088": {"status": "Resolved", "owner": "varsha-a", "agent": "Shaik Sameer", "opened_est": "2026-09-24", "last_update": "2026-09-25", "note": "auto follow-up nudge (Sprinklr auto-closing the case)"},
+  "4075373": {"status": "Awaiting us", "owner": "varsha-a", "agent": "Gopal Kumar", "opened_est": "2026-08-28", "last_update": "2026-08-30", "note": "Could you please share how the tagging was done?"}
 }

@@ -64,6 +64,10 @@ THANKS = ("thank you", "thanks", "\U0001f44d", "amazing", "appreciate it", "perf
 
 WEEKDAY = r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)"
 DT = re.compile(WEEKDAY + r",?\s+(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})\s+\d{2}:\d{2}", re.I)
+# a message author header inside the body: "<email> <weekday>, <dd Mon yyyy HH:MM:SS> UTC"
+PBAUTH = re.compile(r"([\w.\-]+@premium-blend\.com)\s+" + WEEKDAY +
+                    r",?\s+(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})\s+(\d{2}):(\d{2}):(\d{2})", re.I)
+GROUP_ALIAS = "netflix@premium-blend.com"
 MON = {m: i for i, m in enumerate(
     ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], 1)}
 
@@ -127,6 +131,26 @@ def agent_of(body):
     return name[:40]
 
 
+def initiator(bodies):
+    """The Premium Blend person who opened the case: the earliest PB author header
+    seen anywhere in the thread bodies, including quoted history (which holds the
+    original request even when its own email is not in the captured messages)."""
+    best = None  # (datetime, email)
+    for t in bodies:
+        for m in PBAUTH.finditer(t or ""):
+            email = m.group(1).lower()
+            if email == GROUP_ALIAS:
+                continue
+            try:
+                dt = datetime(int(m.group(4)), MON[m.group(3).title()], int(m.group(2)),
+                              int(m.group(5)), int(m.group(6)), int(m.group(7)))
+            except Exception:
+                continue
+            if best is None or dt < best[0]:
+                best = (dt, email)
+    return best[1].split("@")[0] if best else ""
+
+
 def min_date(texts):
     best = None
     for t in texts:
@@ -176,6 +200,7 @@ def process(path):
         "last_update": last.get("date", "")[:10],
         "last_side": side,
         "agent": agent,
+        "owner": initiator(bodies),
         "latest_note": re.sub(r"\s+", " ", ot)[:160],
     }
 

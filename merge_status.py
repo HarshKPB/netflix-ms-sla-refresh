@@ -47,6 +47,8 @@ def main():
             r["status"] = s["status"]
             if s.get("agent"):
                 r["agent"] = s["agent"]
+            if s.get("owner"):
+                r["owner"] = s["owner"]  # initiator from body beats the dump-metadata guess
             op = s.get("opened_est")
             if op and (not r.get("opened") or op < r["opened"]):
                 r["opened"] = op
