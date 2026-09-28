@@ -19,31 +19,48 @@ from datetime import datetime
 
 OURS = ("premium-blend.com", "netflix.com", "netflixcontractors.com")
 
-AUTO = ("this is an automated response",
-        "as an initial follow-up to this case, we are waiting to hear back")
-RESOLVED = ("proceed with closing", "proceeding with closing", "we will close",
-            "we can go ahead and close", "go ahead and close", "please close",
-            "closing this ticket", "closing the ticket", "closing case",
-            "has been resolved", "mark this as resolved", "marking this resolved",
-            "is now resolved", "close this ticket", "we are closing")
+# The auto follow-up nudge IS the close signal: Sprinklr fires it on a timer and
+# auto-solves the case if we do not reply. Its presence as the latest message = Resolved.
+NUDGE = ("as an initial follow-up to this case, we are waiting to hear back",
+         "assume the case is solved")
+
+# Explicit closure / completion, from either side. Checked first, so a message that
+# resolves and also asks a courtesy "confirm" still reads as Resolved.
+RESOLVED = ("closing this case", "closing this ticket", "closing the ticket",
+            "closing case", "we are closing", "we will close", "close this ticket",
+            "close it", "proceed with closing", "proceed with the closure",
+            "closure of this ticket", "proceed to mark the case", "mark the case as solved",
+            "mark this case as solved", "mark it as solved", "mark this thread as closed",
+            "mark this case as closed", "marking case closed", "marking this case closed",
+            "we are marking", "we are setting the case", "go forward and mark",
+            "has been resolved", "is now resolved", "marking this resolved",
+            "has now been corrected", "has been corrected", "job has been rerun",
+            "do contact sprinklr support for any further queries", "feel free to reopen",
+            "reopen the case", "reach out to us for any issues", "glad to hear",
+            "glad we could", "upon further review")
+# Sprinklr asks us for something and expects a reply -> ball is on us.
 ASK = ("could you", "can you please", "please confirm", "please provide",
        "please share", "please suggest", "kindly provide", "kindly confirm",
-       "kindly share", "waiting to hear back from you", "let us know your",
-       "available time", "time slots", "hopping on a call", "hoping on a call",
-       "request you to provide", "please help us with", "share a screenshot",
-       "provide us with")
+       "kindly share", "let us know your", "available time", "time slots",
+       "hopping on a call", "hoping on a call", "request you to provide",
+       "please help us with", "share a screenshot", "provide us with",
+       "could you please let us know", "please let us know:")
+# Sprinklr says work is still ongoing on their side -> ball is on Sprinklr.
+INVESTIGATING = ("we are investigating", "being investigated", "will get back",
+                 "will update you", "keep you updated", "keep you posted",
+                 "still pending", "with our engineering", "with our product",
+                 "with the channel team", "raised this", "raised with", "escalat",
+                 "being verified", "allow us some time", "shall get back",
+                 "continuing to follow", "reached out to our engineering",
+                 "we will review your ticket", "working diligently",
+                 "checking further", "look into this", "look into it")
+# Sprinklr delivered an explanation with nothing left on their side -> answered.
 ANSWER = ("hope this helps", "hope this clarifies", "we verified", "we have verified",
           "expected behaviour", "expected behavior", "please refer", "api limitation",
-          "we observed", "we have checked", "we hope this", "any further questions",
-          "shared our findings", "shared below", "as per the")
-INVESTIGATING = ("investigat", "looking into", "will get back", "will update",
-                 "keep you updated", "keep you posted", "still pending",
-                 "with our engineering", "with our product", "with the channel team",
-                 "raised this", "raised with", "escalat", "being verified",
-                 "allow us some time", "shall get back", "continuing to follow",
-                 "allow us to check", "we will review your ticket", "hereby acknowledge",
-                 "acknowledge your request", "working diligently", "we are working",
-                 "checking further", "check further", "look into this")
+          "we hope this", "we have reviewed", "as a workaround", "you can use",
+          "kindly use", "as designed", "working as expected")
+THANKS = ("thank you", "thanks", "\U0001f44d", "amazing", "appreciate it", "perfect",
+          "reacted via gmail", "great, thank", "much appreciated")
 
 WEEKDAY = r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)"
 DT = re.compile(WEEKDAY + r",?\s+(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})\s+\d{2}:\d{2}", re.I)
@@ -77,6 +94,7 @@ def own_text(body):
             cuts.append(mm.start())
     if cuts:
         b = b[:min(cuts)]
+    b = re.sub(r"https?://\S+", " ", b)  # drop URLs (their query "?" is not a real question)
     return b.strip()[:900]
 
 
@@ -85,14 +103,17 @@ def classify(side, text):
     if any(k in t for k in RESOLVED):
         return "Resolved"
     if side == "us":
+        # our last word with no open question, just thanks/ack = case done
+        if "?" not in t and any(k in t for k in THANKS):
+            return "Resolved"
         return "Awaiting Sprinklr"
-    # Sprinklr side
+    # Sprinklr side, in precedence order
     if any(k in t for k in ASK):
-        return "Awaiting us"
-    if any(k in t for k in ANSWER):
         return "Awaiting us"
     if any(k in t for k in INVESTIGATING):
         return "Awaiting Sprinklr"
+    if any(k in t for k in ANSWER):
+        return "Resolved"
     return "Awaiting Sprinklr"
 
 
@@ -131,25 +152,30 @@ def process(path):
         m = re.search(r"Ticket\s*Number[\s:]*?(\d{6,8})", b)
         if m:
             ticket = m.group(1); break
-    # latest substantive (skip auto nudges)
-    chosen = None
+    # latest Sprinklr human agent (skip system/us messages)
+    agent = ""
     for m in reversed(msgs):
-        b = (m.get("plaintextBody") or "").lower()
-        if any(a in b for a in AUTO):
-            continue
-        chosen = m; break
-    if chosen is None:
-        chosen = msgs[-1]
-    side = "us" if is_ours(chosen.get("sender", "")) else "sprinklr"
-    ot = own_text(chosen.get("plaintextBody", ""))
-    status = classify(side, ot)
+        if not is_ours(m.get("sender", "")):
+            a = agent_of(m.get("plaintextBody", ""))
+            if a:
+                agent = a; break
+
     last = msgs[-1]
+    last_body = (last.get("plaintextBody") or "").lower()
+    if any(n in last_body for n in NUDGE):
+        status, side, chosen = "Resolved", "auto", last
+        ot = "auto follow-up nudge (case auto-closing)"
+    else:
+        chosen = last
+        side = "us" if is_ours(chosen.get("sender", "")) else "sprinklr"
+        ot = own_text(chosen.get("plaintextBody", ""))
+        status = classify(side, ot)
     return ticket, {
         "status": status,
         "opened_est": min_date(bodies) or (msgs[0].get("date", "")[:10]),
         "last_update": last.get("date", "")[:10],
         "last_side": side,
-        "agent": agent_of(chosen.get("plaintextBody", "")) if side == "sprinklr" else "",
+        "agent": agent,
         "latest_note": re.sub(r"\s+", " ", ot)[:160],
     }
 

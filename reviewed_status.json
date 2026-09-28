@@ -1,14 +1,13 @@
 {
-  "_note": "Body-reviewed statuses for the 10 cases whose latest thread returned inline (not saved to a body file) during the 2026-09-28 pull. Classified by reading the latest substantive message. The Gmail-API pipeline will reclassify all cases uniformly via classify_status.py.",
-  "4064944": {"status": "Awaiting us", "agent": "Binaya Mund", "opened_est": "2026-08-03", "last_update": "2026-08-06"},
-  "4064947": {"status": "Awaiting us", "agent": "Binaya Mund", "opened_est": "2026-08-15", "last_update": "2026-08-18"},
+  "_note": "Statuses for the 10 cases whose latest thread returned inline (not saved to a body file) on 2026-09-28, classified by the same rules as classify_status.py: the auto 'waiting to hear back' nudge as the latest message = Resolved (Sprinklr auto-closes); a Sprinklr answer or either side closing = Resolved; a Sprinklr question = Awaiting us; Sprinklr still working = Awaiting Sprinklr. The Gmail-API step will reclassify all cases uniformly.",
+  "4064944": {"status": "Resolved", "agent": "Binaya Mund", "opened_est": "2026-08-03", "last_update": "2026-08-06"},
+  "4064947": {"status": "Resolved", "agent": "Binaya Mund", "opened_est": "2026-08-15", "last_update": "2026-08-18"},
   "4029520": {"status": "Awaiting Sprinklr", "agent": "Sateesh Kota", "opened_est": "2026-07-15", "last_update": "2026-08-25"},
   "4074551": {"status": "Resolved", "agent": "Aruna Kumari", "opened_est": "2026-08-27", "last_update": "2026-08-31"},
-  "4075170": {"status": "Awaiting us", "agent": "Aruna Kumari", "opened_est": "2026-08-29", "last_update": "2026-09-02"},
+  "4075170": {"status": "Resolved", "agent": "Aruna Kumari", "opened_est": "2026-08-29", "last_update": "2026-09-02"},
   "4071815": {"status": "Awaiting Sprinklr", "agent": "Binaya Mund", "opened_est": "2026-09-09", "last_update": "2026-09-21"},
-  "4080815": {"status": "Awaiting us", "agent": "Srishty Priya", "opened_est": "2026-09-14", "last_update": "2026-09-21"},
+  "4080815": {"status": "Resolved", "agent": "Srishty Priya", "opened_est": "2026-09-14", "last_update": "2026-09-21"},
   "4073958": {"status": "Resolved", "agent": "Gopal Kumar", "opened_est": "2026-09-22", "last_update": "2026-09-23"},
-  "4085088": {"status": "Awaiting us", "agent": "Shaik Sameer", "opened_est": "2026-09-24", "last_update": "2026-09-25"},
-  "4075373": {"status": "Awaiting us", "agent": "Gopal Kumar", "opened_est": "2026-08-28", "last_update": "2026-08-30"},
-  "4073352": {"status": "Resolved", "agent": "", "opened_est": "2026-08-21", "last_update": "2026-08-25"}
+  "4085088": {"status": "Resolved", "agent": "Shaik Sameer", "opened_est": "2026-09-24", "last_update": "2026-09-25"},
+  "4075373": {"status": "Awaiting us", "agent": "Gopal Kumar", "opened_est": "2026-08-28", "last_update": "2026-08-30"}
 }
