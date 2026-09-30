@@ -42,14 +42,25 @@ def main():
         print("=" * 68 + "\n")
         input("Press Enter once you are logged in and the dashboard is visible... ")
 
+        # After login Sprinklr can sit on the SSO URL for a moment. Re-load the
+        # dashboard and wait, so the auth cookies settle before we save. We save the
+        # session regardless of the final URL, because the cookies are what the scrape
+        # needs; we only WARN if it still looks like a login page.
+        try:
+            page.goto(DASHBOARD_URL, wait_until="networkidle", timeout=60_000)
+        except Exception:
+            pass
+        page.wait_for_timeout(4000)
         url = page.url
-        if "login" in url or "netflix-app.sprinklr.com" in url or "tfa" in url:
-            print(f"\nStill on a login/2FA page ({url}). Not saving. Re-run once you are in.")
-            browser.close()
-            sys.exit(1)
 
         context.storage_state(path=SESSION_FILE)
         browser.close()
+
+    looks_logged_in = not any(x in url for x in ("/ui/login", "netflix-app.sprinklr.com", "tfa"))
+    print(f"\nFinal URL: {url}")
+    print("Looks logged in." if looks_logged_in
+          else "WARNING: still looks like a login page. Saved anyway; if the scrape "
+               "still says SESSION_EXPIRED, re-run and wait for the dashboard to fully load before Enter.")
 
     try:
         size = os.path.getsize(SESSION_FILE)
