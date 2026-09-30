@@ -47,10 +47,10 @@ def main():
         # session regardless of the final URL, because the cookies are what the scrape
         # needs; we only WARN if it still looks like a login page.
         try:
-            page.goto(DASHBOARD_URL, wait_until="networkidle", timeout=60_000)
+            page.goto(DASHBOARD_URL, wait_until="domcontentloaded", timeout=30_000)
         except Exception:
             pass
-        page.wait_for_timeout(4000)
+        page.wait_for_timeout(5000)
         url = page.url
 
         context.storage_state(path=SESSION_FILE)
