@@ -414,7 +414,14 @@ def main():
     gc = gclient()
     intake = load_intake(gc)
     asana = fetch_asana()
-    cases = p.fetch_cases_from_dashboard()
+    # A dead Sprinklr session must not take down the whole refresh. If the scrape
+    # fails, keep going with Slack + Asana rows so the sheet and dashboard stay
+    # current; the Sprinklr rows just go stale until the session is refreshed.
+    try:
+        cases = p.fetch_cases_from_dashboard()
+    except Exception as e:
+        print(f"WARNING: Sprinklr scrape failed ({e}); building without Sprinklr rows")
+        cases = []
     rows = build_rows(intake, asana, cases)
     if not rows:
         print("no rows built, refusing to overwrite the sheet")

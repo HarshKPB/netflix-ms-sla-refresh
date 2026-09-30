@@ -51,6 +51,7 @@ jobs:
       # by case id, so a fresh runner with no state file does not create duplicates.
       - name: Sync Sprinklr to Asana
         if: success()
+        continue-on-error: true   # a dead Sprinklr session must not fail the whole job
         env:
           ASANA_PAT: ${{ secrets.ASANA_PAT }}
         run: python sprinklr_to_asana.py
