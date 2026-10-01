@@ -674,6 +674,15 @@ def run_sync():
         if not case_id:
             continue
 
+        # Only real request-form submissions get a request number ("#NNN"). Skip
+        # Sprinklr system entities (CONSUMER_CONTENT_POST_APPROVAL, Review Task, bare
+        # "Sprinklr Request - <id>") that carry no number, so they are not tasked.
+        try:
+            if not build_task_name(case).startswith("#"):
+                continue
+        except Exception:
+            continue
+
         current_hash = _case_hash(case)
 
         # ── New submission ────────────────────────────────────────────────────
