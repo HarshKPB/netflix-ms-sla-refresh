@@ -132,17 +132,34 @@ def fetch_asana():
 
 _GS_TRANSIENT = {429, 500, 502, 503, 504}
 
+# Transport-level failures carry no HTTP status, so gspread never wraps them in an
+# APIError and the status check above cannot see them. Google drops a keep-alive
+# connection mid-request often enough that the 2026-10-06 12:49 UTC run died on
+# RemoteDisconnected inside open_by_key. These are retried the same way.
+_GS_TRANSIENT_EXC = (
+    requests.exceptions.ConnectionError,
+    requests.exceptions.Timeout,
+    requests.exceptions.ChunkedEncodingError,
+)
+
 
 def _gs_retry(fn, *args, _tries=5, _base=2.0, **kwargs):
-    """Call a gspread op, retrying transient Google API errors (429/5xx) with
-    exponential backoff. Google Sheets returns 503 'service currently unavailable'
-    sporadically; a short retry clears it instead of failing the whole run."""
+    """Call a gspread op, retrying transient Google failures with exponential backoff.
+
+    Two failure shapes are transient: an APIError carrying 429/5xx (Sheets returns 503
+    'service currently unavailable' sporadically), and a requests transport error with no
+    status at all (connection aborted, read timeout). Both clear on a short retry instead
+    of failing the whole run."""
     for attempt in range(_tries):
         try:
             return fn(*args, **kwargs)
         except gspread.exceptions.APIError as e:
             code = getattr(getattr(e, "response", None), "status_code", None)
             if code not in _GS_TRANSIENT or attempt == _tries - 1:
+                raise
+            time.sleep(_base * (2 ** attempt))
+        except _GS_TRANSIENT_EXC:
+            if attempt == _tries - 1:
                 raise
             time.sleep(_base * (2 ** attempt))
 
@@ -284,11 +301,11 @@ def write_sheet(gc, rows):
     ws.update_title(SLA_TAB)
     grid = [HEADERS] + [[r[h] for h in HEADERS] for r in rows]
     # USER_ENTERED would let Sheets re-type; RAW keeps our exact text.
-    ws.update(grid, value_input_option="RAW")
+    _gs_retry(ws.update, grid, value_input_option="RAW")
 
     # Second tab: plain-language column definitions, rebuilt fresh every run.
     dws = ss.add_worksheet(title=DEFS_TAB, rows=len(DEFS) + 5, cols=len(DEFS_HEADERS))
-    dws.update([DEFS_HEADERS] + DEFS, value_input_option="RAW")
+    _gs_retry(dws.update, [DEFS_HEADERS] + DEFS, value_input_option="RAW")
 
     format_sheet(ss, ws, dws, len(rows))
     return ss
