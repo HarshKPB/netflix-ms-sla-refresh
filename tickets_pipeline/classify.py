@@ -132,6 +132,83 @@ def detect_topic(text):
     return "General"
 
 
+# Market keyword -> REGIONAL BUCKET. The vendor emails carry no clean region
+# field, so this is best-effort text matching and most cases (platform/feature
+# issues that name no market) fall to "Global/Unknown". Rolling the many markets
+# up to a handful of buckets keeps the reporting filter usable: "by region" means
+# APAC / EMEA / LATAM / North America, not thirty near-empty country labels.
+REGIONS = [
+    ("APAC", ("netflixkr", "korea", "korean", "hangul", "netflixjp", "japan", "japanese",
+              "netflixin", " india", "indian", "hindi", "australia", "new zealand",
+              "thailand", "indonesia", "philippines", "vietnam", "singapore", "malaysia",
+              "taiwan", "hong kong", " china", "chinese", "apac", " kr ", " jp ")),
+    ("EMEA", ("netflixes", "espana", "españa", "spain", "spanish", "netflixfr", "france",
+              "french", "français", "francais", "netflixde", "germany", "deutschland",
+              "german", "netflixit", "italia", " italy", "italian", "netflixuk",
+              "united kingdom", " uk ", "poland", "polish", "netherlands", "dutch",
+              "turkey", "turkish", "nordic", "benelux", "portugal", "portuguese",
+              "sweden", "norway", "denmark", "finland", "belgium", "austria",
+              "switzerland", "ireland", "south africa", " uae", "saudi", "egypt",
+              "russia", "ukraine", "czech", "hungary", "romania", "greece", "mena",
+              "emea")),
+    ("LATAM", ("netflixbrasil", "brasil", "brazil", "brazilian", "mexico", "méxico",
+               "argentina", "colombia", " chile", "peru", "ecuador", "latam",
+               "latin america")),
+    ("North America", ("united states", " usa", " u.s.", "canada", "canadian")),
+]
+
+
+def detect_region(text):
+    t = " " + text.lower() + " "
+    for name, kws in REGIONS:
+        if any(k in t for k in kws):
+            return name
+    return "Global/Unknown"
+
+
+def detect_request_type(text):
+    t = text.lower()
+    if "question" in t or t.strip().endswith("?"):
+        return "Question"
+    if re.search(r"\brequest\b|please (change|add|enable|provide|set up|create)", t):
+        return "Request"
+    if re.search(r"\bissue\b|error|fail(ing|ure|ed)?|discrepanc|not (working|captured|tagged|able)|"
+                 r"incorrect|inconsistent|missing|wrong|broken", t):
+        return "Issue"
+    return "Other"
+
+
+def _dt(s):
+    try:
+        return datetime.fromisoformat((s or "").replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def _hours(a, b):
+    if a and b and b >= a:
+        return round((b - a).total_seconds() / 3600.0, 1)
+    return None
+
+
+def sla_times(msgs, status):
+    """initial SLA = open to first human Sprinklr reply (excluding the automated
+    acknowledgement and the nudge). resolution SLA = open to the resolving message."""
+    open_dt = _dt(msgs[0].get("date")) if msgs else None
+    first_human = None
+    for m in msgs:
+        if not is_sprinklr(first_str(m, "sender")):
+            continue
+        b = (m.get("plaintextBody") or m.get("snippet") or "").lower()
+        if "thank you for contacting" in b or "consider this a confirmation" in b \
+                or any(n in b for n in NUDGE):
+            continue  # automated ack / follow-up nudge, not a human response
+        first_human = _dt(m.get("date"))
+        break
+    resolved_dt = _dt(msgs[-1].get("date")) if (status == "Resolved" and msgs) else None
+    return _hours(open_dt, first_human), _hours(open_dt, resolved_dt)
+
+
 def own_text(body):
     b = body or ""
     m = re.search(r"UTC\s", b)
@@ -269,12 +346,18 @@ def classify_case(messages, gmail_link=""):
 
     opened = min_date_iso(bodies) or (msgs[0].get("date", "")[:10])
     last_update = msgs[-1].get("date", "")[:10]
+    initial_sla_hours, resolution_sla_hours = sla_times(msgs, status)
+    text_for_tags = subjects + " " + (bodies[0] if bodies else "")
     return {
         "case_id": ticket,
         "title": clean_title(msgs[0].get("subject", "")),
         "topic": detect_topic(subjects),
+        "request_type": detect_request_type(subjects),
+        "region": detect_region(text_for_tags),
         "priority": detect_priority(subjects),
         "status": status,
+        "initial_sla_hours": initial_sla_hours,
+        "resolution_sla_hours": resolution_sla_hours,
         "owner": owner,
         "agent": agent,
         "opened": opened,

@@ -104,6 +104,10 @@ def run(thread_paths, out="web/tickets.json", base_path="web/tickets.json",
         r["days_open"] = (asof - od).days if od else r.get("days_open", 0)
         r["days_idle"] = (asof - ld).days if ld else r.get("days_idle", 0)
         r.setdefault("source", "Auto")
+        r.setdefault("region", "Global/Unknown")
+        r.setdefault("request_type", "Other")
+        r.setdefault("initial_sla_hours", None)
+        r.setdefault("resolution_sla_hours", None)
         cid = r["case_id"]
         if cid in truth:
             r["status"], r["needs_review"] = truth[cid], False

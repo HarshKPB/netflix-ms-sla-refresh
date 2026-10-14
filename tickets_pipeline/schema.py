@@ -12,6 +12,8 @@ FIELDS = {
     "case_id": str,
     "title": str,
     "topic": str,
+    "request_type": str,
+    "region": str,
     "priority": str,
     "status": str,
     "owner": str,
@@ -30,6 +32,9 @@ FIELDS = {
 STATUSES = {"Awaiting us", "Awaiting Sprinklr", "Resolved"}
 PRIORITIES = {"Urgent", "High", "Normal"}
 SOURCES = {"Auto", "Override"}
+# SLA durations in hours: a number, or None when not yet applicable (no human reply
+# yet, or not resolved). The reporting view treats None as "excluded from the average".
+NULLABLE_HOURS = ("initial_sla_hours", "resolution_sla_hours")
 
 
 def row_errors(r):
@@ -44,6 +49,11 @@ def row_errors(r):
             errs.append(f"'{k}' should be int, got bool")
         elif not isinstance(v, t):
             errs.append(f"'{k}' should be {t.__name__}, got {type(v).__name__}")
+    for k in NULLABLE_HOURS:
+        if k not in r:
+            errs.append(f"missing '{k}'")
+        elif r[k] is not None and not isinstance(r[k], (int, float)) or isinstance(r.get(k), bool):
+            errs.append(f"'{k}' should be number or null")
     if r.get("status") not in STATUSES:
         errs.append(f"status not one of {sorted(STATUSES)}: {r.get('status')!r}")
     if r.get("priority") not in PRIORITIES:
