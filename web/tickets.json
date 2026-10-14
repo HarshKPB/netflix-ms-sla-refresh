@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-14",
-  "generated_at": "2026-10-14 02:38",
+  "generated_at": "2026-10-14 14:14",
   "source": "Gmail: care@prod.sprinklrsupport.com",
   "rows": [
     {
@@ -20,7 +20,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1863221223076537273",
       "evidence": "Re: Netflix - New user welcome email directing users to v3 UI error Hi Marshall, Greetings! I believe this ticket was created to check for incorrect redirection",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4024967",
@@ -39,7 +43,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1864917261188330745",
       "evidence": "Re: Netflix [50754] – Issue: Not able to find \"Platform Emails\" after enabling the Feature Thank you, Marshall. BR, Sateesh",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4025842",
@@ -58,7 +66,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1865071810891141807",
       "evidence": "Sprinklr Support Satisfaction Survey Dear Harsh Khandelwal, We are sending you this survey because you’ve recently engaged with Sprinklr Support Recurring TikTo",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4026658",
@@ -77,7 +89,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1865190163099492670",
       "evidence": "Re: Netflix [50754] – Request: Please change \"email ID\" in 90 day deactivation email Hi Marshall, Thank you for contacting Sprinklr Global Technical Support. Co",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4027896",
@@ -96,7 +112,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1865568721339984252",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4029572",
@@ -115,14 +135,22 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1865821180921248382",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4028992",
       "title": "Inconsistent TikTok Boosted Data",
       "topic": "TikTok",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 142.2,
+      "resolution_sla_hours": 144.5,
       "owner": "francis",
       "agent": "Srishty Priya",
       "opened": "2026-05-24",
@@ -153,7 +181,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1866902813762877608",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4041569",
@@ -172,7 +204,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1867093699723418985",
       "evidence": "Thank you, Durgesh. Upcoming OOO → June 19, July 3-9",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4042062",
@@ -191,7 +227,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1867203125918738428",
       "evidence": "Re: Netflix - Backup Account Authentication Token Export Hi Hoku, Thanks for the confirmation. You'll be receiving a CSAT survey shortly after receiving this me",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4042064",
@@ -210,7 +250,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1867203756150078022",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4042635",
@@ -229,7 +273,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1867453024377365345",
       "evidence": "Re: Netflix - Exposing Email Address in Sprinklr Tasks Hi Francis, Thank you very much for your patience! We would like to inform you that at this time, we do n",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4043818",
@@ -248,7 +296,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1867653218087941550",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4047049",
@@ -267,7 +319,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1868345134253229164",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4049596",
@@ -286,7 +342,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1868900961390186130",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4053658",
@@ -305,7 +365,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1869981121158097967",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4054257",
@@ -324,7 +388,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1870084823603341400",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4054007",
@@ -343,7 +411,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1870055741899219116",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4056314",
@@ -362,7 +434,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1870616492115918904",
       "evidence": "Re: [Urgent] Netflix - X Impressions Not Pulling Hi Francis, Thanks for the update. This was just an intermittent issue where the data was present in the API, a",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4029520",
@@ -381,7 +457,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 91,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4058474",
@@ -400,14 +480,22 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1871009847730494606",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4062751",
       "title": "Posts Showing Different Spend Data by Timzezone",
       "topic": "Paid/Spend",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 27.8,
+      "resolution_sla_hours": 503.7,
       "owner": "francis",
       "agent": "Rekha Kumari",
       "opened": "2026-07-28",
@@ -438,7 +526,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1871937218510152611",
       "evidence": "Re: Netflix - Feature Check Sure, you are welcome Varsha!",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4063021",
@@ -457,7 +549,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1872039507334967044",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4063462",
@@ -476,7 +572,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1872102879269394256",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4063981",
@@ -495,7 +595,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1872205231121122394",
       "evidence": "Re: [Urgent] Netflix | Error Message Shown In Widgets Thank you for the confirmation, Beatriz. We are closing this ticket. Please feel free to reach out to us f",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4064944",
@@ -514,7 +618,11 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1872522741717238935",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4064947",
@@ -533,14 +641,22 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1872523368069352258",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4065648",
       "title": "Campaign go-live notification",
       "topic": "Paid/Spend",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": 135.6,
       "owner": "hoku",
       "agent": "Sateesh Kota",
       "opened": "2026-08-04",
@@ -558,8 +674,12 @@
       "case_id": "4066647",
       "title": "Export Missing Data",
       "topic": "Export",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 26.2,
+      "resolution_sla_hours": 215.0,
       "owner": "francis",
       "agent": "Venu Prasad",
       "opened": "2026-08-06",
@@ -577,8 +697,12 @@
       "case_id": "4067238",
       "title": "Ad Comments Not Captured by Inbound Analytics Widgets",
       "topic": "Reporting",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 91.1,
+      "resolution_sla_hours": 299.0,
       "owner": "hoku",
       "agent": "Junye(Kevin) Xuan",
       "opened": "2026-08-07",
@@ -596,8 +720,12 @@
       "case_id": "4064948",
       "title": "YouTube Masthead Reporting",
       "topic": "YouTube",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 205.6,
+      "resolution_sla_hours": 219.3,
       "owner": "patrick",
       "agent": "Junye(Kevin) Xuan",
       "opened": "2026-08-14",
@@ -615,8 +743,12 @@
       "case_id": "4069066",
       "title": "Global Earned/Owned Dashboard - Social Network Metrics",
       "topic": "Reporting",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": 160.9,
       "owner": "beatriz",
       "agent": "Aruna Kumari",
       "opened": "2026-08-18",
@@ -634,8 +766,12 @@
       "case_id": "4071759",
       "title": "Grapevine Performance Marketing Creative Report Dashboard Error Message",
       "topic": "Reporting",
+      "request_type": "Issue",
+      "region": "North America",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 113.1,
+      "resolution_sla_hours": 113.1,
       "owner": "beatriz",
       "agent": "Prashant Gulia",
       "opened": "2026-08-19",
@@ -653,8 +789,12 @@
       "case_id": "4073352",
       "title": "Analyst Access / Netflix",
       "topic": "Access",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 0.0,
+      "resolution_sla_hours": 47.3,
       "owner": "hoku",
       "agent": "Sateesh Kota",
       "opened": "2026-08-24",
@@ -669,49 +809,38 @@
       "days_idle": 49
     },
     {
-      "case_id": "4073494",
-      "title": "Meta Campaign Spend Discrepancy",
-      "topic": "Meta",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "owner": "patrick",
-      "agent": "Binaya Mund",
-      "opened": "2026-08-25",
-      "last_update": "2026-10-08",
-      "n_msgs": 16,
-      "portal_link": "https://community.sprinklr.com/support/requests/4073494",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874454878048849043",
-      "evidence": "Re: NFLX | Meta Campaign Spend Discrepancy Hi Hoku, We have provided the additional details to the engineering team. We will keep you posted on the update. Best",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 50,
-      "days_idle": 6
-    },
-    {
       "case_id": "4073719",
       "title": "[Netflix] TikTok boosted posts not tagged \"Post Type = Boosted Post\" in Unified Analytics despite being live and linked in Ads Manager",
       "topic": "TikTok",
+      "request_type": "Issue",
+      "region": "EMEA",
       "priority": "Normal",
-      "status": "Awaiting Sprinklr",
+      "status": "Resolved",
+      "initial_sla_hours": 354.2,
+      "resolution_sla_hours": null,
       "owner": "harsh",
-      "agent": "Binaya Mund",
+      "agent": "Venu Prasad",
       "opened": "2026-08-25",
-      "last_update": "2026-10-07",
-      "n_msgs": 18,
+      "last_update": "2026-09-28",
+      "n_msgs": 14,
       "portal_link": "https://community.sprinklr.com/support/requests/4073719",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874491598444050019",
-      "evidence": "Re: [Netflix] TikTok boosted posts not tagged \"Post Type = Boosted Post\" in Unified Analytics despite being live and linked in Ads Manager Hi Harsh, I understan",
+      "evidence": "Re: [Netflix] TikTok boosted posts not tagged \"Post Type = Boosted Post\" in Unified Analytics despite being live and linked in Ads Manager Hi Hoku, Thank you fo",
       "needs_review": false,
-      "source": "Auto",
+      "source": "Override",
       "days_open": 50,
-      "days_idle": 7
+      "days_idle": 16
     },
     {
       "case_id": "4058968",
       "title": "Publishing Failure",
       "topic": "Publishing",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": 41.8,
       "owner": "marshall",
       "agent": "Ramya M",
       "opened": "2026-08-25",
@@ -724,6 +853,29 @@
       "source": "Auto",
       "days_open": 50,
       "days_idle": 47
+    },
+    {
+      "case_id": "4073494",
+      "title": "Meta Campaign Spend Discrepancy",
+      "topic": "Meta",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 179.4,
+      "resolution_sla_hours": null,
+      "owner": "patrick",
+      "agent": "Srishty Priya",
+      "opened": "2026-08-25",
+      "last_update": "2026-09-14",
+      "n_msgs": 10,
+      "portal_link": "https://community.sprinklr.com/support/requests/4073494",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874454878048849043",
+      "evidence": "Re: NFLX | Meta Campaign Spend Discrepancy Hi Patrick, We have a confirmation from the Engineering team that the backfill for the reported ad set is failing, as",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 50,
+      "days_idle": 30
     },
     {
       "case_id": "4074551",
@@ -742,14 +894,22 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874630776830922214",
       "evidence": "Hi Team, Happy Monday! Thank you so much for looking into this, but we can go ahead and close this ticket. Once again, thank you!",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4075070",
       "title": "X/Twitter 4K Video Publishing Failing",
       "topic": "X/Twitter",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Urgent",
       "status": "Resolved",
+      "initial_sla_hours": 68.8,
+      "resolution_sla_hours": 68.8,
       "owner": "marshall",
       "agent": "",
       "opened": "2026-08-27",
@@ -780,26 +940,34 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874720444065507878",
       "evidence": "auto follow-up nudge (case auto-closing)",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4075421",
       "title": "Comments not captured by inbound analytics widgets",
       "topic": "Reporting",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 123.9,
+      "resolution_sla_hours": null,
       "owner": "hoku",
       "agent": "Ishani Chatterjee",
       "opened": "2026-08-28",
-      "last_update": "2026-10-06",
-      "n_msgs": 30,
+      "last_update": "2026-09-24",
+      "n_msgs": 24,
       "portal_link": "https://community.sprinklr.com/support/requests/4075421",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874783133671694730",
-      "evidence": "Thank you for the update, Ishani. If the team can provide additional specificity around the ad configurations do have the specification data nested in the paylo",
+      "evidence": "Re: Netflix - Comments not captured by inbound analytics widgets Hi Hoku, Thank you for pointing this out and sharing the screenshot. We have reached out to our",
       "needs_review": false,
       "source": "Auto",
       "days_open": 47,
-      "days_idle": 8
+      "days_idle": 20
     },
     {
       "case_id": "4075373",
@@ -818,14 +986,22 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874776960121818002",
       "evidence": "Re: Netflix - Reporting tagging issue Hi Varsha, Greetings! I’m not seeing the custom field tagged in the post properties as well. Could you please share how th",
       "needs_review": false,
-      "source": "Auto"
+      "source": "Auto",
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4081045",
       "title": "Urgent: Netflix - Scheduled Post Failure",
       "topic": "Publishing",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Urgent",
       "status": "Resolved",
+      "initial_sla_hours": 1.4,
+      "resolution_sla_hours": 97.4,
       "owner": "francis",
       "agent": "Kunal Sharma",
       "opened": "2026-09-11",
@@ -856,14 +1032,22 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 30,
-      "days_idle": 23
+      "days_idle": 23,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4081307",
       "title": "Data Fetch Issue",
       "topic": "Data quality",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "High",
       "status": "Resolved",
+      "initial_sla_hours": 77.8,
+      "resolution_sla_hours": 77.8,
       "owner": "hoku",
       "agent": "Binaya Mund",
       "opened": "2026-09-16",
@@ -878,30 +1062,15 @@
       "days_idle": 22
     },
     {
-      "case_id": "4083418",
-      "title": "TikTok Reach & Frequency Validation",
-      "topic": "TikTok",
-      "priority": "Normal",
-      "status": "Resolved",
-      "owner": "patrick",
-      "agent": "",
-      "opened": "2026-09-17",
-      "last_update": "2026-10-07",
-      "n_msgs": 9,
-      "portal_link": "https://community.sprinklr.com/support/requests/4083418",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1876621206327321098",
-      "evidence": "Ishani Chatterjee: Thank you for following up. Engineering has confirmed that the data correction for the affected TikTok ad set has been completed, and the rea",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 27,
-      "days_idle": 7
-    },
-    {
       "case_id": "4082820",
       "title": "Netflix [50754] – Question/Issue: Activity Trail has Moderation User \"Sent\" Twice",
       "topic": "Moderation",
+      "request_type": "Question",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
+      "initial_sla_hours": 19.5,
+      "resolution_sla_hours": 26.5,
       "owner": "marshall",
       "agent": "Tejas Bansal",
       "opened": "2026-09-17",
@@ -916,23 +1085,50 @@
       "days_idle": 26
     },
     {
+      "case_id": "4083418",
+      "title": "TikTok Reach & Frequency Validation",
+      "topic": "TikTok",
+      "request_type": "Other",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Resolved",
+      "initial_sla_hours": 138.3,
+      "resolution_sla_hours": 184.6,
+      "owner": "patrick",
+      "agent": "Srishty Priya",
+      "opened": "2026-09-17",
+      "last_update": "2026-09-25",
+      "n_msgs": 7,
+      "portal_link": "https://community.sprinklr.com/support/requests/4083418",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1876621206327321098",
+      "evidence": "Re: Netflix - TikTok Reach & Frequency Validation Hi Patrick, We have an update from our Engineering team. The job has been rerun, and the reach data has now be",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 27,
+      "days_idle": 19
+    },
+    {
       "case_id": "4084857",
       "title": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics",
       "topic": "Analytics",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 26.1,
+      "resolution_sla_hours": null,
       "owner": "harsh",
-      "agent": "Sateesh Kota",
+      "agent": "Vishwajit Kumar",
       "opened": "2026-09-22",
-      "last_update": "2026-10-13",
-      "n_msgs": 35,
+      "last_update": "2026-09-25",
+      "n_msgs": 9,
       "portal_link": "https://community.sprinklr.com/support/requests/4084857",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878321117302451959",
-      "evidence": "Re: Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics Hi Team, We",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1877044251229108367",
+      "evidence": "Hello, I just want to verify, but wasn't this in the write up that Harsh originally sent over with all of his detailed breakdown? Was it cutoff and you need tha",
       "needs_review": false,
       "source": "Auto",
       "days_open": 22,
-      "days_idle": 1
+      "days_idle": 19
     },
     {
       "case_id": "4073958",
@@ -951,7 +1147,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 22,
-      "days_idle": 21
+      "days_idle": 21,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4085088",
@@ -970,26 +1170,34 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 20,
-      "days_idle": 19
+      "days_idle": 19,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4086852",
       "title": "Publishing Verification on Feeds",
       "topic": "Publishing",
+      "request_type": "Other",
+      "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 1.8,
+      "resolution_sla_hours": null,
       "owner": "varsha-a",
-      "agent": "sudhanshu sinha",
+      "agent": "Tejas Bansal",
       "opened": "2026-09-28",
-      "last_update": "2026-10-13",
-      "n_msgs": 17,
+      "last_update": "2026-09-28",
+      "n_msgs": 4,
       "portal_link": "https://community.sprinklr.com/support/requests/4086852",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1877557666966103770",
-      "evidence": "Re: Netflix - Publishing Verification on Feeds Hi Varsha, The issue is still under investigation by our Engineering team, and we are actively following up with ",
+      "evidence": "Re: Netflix - Publishing Verification on Feeds Hi Varsha, Thank you for your patience while we investigated the reported concern. Upon reviewing the behaviour, ",
       "needs_review": false,
       "source": "Override",
       "days_open": 16,
-      "days_idle": 1
+      "days_idle": 16
     },
     {
       "case_id": "4088971",
@@ -1008,7 +1216,11 @@
       "needs_review": true,
       "source": "Auto",
       "days_open": 13,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4089274",
@@ -1027,7 +1239,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 12,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4071815",
@@ -1046,14 +1262,18 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 9,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "thread:1a111a858d9b5a6d",
       "title": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics",
       "topic": "Analytics",
       "priority": "Normal",
-      "status": "Awaiting Sprinklr",
+      "status": "Resolved",
       "owner": "harsh",
       "agent": "",
       "opened": "2026-10-06",
@@ -1062,10 +1282,14 @@
       "portal_link": "",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878311680498948717",
       "evidence": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics Dear Customer, ",
-      "needs_review": true,
-      "source": "Auto",
+      "needs_review": false,
+      "source": "Override",
       "days_open": 8,
-      "days_idle": 8
+      "days_idle": 8,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4090601",
@@ -1084,14 +1308,18 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 8,
-      "days_idle": 7
+      "days_idle": 7,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "thread:1a11231abaed6ef7",
       "title": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics",
       "topic": "Analytics",
       "priority": "Normal",
-      "status": "Awaiting Sprinklr",
+      "status": "Resolved",
       "owner": "harsh",
       "agent": "",
       "opened": "2026-10-06",
@@ -1101,9 +1329,13 @@
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878321117302451959",
       "evidence": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics Dear Customer, ",
       "needs_review": false,
-      "source": "Auto",
+      "source": "Override",
       "days_open": 8,
-      "days_idle": 8
+      "days_idle": 8,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4091322",
@@ -1122,7 +1354,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 7,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4091263",
@@ -1141,7 +1377,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 7,
-      "days_idle": 5
+      "days_idle": 5,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4094304",
@@ -1160,7 +1400,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 1,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4093954",
@@ -1179,7 +1423,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 1,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     },
     {
       "case_id": "4094141",
@@ -1198,7 +1446,11 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 1,
-      "days_idle": 1
+      "days_idle": 1,
+      "region": "Global/Unknown",
+      "request_type": "Other",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": null
     }
   ]
 }

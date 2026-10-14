@@ -117,9 +117,13 @@ def run(thread_paths, out="web/tickets.json", base_path="web/tickets.json",
 
     schema.assert_valid(rows)  # blocks the build if any row breaks the contract
 
-    # regression gate: every locked-truth case must match
+    # regression gate: every locked-truth case must match, EXCEPT cases a human has
+    # since overridden from the tab. An override is the newest human decision and
+    # supersedes the older truth lock, so it is exempt (otherwise a live correction
+    # that disagrees with status_truth.json would fail every build).
     mism = [(k, truth[k], next((r["status"] for r in rows if r["case_id"] == k), "MISSING"))
-            for k in truth if next((r["status"] for r in rows if r["case_id"] == k), "MISSING") != truth[k]]
+            for k in truth if k not in overrides
+            and next((r["status"] for r in rows if r["case_id"] == k), "MISSING") != truth[k]]
     if mism:
         raise ValueError("regression vs status_truth.json: " +
                          "; ".join(f"{k} want {w} got {g}" for k, w, g in mism))
