@@ -228,6 +228,38 @@ def sprinklr_link(case):
     return f"{p.DASHBOARD_URL}?v=%2FSPR_TASK%2F{cid}%2FOVERVIEW" if cid else ""
 
 
+def _canon_assignee(name, email_by_local):
+    """Collapse the many spellings of one person (full name, short handle, email)
+    to a single canonical @premium-blend.com email, so one person is one row in
+    the sheet and the dashboard instead of three. Names with no matching PB email
+    anchor in the data (external Sprinklr/Netflix people) are left unchanged."""
+    a = (name or "").strip()
+    if not a:
+        return a
+    if "@" in a:
+        return a.lower()
+    first = a.split()[0].lower()
+    if first in email_by_local:                 # "harsh" / "Harsh Khandelwal" -> harsh@...
+        return email_by_local[first]
+    pref = [e for lp, e in email_by_local.items() if lp.startswith(first)]
+    if len(pref) == 1:                          # "Varsha" -> varsha-a@... (unique prefix)
+        return pref[0]
+    return a
+
+
+def normalize_assignees(rows):
+    """Two pass: learn every real @premium-blend.com email present, then map each
+    row's assignee (name, handle, or email) to that one canonical form."""
+    email_by_local = {}
+    for r in rows:
+        a = (r.get("assignee") or "").strip()
+        if "@" in a:
+            email_by_local[a.split("@")[0].lower()] = a.lower()
+    for r in rows:
+        r["assignee"] = _canon_assignee(r.get("assignee"), email_by_local)
+    return rows
+
+
 def build_rows(intake, asana, cases):
     rows = []
     for c in cases:
@@ -443,6 +475,7 @@ def main():
     if not rows:
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
+    normalize_assignees(rows)  # one person -> one canonical name, before sheet + data.json
     ss = write_sheet(gc, rows)
 
     now = dt.datetime.now(IST)
