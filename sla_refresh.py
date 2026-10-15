@@ -228,28 +228,57 @@ def sprinklr_link(case):
     return f"{p.DASHBOARD_URL}?v=%2FSPR_TASK%2F{cid}%2FOVERVIEW" if cid else ""
 
 
+# Canonical identity for the PB Netflix team. Every spelling a feed emits (email
+# local-part, short handle, full name) maps to one email, so one person is one row
+# in the sheet and the dashboard. This is authoritative and does not depend on an
+# email for that person being present in a given refresh (the Sprinklr scrape can
+# fail, leaving only full names). Add any new spelling the run's "assignees after
+# normalize" log line shows still split. Keys are lowercased.
+ASSIGNEE_ROSTER = {
+    "harsh": "harsh@premium-blend.com",
+    "harsh khandelwal": "harsh@premium-blend.com",
+    "varsha": "varsha-a@premium-blend.com",
+    "varsha-a": "varsha-a@premium-blend.com",
+    "varsha anjanappa": "varsha-a@premium-blend.com",
+    "beatriz": "beatriz@premium-blend.com",
+    "beatriz carrillo": "beatriz@premium-blend.com",
+    "francis": "francis@premium-blend.com",
+    "francis villavicencio": "francis@premium-blend.com",
+    "hoku": "hoku@premium-blend.com",
+    "hoku costa": "hoku@premium-blend.com",
+    "patrick": "patrick@premium-blend.com",
+    "marshall": "marshall@premium-blend.com",
+    "marshall mitchell": "marshall@premium-blend.com",
+}
+
+
 def _canon_assignee(name, email_by_local):
-    """Collapse the many spellings of one person (full name, short handle, email)
-    to a single canonical @premium-blend.com email, so one person is one row in
-    the sheet and the dashboard instead of three. Names with no matching PB email
-    anchor in the data (external Sprinklr/Netflix people) are left unchanged."""
+    """Map one person's many spellings to a single canonical @premium-blend.com
+    email. Order: the explicit roster (authoritative), then the emails actually
+    present this run (exact local-part, then unique first-name prefix). Names with
+    no match (external Sprinklr/Netflix people) are left unchanged."""
     a = (name or "").strip()
     if not a:
         return a
-    if "@" in a:
-        return a.lower()
-    first = a.split()[0].lower()
-    if first in email_by_local:                 # "harsh" / "Harsh Khandelwal" -> harsh@...
+    key = a.lower()
+    if "@" in key:                                   # email -> roster-canonical, else itself
+        return ASSIGNEE_ROSTER.get(key.split("@")[0], key)
+    if key in ASSIGNEE_ROSTER:                        # full name / handle in roster
+        return ASSIGNEE_ROSTER[key]
+    first = key.split()[0]
+    if first in ASSIGNEE_ROSTER:                      # first token, e.g. "Harsh K" -> harsh@...
+        return ASSIGNEE_ROSTER[first]
+    if first in email_by_local:                       # anchor on an email present this run
         return email_by_local[first]
     pref = [e for lp, e in email_by_local.items() if lp.startswith(first)]
-    if len(pref) == 1:                          # "Varsha" -> varsha-a@... (unique prefix)
+    if len(pref) == 1:
         return pref[0]
     return a
 
 
 def normalize_assignees(rows):
-    """Two pass: learn every real @premium-blend.com email present, then map each
-    row's assignee (name, handle, or email) to that one canonical form."""
+    """Learn every real @premium-blend.com email present, then map each row's
+    assignee (name, handle, or email) to one canonical form via roster + anchors."""
     email_by_local = {}
     for r in rows:
         a = (r.get("assignee") or "").strip()
@@ -476,6 +505,9 @@ def main():
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
     normalize_assignees(rows)  # one person -> one canonical name, before sheet + data.json
+    import collections as _collections
+    _ac = _collections.Counter((r.get("assignee") or "(blank)") for r in rows)
+    print("assignees after normalize:", dict(_ac.most_common()))
     ss = write_sheet(gc, rows)
 
     now = dt.datetime.now(IST)
