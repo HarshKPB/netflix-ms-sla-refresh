@@ -541,6 +541,7 @@ let rRange=0, rDim="region";
 const RDAY=864e5;
 const rRef=()=>TGEN?new Date(TGEN+"T23:59:59"):new Date();
 function fmtH(h){ if(h==null||isNaN(h)) return "–";
+  if(h<1) return Math.round(h*60)+"m";
   if(h<24) return Math.round(h)+"h";
   return Math.floor(h/24)+"d "+Math.round(h%24)+"h"; }
 function mean(a){ return a.length? a.reduce((x,y)=>x+y,0)/a.length : null; }
@@ -672,11 +673,14 @@ const qAck=rows=>rows.map(r=>qHrs(r.SLA_Assignement)).filter(v=>v!=null);
 const qComp=rows=>rows.map(r=>qHrs(r.SLA_completion)).filter(v=>v!=null);
 function qKpis(rows){
   const av=qAck(rows), cv=qComp(rows);
+  const pct = rows.length? Math.round(100*cv.length/rows.length) : 0;
+  // Median is the headline: pickup is usually minutes, but a few stale requests
+  // (one sat weeks) make the mean read in hours/days and misstate the typical case.
   const cards=[
     {n:rows.length,l:"Requests in view"},
-    {n:fmtH(mean(av)),l:"Avg acknowledgement SLA",c:"blue",d:av.length+" measured"},
-    {n:fmtH(mean(cv)),l:"Avg completion SLA",c:"green",d:cv.length+" measured"},
-    {n:fmtH(median(cv)),l:"Median completion SLA",c:"amber",d:"half resolve faster"},
+    {n:fmtH(median(av)),l:"Median acknowledgement SLA",c:"blue",d:"typical pickup, mean "+fmtH(mean(av))},
+    {n:fmtH(median(cv)),l:"Median completion SLA",c:"green",d:"typical finish, mean "+fmtH(mean(cv))},
+    {n:cv.length+"/"+rows.length,l:"Completed",c:"amber",d:pct+"% finished"},
   ];
   document.getElementById("q-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
@@ -687,11 +691,11 @@ function qBreakdown(rows){
   const g={}; rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
     const av=qAck(g[k]), cv=qComp(g[k]);
-    return {k,n:g[k].length,aa:mean(av),na:av.length,ac:mean(cv),nc:cv.length};
+    return {k,n:g[k].length,aa:median(av),na:av.length,ac:median(cv),nc:cv.length};
   }).sort((a,b)=>(b.ac??-1)-(a.ac??-1) || b.n-a.n);
   const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxC=Math.max(1,...groups.map(x=>x.ac||0));
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${qDim==="assignee"?"Assignee":"Source"}</th><th>Requests</th><th>Avg acknowledgement SLA</th><th>Avg completion SLA</th></tr>`;
+    `<tr><th>${qDim==="assignee"?"Assignee":"Source"}</th><th>Requests</th><th>Median acknowledgement SLA</th><th>Median completion SLA</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
     const ab=x.aa==null?'<span class="muted">–</span>':
       `<div class="bar init" style="width:${Math.max(12,100*x.aa/maxA)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.aa)}</b></div>`;
@@ -704,7 +708,7 @@ function qRender(){
   const rows=qCurrent();
   qKpis(rows); qBreakdown(rows);
   document.getElementById("q-foot").textContent=
-    `${rows.length} of ${(DATA||[]).length} requests in view  ·  acknowledgement = time to pick up (SLA_Assignement), completion = time to fulfil (SLA_completion)  ·  requests not yet picked up or not yet finished are excluded from that average, never counted as zero`;
+    `${rows.length} of ${(DATA||[]).length} requests in view  ·  acknowledgement = time to pick up, completion = time to fulfil  ·  shown as the median (typical case); the mean is skewed by a few requests that sat for weeks  ·  requests not yet picked up or not yet finished are excluded, never counted as zero`;
 }
 let qBooted=false;
 function qBoot(){
