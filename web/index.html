@@ -662,8 +662,13 @@ const qRef=()=>GEN?new Date(GEN+"T23:59:59"):new Date();
 function qHrs(s){ const m=(""+(s||"")).match(/(\d+)\s*h\s*(\d+)\s*m/); return m? (+m[1])+(+m[2])/60 : null; }
 function qArr(r){ const s=(r.request_arrival_time||"").slice(0,10); return /^\d{4}-\d{2}-\d{2}$/.test(s)?new Date(s+"T00:00:00"):null; }
 function qInRange(r){ if(!qRange) return true; const d=qArr(r); if(!d) return false; const diff=qRef()-d; return diff>=0 && diff<qRange*QDAY; }
+// PB team only: a normalized assignee is a premium-blend.com email. External names
+// (Sprinklr agents, Netflix people assigned on a case) are not our team, so they are
+// dropped from this report. Blank/unassigned is kept (a pending PB request).
+const isPBqueue=r=>{const a=(r.assignee||"").toLowerCase(); return a==="" || a.endsWith("@premium-blend.com");};
 function qCurrent(){
   return (DATA||[]).filter(r=>{
+    if(!isPBqueue(r)) return false;
     if(!qflt.src.has(r.source)) return false;
     if(qflt.assignee!=="all" && (r.assignee||"Unassigned")!==qflt.assignee) return false;
     return qInRange(r);
@@ -713,7 +718,7 @@ function qRender(){
 let qBooted=false;
 function qBoot(){
   if(qBooted || !(DATA||[]).length) return; qBooted=true;
-  const names=[...new Set(DATA.map(r=>r.assignee||"Unassigned"))].sort();
+  const names=[...new Set(DATA.filter(isPBqueue).map(r=>r.assignee||"Unassigned"))].sort();
   document.getElementById("q-assignee").innerHTML=
     `<option value="all">All</option>`+names.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
   document.getElementById("q-assignee").onchange=e=>{qflt.assignee=e.target.value;qRender();};
