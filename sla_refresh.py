@@ -21,6 +21,10 @@ import sys
 import time
 import logging
 
+# Ensure the repo root (this file's dir) is importable so `from tickets_pipeline
+# import classify` works under Actions (`python sla_refresh.py`) regardless of cwd.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 logging.basicConfig(level=logging.CRITICAL)
 
 import requests
