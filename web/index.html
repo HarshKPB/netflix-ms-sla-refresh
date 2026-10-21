@@ -225,7 +225,7 @@
     <div class="rbhead">
       <span>Break down by</span>
       <span class="seg" id="q-dim">
-        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button>
+        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="region">Region</button><button data-d="request_type">Request type</button><button data-d="data_type">Data type</button>
       </span>
       <span class="spacer"></span>
       <button class="btn" id="q-csv">Export CSV</button>
@@ -683,7 +683,8 @@ function qKpis(rows){
   // (one sat weeks) make the mean read in hours/days and misstate the typical case.
   const cards=[
     {n:rows.length,l:"Requests in view"},
-    {n:fmtH(median(av)),l:"Median acknowledgement SLA",c:"blue",d:"typical pickup, mean "+fmtH(mean(av))},
+    {n:fmtH(median(av)),l:"Median acknowledgement SLA",c:"blue",d:"typical pickup, "+av.length+" measured"},
+    {n:fmtH(mean(av)),l:"Mean acknowledgement SLA",c:"blue",d:"average, skewed by a few stale"},
     {n:fmtH(median(cv)),l:"Median completion SLA",c:"green",d:"typical finish, mean "+fmtH(mean(cv))},
     {n:cv.length+"/"+rows.length,l:"Completed",c:"amber",d:pct+"% finished"},
   ];
@@ -692,7 +693,13 @@ function qKpis(rows){
     (c.d?`<div class="d flat">${c.d}</div>`:"")+`</div>`).join("");
 }
 function qBreakdown(rows){
-  const key=r=> qDim==="assignee" ? (r.assignee||"Unassigned") : (r.source||"?");
+  const key=r=>{
+    if(qDim==="source") return r.source||"?";
+    if(qDim==="region") return r.region||"Global/Unknown";
+    if(qDim==="request_type") return r.request_type||"Other";
+    if(qDim==="data_type") return r.data_type||"Other";
+    return r.assignee||"Unassigned";
+  };
   const g={}; rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
     const av=qAck(g[k]), cv=qComp(g[k]);
@@ -700,7 +707,7 @@ function qBreakdown(rows){
   }).sort((a,b)=>(b.ac??-1)-(a.ac??-1) || b.n-a.n);
   const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxC=Math.max(1,...groups.map(x=>x.ac||0));
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${qDim==="assignee"?"Assignee":"Source"}</th><th>Requests</th><th>Median acknowledgement SLA</th><th>Median completion SLA</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Request type",data_type:"Data type"})[qDim]||qDim}</th><th>Requests</th><th>Median acknowledgement SLA</th><th>Median completion SLA</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
     const ab=x.aa==null?'<span class="muted">–</span>':
       `<div class="bar init" style="width:${Math.max(12,100*x.aa/maxA)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.aa)}</b></div>`;

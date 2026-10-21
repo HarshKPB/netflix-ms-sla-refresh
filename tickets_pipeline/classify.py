@@ -167,14 +167,50 @@ def detect_region(text):
 
 
 def detect_request_type(text):
+    """Request / Issue / Question / Other. Patterns cover both Sprinklr-ticket
+    subjects and Slack request phrasing (the queue is access-request heavy and
+    worded loosely, so access/provisioning and 'can I get' are caught as Request)."""
     t = text.lower()
-    if "question" in t or t.strip().endswith("?"):
-        return "Question"
-    if re.search(r"\brequest\b|please (change|add|enable|provide|set up|create)", t):
+    # access / provisioning / setup: the largest queue category
+    if re.search(r"\baccess\b|\blog ?in\b|\bsign ?in\b|permission|add (me|a |an |user|them|the)|"
+                 r"remove (user|access|me)|\binvite\b|provision|reactivat|deactivat|\bseat\b|"
+                 r"\blicen[sc]e\b|\bsso\b|\bgrant\b|\benable\b|set ?up|activate|onboard", t):
         return "Request"
-    if re.search(r"\bissue\b|error|fail(ing|ure|ed)?|discrepanc|not (working|captured|tagged|able)|"
-                 r"incorrect|inconsistent|missing|wrong|broken", t):
+    if re.search(r"\bissue\b|error|fail(ing|ure|ed)?|discrepanc|not (working|captured|tagged|able|"
+                 r"fetching|showing|pulling|loading|populating)|showing (false|wrong|0)|incorrect|"
+                 r"inconsistent|missing|\bwrong\b|broken|can('?t| ?not) (log|see|access|pull|find)|stuck", t):
         return "Issue"
+    if re.search(r"\brequest\b|please (change|add|enable|provide|set up|create|update|remove|pull)|"
+                 r"\bneed\b|hoping to|would like|requesting|can (i|we|you) (get|have|add|create|pull|set|make)", t):
+        return "Request"
+    if "question" in t or "how do" in t or "how can" in t or "is it possible" in t or t.strip().endswith("?"):
+        return "Question"
+    return "Other"
+
+
+# Data domain of a request (what kind of data/work), distinct from request type
+# (the action). Access/admin first because access requests dominate the queue.
+DATA_TYPES = [
+    ("Access/Admin", ("access", "log in", "login", "sign in", "permission", "role", "user",
+                      "invite", "provision", "reactivat", "deactivat", "seat", "licen",
+                      "sso", "onboard", "account", "add me", "grant")),
+    ("Reporting/Export", ("report", "dashboard", "export", "download", "data pull", "pull the",
+                          "widget", "backfill", "metric", "pull ")),
+    ("Paid/Spend", ("paid", "spend", "spent", "boost", "budget", "ads ", "ad spend",
+                    "campaign", "reach &", "reach and", "r&f", "r & f", "smart+", "initiative",
+                    "cpm", "cpa", "roas")),
+    ("Earned/Listening", ("earned", "listening", "mention", "sentiment", "share of voice",
+                          "benchmark", "competitor", "owned", "brand partner")),
+    ("Organic/Engagement", ("organic", "engagement", "comment", "inbound", "reaction",
+                            "likes", "follower", "moderation", "reply")),
+]
+
+
+def detect_data_type(text):
+    t = " " + text.lower() + " "
+    for name, kws in DATA_TYPES:
+        if any(k in t for k in kws):
+            return name
     return "Other"
 
 

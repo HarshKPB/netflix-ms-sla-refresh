@@ -505,9 +505,21 @@ def main():
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
     normalize_assignees(rows)  # one person -> one canonical name, before sheet + data.json
+    # Derive the reporting dimensions from the request text, using the one shared
+    # classifier (rules live in tickets_pipeline.classify, never duplicated here or
+    # in the page). These go to data.json only, not the sheet (not in HEADERS).
+    from tickets_pipeline import classify as _cl
+    for r in rows:
+        tn = r.get("task_name") or ""
+        r["region"] = _cl.detect_region(tn)
+        r["request_type"] = _cl.detect_request_type(tn)
+        r["data_type"] = _cl.detect_data_type(tn)
     import collections as _collections
-    _ac = _collections.Counter((r.get("assignee") or "(blank)") for r in rows)
-    print("assignees after normalize:", dict(_ac.most_common()))
+    print("assignees after normalize:",
+          dict(_collections.Counter((r.get("assignee") or "(blank)") for r in rows).most_common()))
+    print("queue request_type:", dict(_collections.Counter(r["request_type"] for r in rows).most_common()))
+    print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
+    print("queue region:", dict(_collections.Counter(r["region"] for r in rows).most_common()))
     ss = write_sheet(gc, rows)
 
     now = dt.datetime.now(IST)
@@ -522,7 +534,9 @@ def main():
                    "generated_at": run_at,
                    "headers": HEADERS,
                    "history": history,
-                   "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", "")} for r in rows]}
+                   "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),
+                             "region": r.get("region", ""), "request_type": r.get("request_type", ""),
+                             "data_type": r.get("data_type", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
         print(f"wrote {web_dir}/data.json ({len(history)} history rows)")
