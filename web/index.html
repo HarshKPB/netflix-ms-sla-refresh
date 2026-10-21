@@ -53,6 +53,7 @@
   .bar{position:relative;background:var(--line);border-radius:5px;height:18px;min-width:40px;overflow:hidden}
   .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;opacity:.85}
   .bar.init .fill{background:var(--blue)}
+  .bar.first .fill{background:var(--amber)}
   .bar.reso .fill{background:var(--green)}
   .bar b{position:relative;z-index:1;font-size:11px;font-weight:700;padding:0 6px;line-height:18px;color:var(--txt);white-space:nowrap}
   input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--txt);
@@ -682,18 +683,20 @@ function qCurrent(){
   });
 }
 const qAck=rows=>rows.map(r=>qHrs(r.SLA_Assignement)).filter(v=>v!=null);
+const qFirst=rows=>rows.map(r=>qHrs(r.first_response_sla)).filter(v=>v!=null);
 const qComp=rows=>rows.map(r=>qHrs(r.SLA_completion)).filter(v=>v!=null);
 function qKpis(rows){
-  const av=qAck(rows), cv=qComp(rows);
-  const pct = rows.length? Math.round(100*cv.length/rows.length) : 0;
-  // Median is the headline: pickup is usually minutes, but a few stale requests
-  // (one sat weeks) make the mean read in hours/days and misstate the typical case.
+  const av=qAck(rows), fv=qFirst(rows), cv=qComp(rows);
+  // Emoji ack = time to pick up (claim the request). First response = time to the
+  // first human reply in the thread. Median is the headline (a few stale requests
+  // blow up the mean); mean is shown too, as Hoku asked.
   const cards=[
     {n:rows.length,l:"Requests in view"},
-    {n:fmtH(median(av)),l:"Median acknowledgement SLA",c:"blue",d:"typical pickup, "+av.length+" measured"},
-    {n:fmtH(mean(av)),l:"Mean acknowledgement SLA",c:"blue",d:"average, skewed by a few stale"},
+    {n:fmtH(median(av)),l:"Median emoji ack SLA",c:"blue",d:"picked up, "+av.length+" measured"},
+    {n:fmtH(mean(av)),l:"Mean emoji ack SLA",c:"blue",d:"average, skewed by a few stale"},
+    {n:fmtH(median(fv)),l:"Median first response SLA",c:"amber",d:"first human reply, "+fv.length+" measured"},
+    {n:fmtH(mean(fv)),l:"Mean first response SLA",c:"amber",d:"average"},
     {n:fmtH(median(cv)),l:"Median completion SLA",c:"green",d:"typical finish, mean "+fmtH(mean(cv))},
-    {n:cv.length+"/"+rows.length,l:"Completed",c:"amber",d:pct+"% finished"},
   ];
   document.getElementById("q-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
@@ -709,19 +712,18 @@ function qBreakdown(rows){
   };
   const g={}; rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
-    const av=qAck(g[k]), cv=qComp(g[k]);
-    return {k,n:g[k].length,aa:median(av),na:av.length,ac:median(cv),nc:cv.length};
+    const av=qAck(g[k]), fv=qFirst(g[k]), cv=qComp(g[k]);
+    return {k,n:g[k].length,aa:median(av),af:median(fv),ac:median(cv)};
   }).sort((a,b)=>(b.ac??-1)-(a.ac??-1) || b.n-a.n);
-  const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxC=Math.max(1,...groups.map(x=>x.ac||0));
+  const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxF=Math.max(1,...groups.map(x=>x.af||0)),
+        maxC=Math.max(1,...groups.map(x=>x.ac||0));
+  const bar=(v,max,cls)=> v==null?'<span class="muted">–</span>':
+    `<div class="bar ${cls}" style="width:${Math.max(12,100*v/max)}%"><span class="fill" style="width:100%"></span><b>${fmtH(v)}</b></div>`;
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Request type",data_type:"Data type"})[qDim]||qDim}</th><th>Requests</th><th>Median acknowledgement SLA</th><th>Median completion SLA</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Request type",data_type:"Data type"})[qDim]||qDim}</th><th>Requests</th><th>Median emoji ack</th><th>Median first response</th><th>Median completion</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
-    const ab=x.aa==null?'<span class="muted">–</span>':
-      `<div class="bar init" style="width:${Math.max(12,100*x.aa/maxA)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.aa)}</b></div>`;
-    const cb=x.ac==null?'<span class="muted">–</span>':
-      `<div class="bar reso" style="width:${Math.max(12,100*x.ac/maxC)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.ac)}</b></div>`;
-    return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${ab}</td><td>${cb}</td></tr>`;
-  }).join("") || `<tr><td colspan="4" class="muted">No requests match these filters.</td></tr>`;
+    return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${bar(x.aa,maxA,"init")}</td><td>${bar(x.af,maxF,"first")}</td><td>${bar(x.ac,maxC,"reso")}</td></tr>`;
+  }).join("") || `<tr><td colspan="5" class="muted">No requests match these filters.</td></tr>`;
 }
 function qRender(){
   const rows=qCurrent();
