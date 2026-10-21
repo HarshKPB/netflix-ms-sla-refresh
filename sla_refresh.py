@@ -188,6 +188,7 @@ def load_intake(gc):
     ts_c = col("message ts")
     re_c = col("reactor (slack)")
     ch_c = col("channel id")
+    fr_c = col("first pb reply ts")   # stamped by the Ticket Bot, raw Slack ts / "none" / blank
     from_url = re.compile(r"/task/(\d{6,})")
     slack_ts = re.compile(r"^\d{10}(\.\d+)?$")
     out = {}
@@ -207,7 +208,7 @@ def load_intake(gc):
         if not gid:
             continue
         out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c),
-                    "channel": cell(ch_c), "ts": raw}
+                    "channel": cell(ch_c), "ts": raw, "first_reply": cell(fr_c)}
     return out
 
 
@@ -329,6 +330,14 @@ def build_rows(intake, asana, cases):
         arr = info["ms"] if info else None
         asg = (t["assignee"]["name"] if (t.get("assignee") and t["assignee"].get("name"))
                else (info["reactor"] if info and info.get("reactor") else ""))
+        # first human response = Ticket Bot's "First PB Reply TS" (raw Slack ts) minus arrival
+        fr = (info or {}).get("first_reply", "")
+        first_resp = ""
+        if fr and fr.strip().lower() != "none":
+            try:
+                first_resp = hm(arr, float(fr) * 1000)
+            except Exception:
+                first_resp = ""
         rows.append({
             "source": s, "task_name": t["name"], "assignee": asg,
             "request_arrival_time": ms_to_ist(arr),
@@ -336,91 +345,14 @@ def build_rows(intake, asana, cases):
             "SLA_Assignement": hm(arr, created),
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
+            "first_response_sla": first_resp,
             "link": slack_link(info),
             "_s": int(created) if created else 0,
-            # carried for the first-response fetch; stripped before data.json / sheet
-            "_channel": (info or {}).get("channel", ""),
-            "_ts": (info or {}).get("ts", ""),
         })
     rows.sort(key=lambda r: r["_s"], reverse=True)
     for r in rows:
         del r["_s"]
     return rows
-
-
-def _slack_get(method, params, token, _tries=5):
-    """GET a Slack Web API method, honoring rate limits (HTTP 429 / 'ratelimited')
-    so a burst of conversations.replies calls completes instead of silently dropping
-    rows. Returns the parsed JSON, or {ok:false} after exhausting retries."""
-    for _ in range(_tries):
-        r = requests.get("https://slack.com/api/" + method, params=params,
-                         headers={"Authorization": "Bearer " + token}, timeout=30)
-        if r.status_code == 429:
-            time.sleep(int(r.headers.get("Retry-After", "3")) + 1)
-            continue
-        j = r.json()
-        if j.get("error") == "ratelimited":
-            time.sleep(3)
-            continue
-        return j
-    return {"ok": False, "error": "ratelimited"}
-
-
-def add_first_response(rows):
-    """For each Slack request, find the first reply from a Premium Blend team member
-    in the thread (the first human response, after the auto-ack bot and the requester)
-    and record first_response_sla = arrival -> that reply. Uses the Ticket Bot token
-    (SLACK_BOT_TOKEN) and the same roster that normalizes assignees to decide who is PB
-    (the bot has users:read but not email, so we match the Slack real_name via the
-    roster). Degrades to blank, returning False, when the token is missing or the API
-    errors, so a dead token does not take down the build."""
-    token = os.environ.get("SLACK_BOT_TOKEN")
-    if not token:
-        print("SLACK_BOT_TOKEN not set; skipping first-response SLA")
-        return False
-    user_is_pb = {}
-
-    def is_pb(uid):
-        if uid in user_is_pb:
-            return user_is_pb[uid]
-        pb = False
-        try:
-            prof = (_slack_get("users.info", {"user": uid}, token).get("user") or {})
-            name = prof.get("real_name") or prof.get("name") or ""
-            pb = _canon_assignee(name, {}).lower().endswith("@premium-blend.com")
-        except Exception:
-            pb = False
-        user_is_pb[uid] = pb
-        return pb
-
-    import collections as _c
-    ok_any, n = False, 0
-    chan_ok, chan_bad = _c.Counter(), _c.Counter()
-    for r in rows:
-        if r.get("source") != "Slack":
-            continue
-        ch, ts = r.get("_channel"), r.get("_ts")
-        if not ch or not ts:
-            continue
-        res = _slack_get("conversations.replies",
-                         {"channel": ch, "ts": ts, "limit": 50}, token)
-        if not res.get("ok"):
-            chan_bad[(ch, res.get("error"))] += 1
-            continue
-        ok_any = True
-        chan_ok[ch] += 1
-        for m in res.get("messages", [])[1:]:          # skip the parent (the request)
-            if m.get("bot_id") or m.get("subtype"):     # skip the auto-ack bot + system msgs
-                continue
-            uid = m.get("user")
-            if uid and is_pb(uid):
-                r["first_response_sla"] = hm(float(ts) * 1000, float(m["ts"]) * 1000)
-                n += 1
-                break
-    print(f"first-response SLA: filled={n}")
-    print("  channels OK:", dict(chan_ok.most_common(10)))
-    print("  channels FAIL:", dict(chan_bad.most_common(10)))
-    return ok_any
 
 
 def write_sheet(gc, rows):
@@ -604,7 +536,9 @@ def main():
     print("queue request_type:", dict(_collections.Counter(r["request_type"] for r in rows).most_common()))
     print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
     print("queue region:", dict(_collections.Counter(r["region"] for r in rows).most_common()))
-    slack_ok = add_first_response(rows)  # first human reply per Slack request, via the Ticket Bot token
+    print("first-response: filled",
+          sum(1 for r in rows if r.get("first_response_sla")), "of",
+          sum(1 for r in rows if r.get("source") == "Slack"), "Slack rows (from intake col U)")
     ss = write_sheet(gc, rows)
 
     now = dt.datetime.now(IST)
@@ -618,7 +552,6 @@ def main():
         payload = {"generated": now.strftime("%Y-%m-%d"),
                    "generated_at": run_at,
                    "sprinklr_ok": sprinklr_ok,
-                   "slack_ok": slack_ok,
                    "headers": HEADERS,
                    "history": history,
                    "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),

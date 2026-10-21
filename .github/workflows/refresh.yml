@@ -20,7 +20,7 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -47,7 +47,6 @@ jobs:
           SLA_SHEET_ID: ${{ secrets.SLA_SHEET_ID }}
           INTAKE_SHEET_ID: ${{ secrets.INTAKE_SHEET_ID }}
           SLACK_WORKSPACE: ${{ secrets.SLACK_WORKSPACE }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           WEB_DATA_DIR: web
         run: python sla_refresh.py
 
