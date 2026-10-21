@@ -394,30 +394,44 @@ def add_first_response(rows):
         return pb
 
     ok_any, n = False, 0
+    c_slack = c_chts = c_ok = c_replies = c_pb = c_err = 0
+    err_sample = []
     for r in rows:
         if r.get("source") != "Slack":
             continue
+        c_slack += 1
         ch, ts = r.get("_channel"), r.get("_ts")
         if not ch or not ts:
             continue
+        c_chts += 1
         try:
             res = _slack_get("conversations.replies",
                              {"channel": ch, "ts": ts, "limit": 50}, token)
         except Exception:
+            c_err += 1
             continue
         if not res.get("ok"):
+            c_err += 1
+            if len(err_sample) < 3:
+                err_sample.append(res.get("error"))
             continue
         ok_any = True
-        for m in res.get("messages", [])[1:]:          # skip the parent (the request)
+        c_ok += 1
+        msgs = res.get("messages", [])
+        if len(msgs) > 1:
+            c_replies += 1
+        for m in msgs[1:]:                              # skip the parent (the request)
             if m.get("bot_id") or m.get("subtype"):     # skip the auto-ack bot + system msgs
                 continue
             uid = m.get("user")
             if uid and is_pb(uid):
                 r["first_response_sla"] = hm(float(ts) * 1000, float(m["ts"]) * 1000)
                 n += 1
+                c_pb += 1
                 break
-    print(f"first-response SLA: ok={ok_any}, filled {n} of "
-          f"{sum(1 for r in rows if r.get('source') == 'Slack')} Slack rows")
+    print(f"first-response SLA: slack_rows={c_slack} with_channel_ts={c_chts} "
+          f"replies_ok={c_ok} had_replies={c_replies} pb_reply={c_pb} "
+          f"api_errors={c_err} err_sample={err_sample} filled={n}")
     return ok_any
 
 
