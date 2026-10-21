@@ -687,16 +687,13 @@ const qFirst=rows=>rows.map(r=>qHrs(r.first_response_sla)).filter(v=>v!=null);
 const qComp=rows=>rows.map(r=>qHrs(r.SLA_completion)).filter(v=>v!=null);
 function qKpis(rows){
   const av=qAck(rows), fv=qFirst(rows), cv=qComp(rows);
-  // Emoji ack = time to pick up (claim the request). First response = time to the
-  // first human reply in the thread. Median is the headline (a few stale requests
-  // blow up the mean); mean is shown too, as Hoku asked.
+  // Three stages of a request: emoji ack (picked up) -> first human response ->
+  // completion. One card each: big number is the median, mean + count underneath.
   const cards=[
     {n:rows.length,l:"Requests in view"},
-    {n:fmtH(median(av)),l:"Median emoji ack SLA",c:"blue",d:"picked up, "+av.length+" measured"},
-    {n:fmtH(mean(av)),l:"Mean emoji ack SLA",c:"blue",d:"average, skewed by a few stale"},
-    {n:fmtH(median(fv)),l:"Median first response SLA",c:"amber",d:"first human reply, "+fv.length+" measured"},
-    {n:fmtH(mean(fv)),l:"Mean first response SLA",c:"amber",d:"average"},
-    {n:fmtH(median(cv)),l:"Median completion SLA",c:"green",d:"typical finish, mean "+fmtH(mean(cv))},
+    {n:fmtH(median(av)),l:"Emoji ack",c:"blue",d:"mean "+fmtH(mean(av))+", n "+av.length},
+    {n:fmtH(median(fv)),l:"First response",c:"amber",d:"mean "+fmtH(mean(fv))+", n "+fv.length},
+    {n:fmtH(median(cv)),l:"Completion",c:"green",d:"mean "+fmtH(mean(cv))+", n "+cv.length},
   ];
   document.getElementById("q-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
@@ -720,7 +717,7 @@ function qBreakdown(rows){
   const bar=(v,max,cls)=> v==null?'<span class="muted">–</span>':
     `<div class="bar ${cls}" style="width:${Math.max(12,100*v/max)}%"><span class="fill" style="width:100%"></span><b>${fmtH(v)}</b></div>`;
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Request type",data_type:"Data type"})[qDim]||qDim}</th><th>Requests</th><th>Median emoji ack</th><th>Median first response</th><th>Median completion</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Request type",data_type:"Data type"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
     return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${bar(x.aa,maxA,"init")}</td><td>${bar(x.af,maxF,"first")}</td><td>${bar(x.ac,maxC,"reso")}</td></tr>`;
   }).join("") || `<tr><td colspan="5" class="muted">No requests match these filters.</td></tr>`;
@@ -729,7 +726,7 @@ function qRender(){
   const rows=qCurrent();
   qKpis(rows); qBreakdown(rows);
   document.getElementById("q-foot").textContent=
-    `${rows.length} of ${(DATA||[]).length} requests in view  ·  acknowledgement = time to pick up, completion = time to fulfil  ·  shown as the median (typical case); the mean is skewed by a few requests that sat for weeks  ·  requests not yet picked up or not yet finished are excluded, never counted as zero`;
+    `${rows.length} of ${(DATA||[]).length} requests in view  ·  emoji ack = time to pick up, first response = first human reply, completion = time to fulfil  ·  numbers are medians (n = how many had that stage); blanks are excluded, never counted as zero`;
 }
 let qBooted=false;
 function qBoot(){
