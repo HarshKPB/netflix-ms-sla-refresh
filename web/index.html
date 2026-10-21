@@ -21,6 +21,8 @@
   h1{font-size:19px;margin:0;font-weight:700;letter-spacing:.2px}
   header .sub{color:var(--dim);font-size:12px;margin-left:auto;text-align:right}
   .wrap{padding:20px 28px;max-width:1400px;margin:0 auto}
+  #sprk-banner{background:var(--amber-dim,#3a2a0a);border:1px solid var(--amber,#e0a000);color:#ffe3a3;
+    padding:10px 16px;margin:0 0 2px;font-size:13px;font-weight:600;text-align:center}
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
   .kpi .n{font-size:26px;font-weight:700}
@@ -127,6 +129,7 @@
   <h1>Netflix MS SLA Tracker</h1>
   <div class="sub" id="gen"></div>
 </header>
+<div id="sprk-banner" hidden>Sprinklr feed is not refreshing (session expired upstream), so this shows Slack requests only right now. Sprinklr-sourced requests will return once the session is re-minted.</div>
 <nav class="tabs">
   <button class="tabbtn on" data-view="sla">SLA Queue</button>
   <button class="tabbtn" data-view="tickets">Sprinklr Support Tickets</button>
@@ -382,6 +385,10 @@ fetch("data.json").then(r=>r.json()).then(j=>{
   DATA=j.rows; GEN=j.generated||"";
   const when=j.generated_at||j.generated||"";
   document.getElementById("gen").textContent = "Updated "+when+" IST  ·  auto-refreshed every 6h";
+  // Sprinklr feed health: the pipeline sets sprinklr_ok=false when the Sprinklr scrape
+  // failed (expired session). Surface it so a Slack-only dashboard is not mistaken for reality.
+  const sprkDown = j.sprinklr_ok===false || !(DATA||[]).some(r=>r.source==="Sprinklr");
+  document.getElementById("sprk-banner").hidden = !sprkDown;
   render(); qBoot();
 }).catch(e=>{document.getElementById("body").innerHTML=`<tr><td colspan="8">Could not load data.json: ${e}</td></tr>`;});
 

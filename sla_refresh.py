@@ -499,11 +499,13 @@ def main():
     # A dead Sprinklr session must not take down the whole refresh. If the scrape
     # fails, keep going with Slack + Asana rows so the sheet and dashboard stay
     # current; the Sprinklr rows just go stale until the session is refreshed.
+    sprinklr_ok = True
     try:
         cases = p.fetch_cases_from_dashboard()
     except Exception as e:
         print(f"WARNING: Sprinklr scrape failed ({e}); building without Sprinklr rows")
         cases = []
+        sprinklr_ok = False
     rows = build_rows(intake, asana, cases)
     if not rows:
         print("no rows built, refusing to overwrite the sheet")
@@ -536,6 +538,7 @@ def main():
         os.makedirs(web_dir, exist_ok=True)
         payload = {"generated": now.strftime("%Y-%m-%d"),
                    "generated_at": run_at,
+                   "sprinklr_ok": sprinklr_ok,
                    "headers": HEADERS,
                    "history": history,
                    "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),
