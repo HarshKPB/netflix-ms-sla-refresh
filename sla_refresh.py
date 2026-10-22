@@ -133,37 +133,15 @@ def fetch_asana():
         out += j["data"]
         off = (j.get("next_page") or {}).get("offset")
         if not off:
-            _asana_metadata_probe(out)
             return out
 
 
-def _asana_metadata_probe(tasks):
-    """One-time look at what Asana actually carries, so region/type/priority can be
-    sourced from real fields instead of guessed from text. Logs the custom-field
-    names present and a couple of example tasks with their tags/section/fields."""
-    import collections as _c
-    cf_names = _c.Counter()
-    tag_names = _c.Counter()
-    sec_names = _c.Counter()
-    for t in tasks:
-        for cf in (t.get("custom_fields") or []):
-            if cf.get("display_value") not in (None, ""):
-                cf_names[cf.get("name")] += 1
-        for tg in (t.get("tags") or []):
-            tag_names[tg.get("name")] += 1
-        for m in (t.get("memberships") or []):
-            s = (m.get("section") or {}).get("name")
-            if s:
-                sec_names[s] += 1
-    print("ASANA custom fields (name: tasks with a value):", dict(cf_names.most_common(20)))
-    print("ASANA tags:", dict(tag_names.most_common(20)))
-    print("ASANA sections:", dict(sec_names.most_common(20)))
-    for t in tasks[:2]:
-        print("  sample task:", (t.get("name") or "")[:50],
-              "| fields:", {cf.get("name"): cf.get("display_value")
-                            for cf in (t.get("custom_fields") or []) if cf.get("display_value")},
-              "| tags:", [tg.get("name") for tg in (t.get("tags") or [])],
-              "| section:", [(m.get("section") or {}).get("name") for m in (t.get("memberships") or [])])
+def asana_cf(task, name):
+    """Return an Asana task's custom-field display_value by field name, or ''."""
+    for cf in (task.get("custom_fields") or []):
+        if cf.get("name") == name:
+            return (cf.get("display_value") or "").strip()
+    return ""
 
 
 _GS_TRANSIENT = {429, 500, 502, 503, 504}
@@ -378,6 +356,12 @@ def build_rows(intake, asana, cases):
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
             "first_response_sla": first_resp,
+            # metadata straight from the Asana custom fields (the triaged truth),
+            # not guessed from the request text
+            "region": asana_cf(t, "Region"),
+            "request_type": asana_cf(t, "Category"),
+            "data_type": asana_cf(t, "Data Type"),
+            "priority": asana_cf(t, "Priority"),
             "link": slack_link(info),
             "_s": int(created) if created else 0,
         })
@@ -554,20 +538,22 @@ def main():
         sys.exit(1)
     normalize_assignees(rows)  # one person -> one canonical name, before sheet + data.json
     # Derive the reporting dimensions from the request text, using the one shared
-    # classifier (rules live in tickets_pipeline.classify, never duplicated here or
-    # in the page). These go to data.json only, not the sheet (not in HEADERS).
-    from tickets_pipeline import classify as _cl
+    # Reporting dimensions come straight from the Asana custom fields set in build_rows
+    # (Region / Category / Data Type / Priority). Rows with no Asana value (Sprinklr-source
+    # rows, or tasks not yet triaged in Asana) fall back to a neutral default, so the
+    # buckets stay one consistent Netflix taxonomy instead of mixing in text guesses.
     for r in rows:
-        tn = r.get("task_name") or ""
-        r["region"] = _cl.detect_region(tn)
-        r["request_type"] = _cl.detect_request_type(tn)
-        r["data_type"] = _cl.detect_data_type(tn)
+        r["region"] = r.get("region") or "Unknown"
+        r["request_type"] = r.get("request_type") or "Uncategorized"
+        r["data_type"] = r.get("data_type") or "Unknown"
+        r["priority"] = r.get("priority") or "Normal"
     import collections as _collections
     print("assignees after normalize:",
           dict(_collections.Counter((r.get("assignee") or "(blank)") for r in rows).most_common()))
-    print("queue request_type:", dict(_collections.Counter(r["request_type"] for r in rows).most_common()))
-    print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
     print("queue region:", dict(_collections.Counter(r["region"] for r in rows).most_common()))
+    print("queue request_type (Asana Category):", dict(_collections.Counter(r["request_type"] for r in rows).most_common(12)))
+    print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
+    print("queue priority:", dict(_collections.Counter(r["priority"] for r in rows).most_common()))
     print("first-response: filled",
           sum(1 for r in rows if r.get("first_response_sla")), "of",
           sum(1 for r in rows if r.get("source") == "Slack"), "Slack rows (from intake col U)")
@@ -588,7 +574,7 @@ def main():
                    "history": history,
                    "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),
                              "region": r.get("region", ""), "request_type": r.get("request_type", ""),
-                             "data_type": r.get("data_type", ""),
+                             "data_type": r.get("data_type", ""), "priority": r.get("priority", ""),
                              "first_response_sla": r.get("first_response_sla", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
