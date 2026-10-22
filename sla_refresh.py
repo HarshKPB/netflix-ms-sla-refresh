@@ -122,7 +122,9 @@ def fetch_asana():
     out, off = [], None
     while True:
         q = {"project": NETFLIX_PROJECT, "limit": 100,
-             "opt_fields": "name,created_at,completed,completed_at,assignee.name"}
+             "opt_fields": ("name,created_at,completed,completed_at,assignee.name,"
+                            "tags.name,memberships.section.name,"
+                            "custom_fields.name,custom_fields.display_value")}
         if off:
             q["offset"] = off
         r = requests.get(f"{ASANA_BASE}/tasks", headers=H, params=q, timeout=60)
@@ -131,7 +133,37 @@ def fetch_asana():
         out += j["data"]
         off = (j.get("next_page") or {}).get("offset")
         if not off:
+            _asana_metadata_probe(out)
             return out
+
+
+def _asana_metadata_probe(tasks):
+    """One-time look at what Asana actually carries, so region/type/priority can be
+    sourced from real fields instead of guessed from text. Logs the custom-field
+    names present and a couple of example tasks with their tags/section/fields."""
+    import collections as _c
+    cf_names = _c.Counter()
+    tag_names = _c.Counter()
+    sec_names = _c.Counter()
+    for t in tasks:
+        for cf in (t.get("custom_fields") or []):
+            if cf.get("display_value") not in (None, ""):
+                cf_names[cf.get("name")] += 1
+        for tg in (t.get("tags") or []):
+            tag_names[tg.get("name")] += 1
+        for m in (t.get("memberships") or []):
+            s = (m.get("section") or {}).get("name")
+            if s:
+                sec_names[s] += 1
+    print("ASANA custom fields (name: tasks with a value):", dict(cf_names.most_common(20)))
+    print("ASANA tags:", dict(tag_names.most_common(20)))
+    print("ASANA sections:", dict(sec_names.most_common(20)))
+    for t in tasks[:2]:
+        print("  sample task:", (t.get("name") or "")[:50],
+              "| fields:", {cf.get("name"): cf.get("display_value")
+                            for cf in (t.get("custom_fields") or []) if cf.get("display_value")},
+              "| tags:", [tg.get("name") for tg in (t.get("tags") or [])],
+              "| section:", [(m.get("section") or {}).get("name") for m in (t.get("memberships") or [])])
 
 
 _GS_TRANSIENT = {429, 500, 502, 503, 504}
