@@ -576,11 +576,11 @@ const resoVals=rows=>rows.map(r=>r.resolution_sla_hours).filter(v=>v!=null);
 
 function rKpis(rows){
   const iv=initVals(rows), rv=resoVals(rows);
+  // Median is the headline (a few long tickets skew the mean); mean shown underneath.
   const cards=[
     {n:rows.length,l:"Cases in view"},
-    {n:fmtH(mean(iv)),l:"Avg initial SLA",c:"blue",d:iv.length+" measured"},
-    {n:fmtH(mean(rv)),l:"Avg resolution SLA",c:"green",d:rv.length+" measured"},
-    {n:fmtH(median(rv)),l:"Median resolution SLA",c:"amber",d:"half resolve faster"},
+    {n:fmtH(median(iv)),l:"Initial SLA",c:"blue",d:"mean "+fmtH(mean(iv))+", n "+iv.length},
+    {n:fmtH(median(rv)),l:"Resolution SLA",c:"green",d:"mean "+fmtH(mean(rv))+", n "+rv.length},
   ];
   document.getElementById("r-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
@@ -598,11 +598,11 @@ function rBreakdown(rows){
   rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
     const iv=initVals(g[k]), rv=resoVals(g[k]);
-    return {k,n:g[k].length,ai:mean(iv),ni:iv.length,ar:mean(rv),nr:rv.length};
+    return {k,n:g[k].length,ai:median(iv),ni:iv.length,ar:median(rv),nr:rv.length};
   }).sort((a,b)=>(b.ar??-1)-(a.ar??-1) || b.n-a.n);
   const maxI=Math.max(1,...groups.map(x=>x.ai||0)), maxR=Math.max(1,...groups.map(x=>x.ar||0));
   document.getElementById("r-bhead").innerHTML=
-    `<tr><th>${DIM_LABEL[rDim]}</th><th>Cases</th><th>Avg initial SLA</th><th>Avg resolution SLA</th></tr>`;
+    `<tr><th>${DIM_LABEL[rDim]}</th><th>Cases</th><th>Initial SLA</th><th>Resolution SLA</th></tr>`;
   document.getElementById("r-bbody").innerHTML=groups.map(x=>{
     const ib=x.ai==null?'<span class="muted">–</span>':
       `<div class="bar init" style="width:${Math.max(12,100*x.ai/maxI)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.ai)}</b></div>`;
@@ -615,7 +615,7 @@ function rRender(){
   const rows=rCurrent();
   rKpis(rows); rBreakdown(rows);
   document.getElementById("r-foot").textContent=
-    `${rows.length} of ${TDATA.length} cases in view  ·  SLA counts business + calendar hours from the email timeline  ·  cases with no human reply yet (initial) or not resolved (resolution) are excluded from the average, never counted as zero`;
+    `${rows.length} of ${TDATA.length} cases in view  ·  numbers are medians (mean shown on each card, n = measured)  ·  cases with no human reply yet (initial) or not resolved (resolution) are excluded, never counted as zero`;
 }
 function rFill(id,field,def){
   const vals=[...new Set(TDATA.map(r=>r[field]||def))].sort();
