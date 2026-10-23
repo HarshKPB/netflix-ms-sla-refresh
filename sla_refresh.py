@@ -199,6 +199,8 @@ def load_intake(gc):
     re_c = col("reactor (slack)")
     ch_c = col("channel id")
     fr_c = col("first pb reply ts")   # stamped by the Ticket Bot, raw Slack ts / "none" / blank
+    rg_c = col("requester region")    # bot-resolved region of the person who raised the request
+    co_c = col("requester country")
     from_url = re.compile(r"/task/(\d{6,})")
     slack_ts = re.compile(r"^\d{10}(\.\d+)?$")
     out = {}
@@ -218,7 +220,8 @@ def load_intake(gc):
         if not gid:
             continue
         out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c),
-                    "channel": cell(ch_c), "ts": raw, "first_reply": cell(fr_c)}
+                    "channel": cell(ch_c), "ts": raw, "first_reply": cell(fr_c),
+                    "region": cell(rg_c), "country": cell(co_c)}
     return out
 
 
@@ -356,9 +359,11 @@ def build_rows(intake, asana, cases):
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
             "first_response_sla": first_resp,
-            # metadata straight from the Asana custom fields (the triaged truth),
-            # not guessed from the request text
-            "region": asana_cf(t, "Region"),
+            # region + country = the requester's, resolved by the bot into the intake sheet
+            # (Asana's task Region is the fallback). category/data type/priority are task
+            # attributes, from the Asana custom fields. None guessed from the request text.
+            "region": (info or {}).get("region") or asana_cf(t, "Region"),
+            "country": (info or {}).get("country", ""),
             "request_type": asana_cf(t, "Category"),
             "data_type": asana_cf(t, "Data Type"),
             "priority": asana_cf(t, "Priority"),
@@ -544,6 +549,7 @@ def main():
     # buckets stay one consistent Netflix taxonomy instead of mixing in text guesses.
     for r in rows:
         r["region"] = r.get("region") or "Unknown"
+        r["country"] = r.get("country") or "Unknown"
         r["request_type"] = r.get("request_type") or "Uncategorized"
         r["data_type"] = r.get("data_type") or "Unknown"
         r["priority"] = r.get("priority") or "Normal"
@@ -551,6 +557,7 @@ def main():
     print("assignees after normalize:",
           dict(_collections.Counter((r.get("assignee") or "(blank)") for r in rows).most_common()))
     print("queue region:", dict(_collections.Counter(r["region"] for r in rows).most_common()))
+    print("queue country:", dict(_collections.Counter(r["country"] for r in rows).most_common(12)))
     print("queue request_type (Asana Category):", dict(_collections.Counter(r["request_type"] for r in rows).most_common(12)))
     print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
     print("queue priority:", dict(_collections.Counter(r["priority"] for r in rows).most_common()))
@@ -573,7 +580,8 @@ def main():
                    "headers": HEADERS,
                    "history": history,
                    "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),
-                             "region": r.get("region", ""), "request_type": r.get("request_type", ""),
+                             "region": r.get("region", ""), "country": r.get("country", ""),
+                             "request_type": r.get("request_type", ""),
                              "data_type": r.get("data_type", ""), "priority": r.get("priority", ""),
                              "first_response_sla": r.get("first_response_sla", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:

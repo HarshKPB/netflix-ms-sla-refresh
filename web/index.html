@@ -229,7 +229,7 @@
     <div class="rbhead">
       <span>Break down by</span>
       <span class="seg" id="q-dim">
-        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="region">Region</button><button data-d="request_type">Category</button><button data-d="data_type">Data type</button><button data-d="priority">Priority</button>
+        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="region">Region</button><button data-d="country">Country</button><button data-d="request_type">Category</button><button data-d="data_type">Data type</button><button data-d="priority">Priority</button>
       </span>
       <span class="spacer"></span>
       <button class="btn" id="q-csv">Export CSV</button>
@@ -703,6 +703,7 @@ function qBreakdown(rows){
   const key=r=>{
     if(qDim==="source") return r.source||"?";
     if(qDim==="region") return r.region||"Unknown";
+    if(qDim==="country") return r.country||"Unknown";
     if(qDim==="request_type") return r.request_type||"Uncategorized";
     if(qDim==="data_type") return r.data_type||"Unknown";
     if(qDim==="priority") return r.priority||"Normal";
@@ -718,7 +719,7 @@ function qBreakdown(rows){
   const bar=(v,max,cls)=> v==null?'<span class="muted">–</span>':
     `<div class="bar ${cls}" style="width:${Math.max(12,100*v/max)}%"><span class="fill" style="width:100%"></span><b>${fmtH(v)}</b></div>`;
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",request_type:"Category",data_type:"Data type",priority:"Priority"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",country:"Country",request_type:"Category",data_type:"Data type",priority:"Priority"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
     return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${bar(x.aa,maxA,"init")}</td><td>${bar(x.af,maxF,"first")}</td><td>${bar(x.ac,maxC,"reso")}</td></tr>`;
   }).join("") || `<tr><td colspan="5" class="muted">No requests match these filters.</td></tr>`;
