@@ -24,7 +24,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 187,
-      "days_idle": 123
+      "days_idle": 123,
+      "conversation_id": ""
     },
     {
       "case_id": "4024967",
@@ -47,7 +48,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 169,
-      "days_idle": 166
+      "days_idle": 166,
+      "conversation_id": ""
     },
     {
       "case_id": "4025842",
@@ -70,7 +72,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 167,
-      "days_idle": 165
+      "days_idle": 165,
+      "conversation_id": ""
     },
     {
       "case_id": "4026658",
@@ -93,7 +96,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 166,
-      "days_idle": 145
+      "days_idle": 145,
+      "conversation_id": ""
     },
     {
       "case_id": "4027896",
@@ -116,7 +120,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 162,
-      "days_idle": 154
+      "days_idle": 154,
+      "conversation_id": ""
     },
     {
       "case_id": "4028992",
@@ -139,7 +144,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 160,
-      "days_idle": 36
+      "days_idle": 36,
+      "conversation_id": ""
     },
     {
       "case_id": "4029572",
@@ -162,7 +168,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 159,
-      "days_idle": 147
+      "days_idle": 147,
+      "conversation_id": ""
     },
     {
       "case_id": "4040456",
@@ -185,7 +192,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 147,
-      "days_idle": 96
+      "days_idle": 96,
+      "conversation_id": ""
     },
     {
       "case_id": "4041569",
@@ -208,7 +216,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 145,
-      "days_idle": 144
+      "days_idle": 144,
+      "conversation_id": ""
     },
     {
       "case_id": "4042062",
@@ -231,7 +240,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 144,
-      "days_idle": 141
+      "days_idle": 141,
+      "conversation_id": ""
     },
     {
       "case_id": "4042064",
@@ -254,7 +264,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 143,
-      "days_idle": 140
+      "days_idle": 140,
+      "conversation_id": ""
     },
     {
       "case_id": "4042635",
@@ -277,7 +288,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 141,
-      "days_idle": 139
+      "days_idle": 139,
+      "conversation_id": ""
     },
     {
       "case_id": "4043818",
@@ -300,30 +312,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 139,
-      "days_idle": 96
-    },
-    {
-      "case_id": "thread:19efb154d003c6b7",
-      "title": "URGENT: Netflix - Tiktok Boosted Post & organic sync failure",
-      "topic": "TikTok",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Urgent",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "hoku",
-      "agent": "",
-      "opened": "2026-06-16",
-      "last_update": "2026-06-24",
-      "n_msgs": 1,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1868907348207322807",
-      "evidence": "Re: URGENT: Netflix - Tiktok Boosted Post & organic sync failure Hi Team, Our Engineering team is working on a fix and is targeting to deploy it with our upcomi",
-      "needs_review": true,
-      "source": "Auto",
-      "days_open": 133,
-      "days_idle": 125
+      "days_idle": 96,
+      "conversation_id": ""
     },
     {
       "case_id": "4047049",
@@ -346,7 +336,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 131,
-      "days_idle": 126
+      "days_idle": 126,
+      "conversation_id": ""
     },
     {
       "case_id": "4049596",
@@ -369,7 +360,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 125,
-      "days_idle": 112
+      "days_idle": 112,
+      "conversation_id": ""
     },
     {
       "case_id": "4053658",
@@ -392,7 +384,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 113,
-      "days_idle": 106
+      "days_idle": 106,
+      "conversation_id": ""
     },
     {
       "case_id": "4054257",
@@ -415,7 +408,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 112,
-      "days_idle": 110
+      "days_idle": 110,
+      "conversation_id": ""
     },
     {
       "case_id": "4054007",
@@ -438,7 +432,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 112,
-      "days_idle": 103
+      "days_idle": 103,
+      "conversation_id": ""
     },
     {
       "case_id": "4056314",
@@ -461,7 +456,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 106,
-      "days_idle": 104
+      "days_idle": 104,
+      "conversation_id": ""
     },
     {
       "case_id": "4029520",
@@ -484,7 +480,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 104,
-      "days_idle": 14
+      "days_idle": 14,
+      "conversation_id": ""
     },
     {
       "case_id": "4058474",
@@ -507,7 +504,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 101,
-      "days_idle": 90
+      "days_idle": 90,
+      "conversation_id": ""
     },
     {
       "case_id": "4058968",
@@ -530,7 +528,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 99,
-      "days_idle": 60
+      "days_idle": 60,
+      "conversation_id": ""
     },
     {
       "case_id": "4062751",
@@ -553,7 +552,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 91,
-      "days_idle": 62
+      "days_idle": 62,
+      "conversation_id": ""
     },
     {
       "case_id": "4062293",
@@ -576,7 +576,8 @@
       "needs_review": true,
       "source": "Auto",
       "days_open": 91,
-      "days_idle": 91
+      "days_idle": 91,
+      "conversation_id": ""
     },
     {
       "case_id": "4063021",
@@ -599,7 +600,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 90,
-      "days_idle": 89
+      "days_idle": 89,
+      "conversation_id": ""
     },
     {
       "case_id": "4063462",
@@ -622,7 +624,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 89,
-      "days_idle": 88
+      "days_idle": 88,
+      "conversation_id": ""
     },
     {
       "case_id": "4063981",
@@ -645,7 +648,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 88,
-      "days_idle": 88
+      "days_idle": 88,
+      "conversation_id": ""
     },
     {
       "case_id": "4064947",
@@ -668,7 +672,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 85,
-      "days_idle": 70
+      "days_idle": 70,
+      "conversation_id": ""
     },
     {
       "case_id": "4064948",
@@ -691,7 +696,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 85,
-      "days_idle": 62
+      "days_idle": 62,
+      "conversation_id": ""
     },
     {
       "case_id": "4064944",
@@ -714,7 +720,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 85,
-      "days_idle": 82
+      "days_idle": 82,
+      "conversation_id": ""
     },
     {
       "case_id": "4065648",
@@ -737,7 +744,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 84,
-      "days_idle": 78
+      "days_idle": 78,
+      "conversation_id": ""
     },
     {
       "case_id": "4066647",
@@ -760,7 +768,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 82,
-      "days_idle": 62
+      "days_idle": 62,
+      "conversation_id": ""
     },
     {
       "case_id": "4067238",
@@ -783,7 +792,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 81,
-      "days_idle": 68
+      "days_idle": 68,
+      "conversation_id": ""
     },
     {
       "case_id": "4069066",
@@ -806,7 +816,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 76,
-      "days_idle": 63
+      "days_idle": 63,
+      "conversation_id": ""
     },
     {
       "case_id": "4071759",
@@ -829,7 +840,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 69,
-      "days_idle": 64
+      "days_idle": 64,
+      "conversation_id": ""
     },
     {
       "case_id": "4073352",
@@ -852,7 +864,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 64,
-      "days_idle": 62
+      "days_idle": 62,
+      "conversation_id": ""
     },
     {
       "case_id": "4073494",
@@ -875,7 +888,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 63,
-      "days_idle": 1
+      "days_idle": 1,
+      "conversation_id": ""
     },
     {
       "case_id": "4073719",
@@ -898,7 +912,8 @@
       "needs_review": false,
       "source": "Override",
       "days_open": 63,
-      "days_idle": 20
+      "days_idle": 20,
+      "conversation_id": ""
     },
     {
       "case_id": "4073958",
@@ -921,7 +936,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 63,
-      "days_idle": 34
+      "days_idle": 34,
+      "conversation_id": ""
     },
     {
       "case_id": "4074551",
@@ -944,7 +960,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 62,
-      "days_idle": 57
+      "days_idle": 57,
+      "conversation_id": ""
     },
     {
       "case_id": "4075170",
@@ -967,7 +984,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 61,
-      "days_idle": 55
+      "days_idle": 55,
+      "conversation_id": ""
     },
     {
       "case_id": "4075070",
@@ -990,7 +1008,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 61,
-      "days_idle": 57
+      "days_idle": 57,
+      "conversation_id": ""
     },
     {
       "case_id": "4075421",
@@ -1013,7 +1032,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 60,
-      "days_idle": 21
+      "days_idle": 21,
+      "conversation_id": ""
     },
     {
       "case_id": "4075373",
@@ -1036,7 +1056,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 60,
-      "days_idle": 58
+      "days_idle": 58,
+      "conversation_id": ""
     },
     {
       "case_id": "4080815",
@@ -1059,7 +1080,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 46,
-      "days_idle": 36
+      "days_idle": 36,
+      "conversation_id": ""
     },
     {
       "case_id": "4081045",
@@ -1082,7 +1104,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 46,
-      "days_idle": 42
+      "days_idle": 42,
+      "conversation_id": ""
     },
     {
       "case_id": "4081307",
@@ -1105,30 +1128,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 43,
-      "days_idle": 35
-    },
-    {
-      "case_id": "thread:1a0b190b5d1ae20a",
-      "title": "TikTok Reach & Frequency Validation",
-      "topic": "TikTok",
-      "request_type": "Other",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting us",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "beatriz",
-      "agent": "",
-      "opened": "2026-09-17",
-      "last_update": "2026-10-07",
-      "n_msgs": 9,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1876621206327321098",
-      "evidence": "Ishani Chatterjee: Thank you for following up. Engineering has confirmed that the data correction for the affected TikTok ad set has been completed, and the rea",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 40,
-      "days_idle": 20
+      "days_idle": 35,
+      "conversation_id": ""
     },
     {
       "case_id": "4083418",
@@ -1151,7 +1152,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 40,
-      "days_idle": 20
+      "days_idle": 20,
+      "conversation_id": ""
     },
     {
       "case_id": "4082820",
@@ -1174,7 +1176,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 40,
-      "days_idle": 39
+      "days_idle": 39,
+      "conversation_id": ""
     },
     {
       "case_id": "4084857",
@@ -1197,7 +1200,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 35,
-      "days_idle": 5
+      "days_idle": 5,
+      "conversation_id": ""
     },
     {
       "case_id": "4085088",
@@ -1220,7 +1224,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 33,
-      "days_idle": 32
+      "days_idle": 32,
+      "conversation_id": ""
     },
     {
       "case_id": "4086852",
@@ -1243,30 +1248,8 @@
       "needs_review": false,
       "source": "Override",
       "days_open": 29,
-      "days_idle": 1
-    },
-    {
-      "case_id": "thread:1a0f8f082b7eaa90",
-      "title": "Netflix [50754] – Issue: Title/Campaign Custom Entity Field does not appear in Excel/CSV table Exports",
-      "topic": "Paid/Spend",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "marshall",
-      "agent": "",
-      "opened": "2026-10-01",
-      "last_update": "2026-10-06",
-      "n_msgs": 4,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1877876834889018000",
-      "evidence": "Vinayak Kumar: We are actively following up with our Subject-Matter Experts and will keep the thread posted with updates as soon as we have any.",
-      "needs_review": true,
-      "source": "Auto",
-      "days_open": 26,
-      "days_idle": 21
+      "days_idle": 1,
+      "conversation_id": ""
     },
     {
       "case_id": "4089274",
@@ -1289,7 +1272,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 25,
-      "days_idle": 12
+      "days_idle": 12,
+      "conversation_id": ""
     },
     {
       "case_id": "4088971",
@@ -1312,7 +1296,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 25,
-      "days_idle": 6
+      "days_idle": 6,
+      "conversation_id": ""
     },
     {
       "case_id": "4071815",
@@ -1335,53 +1320,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 22,
-      "days_idle": 14
-    },
-    {
-      "case_id": "thread:1a111a858d9b5a6d",
-      "title": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics",
-      "topic": "Analytics",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "harsh",
-      "agent": "",
-      "opened": "2026-10-06",
-      "last_update": "2026-10-06",
-      "n_msgs": 1,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878311680498948717",
-      "evidence": "Ticket #4084857 (Outbound API returns two posts for the same content; tags land on the wrong one). SprinklrSystem: As per your request, we have rescheduled the ",
-      "needs_review": false,
-      "source": "Override",
-      "days_open": 21,
-      "days_idle": 21
-    },
-    {
-      "case_id": "thread:1a111803596815b5",
-      "title": "Smart Insights Error Code",
-      "topic": "General",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "francis",
-      "agent": "",
-      "opened": "2026-10-06",
-      "last_update": "2026-10-06",
-      "n_msgs": 3,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878308922254169525",
-      "evidence": "Shaik Sameer: Hi Francis, Thank you for writing to Sprinklr Support. We are able to see the summary working properly as shown in the attached screenshot. Please",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 21,
-      "days_idle": 21
+      "days_idle": 14,
+      "conversation_id": ""
     },
     {
       "case_id": "4090601",
@@ -1404,76 +1344,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 21,
-      "days_idle": 20
-    },
-    {
-      "case_id": "thread:1a11231abaed6ef7",
-      "title": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics",
-      "topic": "Analytics",
-      "priority": "Normal",
-      "status": "Resolved",
-      "owner": "harsh",
-      "agent": "",
-      "opened": "2026-10-06",
-      "last_update": "2026-10-06",
-      "n_msgs": 1,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878321117302451959",
-      "evidence": "Outbound API returns two posts for the same content; tags land on the wrong one. Need a reliable way to identify the post that holds the metrics Dear Customer, ",
-      "needs_review": false,
-      "source": "Override",
-      "days_open": 21,
-      "days_idle": 21,
-      "region": "Global/Unknown",
-      "request_type": "Other",
-      "initial_sla_hours": null,
-      "resolution_sla_hours": null
-    },
-    {
-      "case_id": "thread:1a1170a21a7d638d",
-      "title": "Netflix [50754] – Request: Enable Reddit Reporting DPs",
-      "topic": "Reporting",
-      "request_type": "Request",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": 54.6,
-      "owner": "marshall",
-      "agent": "",
-      "opened": "2026-10-07",
-      "last_update": "2026-10-09",
-      "n_msgs": 5,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878406361121645453",
-      "evidence": "Marshall: Thanks, Arjo – Looking good on my end.",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 20,
-      "days_idle": 18
-    },
-    {
-      "case_id": "thread:1a1177f58445da01",
-      "title": "URGENT: Netflix [50754] – Issue: X/Twitter Reporting Metrics = 0",
-      "topic": "X/Twitter",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Urgent",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "marshall",
-      "agent": "",
-      "opened": "2026-10-07",
-      "last_update": "2026-10-11",
-      "n_msgs": 10,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878414415960070657",
-      "evidence": "Shreya Potnuru: Hi Hoku, Greetings! Kindly utilize the X impressions metric and verify the data.",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 20,
-      "days_idle": 16
+      "days_idle": 20,
+      "conversation_id": ""
     },
     {
       "case_id": "4091322",
@@ -1496,7 +1368,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 20,
-      "days_idle": 14
+      "days_idle": 14,
+      "conversation_id": ""
     },
     {
       "case_id": "4091263",
@@ -1519,7 +1392,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 20,
-      "days_idle": 18
+      "days_idle": 18,
+      "conversation_id": ""
     },
     {
       "case_id": "4094141",
@@ -1542,99 +1416,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 14,
-      "days_idle": 10
-    },
-    {
-      "case_id": "thread:1a135f0e7597daea",
-      "title": "Access to Sprinklr",
-      "topic": "Access",
-      "request_type": "Request",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": 0.3,
-      "owner": "beatriz",
-      "agent": "",
-      "opened": "2026-10-13",
-      "last_update": "2026-10-13",
-      "n_msgs": 6,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878949985250695914",
-      "evidence": "Raghavendra S: Glad to know the issue has been resolved.",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 14,
-      "days_idle": 14
-    },
-    {
-      "case_id": "thread:1a13364a03cd4df3",
-      "title": "TikTok Thailand Account - Data Inconsistency",
-      "topic": "TikTok",
-      "request_type": "Other",
-      "region": "APAC",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "varsha-a",
-      "agent": "",
-      "opened": "2026-10-13",
-      "last_update": "2026-10-15",
-      "n_msgs": 10,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878905161062895091",
-      "evidence": "Varsha: Hi, Can you schedule a call today at 12pm IST. Kindly add Dora from Netflix pls. dbintimatsamoin@netflixcontractors.com",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 14,
-      "days_idle": 12
-    },
-    {
-      "case_id": "thread:1a1328ff0b05fdc0",
-      "title": "URGENT: Netflix [50754] – Issue: X/Twitter Reporting Metrics = 0",
-      "topic": "X/Twitter",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Urgent",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "hoku",
-      "agent": "",
-      "opened": "2026-10-13",
-      "last_update": "2026-10-13",
-      "n_msgs": 3,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878890545410342336",
-      "evidence": "Gopal Kumar: Hi Hoku, Thanks for the confirmation!",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 14,
-      "days_idle": 14
-    },
-    {
-      "case_id": "thread:1a134f71a1a698f1",
-      "title": "X impressions, views and engagements not fetching for Netflix Spain since ~Sep 28, 2026",
-      "topic": "X/Twitter",
-      "request_type": "Issue",
-      "region": "EMEA",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "harsh",
-      "agent": "",
-      "opened": "2026-10-13",
-      "last_update": "2026-10-13",
-      "n_msgs": 3,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1878932819005577457",
-      "evidence": "Shaik Sameer: Hi Harsh, We have observed the following error for the specified account upon reviewing the backend. exception: com.spr.channel.error.ChannelRunti",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 14,
-      "days_idle": 14
+      "days_idle": 10,
+      "conversation_id": ""
     },
     {
       "case_id": "4094304",
@@ -1657,7 +1440,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 14,
-      "days_idle": 14
+      "days_idle": 14,
+      "conversation_id": ""
     },
     {
       "case_id": "4093954",
@@ -1680,7 +1464,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 14,
-      "days_idle": 4
+      "days_idle": 4,
+      "conversation_id": ""
     },
     {
       "case_id": "4095395",
@@ -1703,53 +1488,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 12,
-      "days_idle": 4
-    },
-    {
-      "case_id": "thread:1a13dae89ab14252",
-      "title": "TikTok Thailand Account - Data Inconsistency",
-      "topic": "TikTok",
-      "request_type": "Other",
-      "region": "APAC",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": 197.5,
-      "owner": "varsha-a",
-      "agent": "",
-      "opened": "2026-10-15",
-      "last_update": "2026-10-23",
-      "n_msgs": 11,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1879086162106204754",
-      "evidence": "👍 Varsha Anjanappa reacted via Gmail",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 12,
-      "days_idle": 4
-    },
-    {
-      "case_id": "thread:1a1571dda19749a1",
-      "title": "Sprinklr Support Satisfaction Survey",
-      "topic": "General",
-      "request_type": "Other",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "harsh",
-      "agent": "",
-      "opened": "2026-10-20",
-      "last_update": "2026-10-20",
-      "n_msgs": 1,
-      "portal_link": "",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1879533616209807777",
-      "evidence": "Sprinklr Support Satisfaction Survey Dear Harsh Khandelwal, Thank you again for being a Sprinklr customer. As a follow up to the survey sent 2 days ago, we’d ap",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 7,
-      "days_idle": 7
+      "days_idle": 4,
+      "conversation_id": ""
     },
     {
       "case_id": "4097330",
@@ -1772,7 +1512,8 @@
       "needs_review": true,
       "source": "Auto",
       "days_open": 6,
-      "days_idle": 1
+      "days_idle": 1,
+      "conversation_id": ""
     },
     {
       "case_id": "4097749",
@@ -1795,7 +1536,8 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 5,
-      "days_idle": 4
+      "days_idle": 4,
+      "conversation_id": ""
     }
   ]
 }

@@ -7,6 +7,7 @@ the contract live in classify.py and schema.py.
 import json
 import glob
 import os
+import re
 from datetime import date
 from . import classify, schema
 
@@ -37,15 +38,86 @@ def load_threads(paths):
 
 
 def group_by_ticket(threads):
-    groups = {}
+    """Group a case's threads under one key, strongest identifier first:
+      1. the ticket number ("Ticket Number NNNNN" or the review-link URL);
+      2. the Sprinklr ConversationId, mapped to a number learned from threads
+         that carry both (handles a number-less opener/reopen/CSAT thread);
+      3. an exact, UNIQUE subject match to a numbered thread (handles a scheduling
+         fragment Gmail split off with its own ConversationId and no number).
+    Only a thread with none of these falls to a conv:/thread: stub key."""
+    from collections import defaultdict
+    meta, conv2num, subj2nums = [], {}, defaultdict(set)
     for th in threads:
         msgs = th.get("messages", [])
-        tk = classify.ticket_number(msgs) or ("thread:" + str(th.get("id")))
-        g = groups.setdefault(tk, {"msgs": [], "gmail": th.get("viewUrl", "")})
+        num = classify.ticket_number(msgs)
+        convs = classify.conversation_ids(msgs)
+        first = sorted(msgs, key=lambda m: m.get("date", ""))[0] if msgs else {}
+        subj = classify.clean_title(first.get("subject", ""))
+        meta.append((th, msgs, num, convs, subj))
+        if num:
+            for c in convs:
+                conv2num.setdefault(c, num)
+            if len(subj) >= 12:
+                subj2nums[subj].add(num)
+
+    def subj_num(subj):  # only when the subject maps to exactly one ticket number
+        s = subj2nums.get(subj)
+        return next(iter(s)) if s and len(s) == 1 else None
+
+    groups = {}
+    for th, msgs, num, convs, subj in meta:
+        conv_hit = next((conv2num[c] for c in convs if c in conv2num), None)
+        key = (num or conv_hit or subj_num(subj)
+               or (("conv:" + convs[0]) if convs else ("thread:" + str(th.get("id")))))
+        g = groups.setdefault(key, {"msgs": [], "gmail": th.get("viewUrl", "")})
         g["msgs"].extend(msgs)
         if not g["gmail"]:
             g["gmail"] = th.get("viewUrl", "")
     return groups
+
+
+def _thread_hex(gmail_link):
+    m = re.search(r"thread-f:(\d+)", gmail_link or "")
+    try:
+        return format(int(m.group(1)), "x") if m else ""
+    except Exception:
+        return ""
+
+
+def dedupe_rows(rows):
+    """Drop stub rows (case_id 'thread:<hex>' / 'conv:<hex>') that are really a
+    segment of a numbered ticket, matched by a shared ConversationId, Gmail thread
+    id, or an exact UNIQUE title. The title match catches stub rows kept from an
+    older tickets.json that predates the conversation_id field (they carry no conv
+    to match on, but their title still equals the numbered row's). Numbered rows
+    always win and are kept. Returns (kept, dropped_case_ids)."""
+    from collections import defaultdict
+    conv_owner, hex_owner, title_nums = {}, {}, defaultdict(set)
+    for r in rows:
+        if str(r.get("case_id", "")).isdigit():
+            if r.get("conversation_id"):
+                conv_owner.setdefault(r["conversation_id"], r["case_id"])
+            h = _thread_hex(r.get("gmail_link"))
+            if h:
+                hex_owner.setdefault(h, r["case_id"])
+            t = classify.clean_title(r.get("title", ""))
+            if len(t) >= 12:
+                title_nums[t].add(r["case_id"])
+    title_owner = {t: next(iter(s)) for t, s in title_nums.items() if len(s) == 1}
+    kept, dropped = [], []
+    for r in rows:
+        cid = str(r.get("case_id", ""))
+        if cid.isdigit():
+            kept.append(r)
+            continue
+        conv = r.get("conversation_id") or ""
+        h = cid[len("thread:"):] if cid.startswith("thread:") else _thread_hex(r.get("gmail_link"))
+        t = classify.clean_title(r.get("title", ""))
+        if (conv and conv in conv_owner) or (h and h in hex_owner) or (t and t in title_owner):
+            dropped.append(cid)
+            continue
+        kept.append(r)
+    return kept, dropped
 
 
 def build_rows(threads, overrides=None, truth=None, asof=None):
@@ -108,11 +180,17 @@ def run(thread_paths, out="web/tickets.json", base_path="web/tickets.json",
         r.setdefault("request_type", "Other")
         r.setdefault("initial_sla_hours", None)
         r.setdefault("resolution_sla_hours", None)
+        r.setdefault("conversation_id", "")  # absent on rows from an older tickets.json
         cid = r["case_id"]
         if cid in truth:
             r["status"], r["needs_review"] = truth[cid], False
         if cid in overrides:
             r["status"], r["source"], r["needs_review"] = overrides[cid], "Override", False
+
+    # collapse stub rows that are really a segment of a numbered ticket (same
+    # ConversationId or Gmail thread), including stale thread:<hex> rows kept from
+    # an earlier run before that thread could be numbered.
+    rows, dropped = dedupe_rows(rows)
     rows.sort(key=lambda r: r.get("days_open", 0), reverse=True)
 
     schema.assert_valid(rows)  # blocks the build if any row breaks the contract

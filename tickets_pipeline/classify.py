@@ -18,6 +18,11 @@ MON = {m: i for i, m in enumerate(
     ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], 1)}
 RE_TICKET = re.compile(r"Ticket\s*Number[\s:]*?(\d{6,8})", re.I)
 RE_REVIEW = re.compile(r"(https://community\.sprinklr\.com/support/requests/\d+)", re.I)
+RE_REQNUM = re.compile(r"community\.sprinklr\.com/support/requests/(\d{6,8})", re.I)
+# Sprinklr stamps a stable per-case id in every care@ email body; it is the one
+# identifier that survives across a case's separate email threads (opener, reopen,
+# scheduling, survey), even the ones that never carry the "Ticket Number" string.
+RE_CONV = re.compile(r"%%\[(?:ms)?ConversationId:\s*([0-9a-fA-F]+)\]")
 RE_AGENT = re.compile(r"requests/\d+\s+(.+?)\s+" + WEEKDAY, re.I)
 RE_DT = re.compile(WEEKDAY + r",?\s+(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})\s+\d{2}:\d{2}", re.I)
 RE_PBAUTH = re.compile(r"([\w.\-]+@premium-blend\.com)\s+" + WEEKDAY +
@@ -320,11 +325,33 @@ def min_date_iso(texts):
 
 
 def ticket_number(messages):
+    # "Ticket Number NNNNN" first; fall back to the review-link URL, which carries
+    # the same number in threads that omit the labelled field.
     for m in messages:
-        x = RE_TICKET.search((m.get("plaintextBody") or m.get("snippet") or ""))
+        body = m.get("plaintextBody") or m.get("snippet") or ""
+        x = RE_TICKET.search(body) or RE_REQNUM.search(body)
         if x:
             return x.group(1)
     return ""
+
+
+def conversation_ids(messages):
+    """Every distinct Sprinklr ConversationId in the thread. A big thread can quote
+    more than one case's id (e.g. a survey folded into the main case), so grouping
+    maps all of them to the ticket number, not just the first."""
+    seen = []
+    for m in messages:
+        for x in RE_CONV.finditer(m.get("plaintextBody") or m.get("snippet") or ""):
+            v = x.group(1).lower()
+            if v not in seen:
+                seen.append(v)
+    return seen
+
+
+def conversation_id(messages):
+    """The primary per-case ConversationId, or '' if no care@ email carried one."""
+    ids = conversation_ids(messages)
+    return ids[0] if ids else ""
 
 
 def review_link(messages):
@@ -386,6 +413,7 @@ def classify_case(messages, gmail_link=""):
     text_for_tags = subjects + " " + (bodies[0] if bodies else "")
     return {
         "case_id": ticket,
+        "conversation_id": conversation_id(msgs),
         "title": clean_title(msgs[0].get("subject", "")),
         "topic": detect_topic(subjects),
         "request_type": detect_request_type(subjects),

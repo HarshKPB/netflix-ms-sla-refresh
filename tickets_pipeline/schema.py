@@ -10,6 +10,7 @@ build guarantees they exist.
 # field name -> expected python type
 FIELDS = {
     "case_id": str,
+    "conversation_id": str,
     "title": str,
     "topic": str,
     "request_type": str,
