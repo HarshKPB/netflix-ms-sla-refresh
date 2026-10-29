@@ -216,6 +216,10 @@
   <div class="controls rctl">
     <span class="chip on" data-qf="src" data-v="Slack">Slack</span>
     <span class="chip on" data-qf="src" data-v="Sprinklr">Sprinklr</span>
+    <span class="rlabel">Involvement</span>
+    <span class="chip on" data-qf="ext" data-v="External">External</span>
+    <span class="chip on src-done" data-qf="ext" data-v="Internal">Internal</span>
+    <span class="chip on src-open" data-qf="ext" data-v="Unclassified">Unclassified</span>
     <label>Assignee <select id="q-assignee"></select></label>
     <span class="spacer"></span>
     <span class="rlabel">Arrived in</span>
@@ -229,7 +233,7 @@
     <div class="rbhead">
       <span>Break down by</span>
       <span class="seg" id="q-dim">
-        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="region">Region</button><button data-d="country">Country</button><button data-d="request_type">Category</button><button data-d="data_type">Data type</button><button data-d="priority">Priority</button>
+        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="external">Involvement</button><button data-d="region">Region</button><button data-d="country">Country</button><button data-d="request_type">Category</button><button data-d="data_type">Data type</button><button data-d="priority">Priority</button>
       </span>
       <span class="spacer"></span>
       <button class="btn" id="q-csv">Export CSV</button>
@@ -663,8 +667,14 @@ function rCSV(){
 // i.e. the ack / emoji-initiated moment). Completion SLA = arrival to fulfilled
 // (SLA_completion). Both are stored as "Xh Ym" strings; blanks (not yet picked up,
 // or not yet finished) are excluded from the averages, never counted as zero.
-const qflt={src:new Set(["Slack","Sprinklr"]), assignee:"all"};
+const qflt={src:new Set(["Slack","Sprinklr"]), ext:new Set(["External","Internal","Unclassified"]), assignee:"all"};
 let qRange=0, qDim="assignee";
+// External involvement: a request that a PB person escalated to a team outside Premium
+// Blend (Sprinklr support/product/engineering, Netflix MarTech/MarData, another Netflix
+// access team). external_involved is true / false / null; null = not yet classified
+// (a new intake since the map was last built) and is shown as its own "Unclassified"
+// bucket, never folded into Internal.
+const qExt=r=> r.external_involved===true ? "External" : (r.external_involved===false ? "Internal" : "Unclassified");
 const QDAY=864e5;
 const qRef=()=>GEN?new Date(GEN+"T23:59:59"):new Date();
 function qHrs(s){ const m=(""+(s||"")).match(/(\d+)\s*h\s*(\d+)\s*m/); return m? (+m[1])+(+m[2])/60 : null; }
@@ -678,6 +688,7 @@ function qCurrent(){
   return (DATA||[]).filter(r=>{
     if(!isPBqueue(r)) return false;
     if(!qflt.src.has(r.source)) return false;
+    if(!qflt.ext.has(qExt(r))) return false;
     if(qflt.assignee!=="all" && (r.assignee||"Unassigned")!==qflt.assignee) return false;
     return qInRange(r);
   });
@@ -702,6 +713,7 @@ function qKpis(rows){
 function qBreakdown(rows){
   const key=r=>{
     if(qDim==="source") return r.source||"?";
+    if(qDim==="external") return qExt(r);
     if(qDim==="region") return r.region||"Unknown";
     if(qDim==="country") return r.country||"Unknown";
     if(qDim==="request_type") return r.request_type||"Uncategorized";
@@ -719,7 +731,7 @@ function qBreakdown(rows){
   const bar=(v,max,cls)=> v==null?'<span class="muted">–</span>':
     `<div class="bar ${cls}" style="width:${Math.max(12,100*v/max)}%"><span class="fill" style="width:100%"></span><b>${fmtH(v)}</b></div>`;
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${({assignee:"Assignee",source:"Source",region:"Region",country:"Country",request_type:"Category",data_type:"Data type",priority:"Priority"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",external:"Involvement",region:"Region",country:"Country",request_type:"Category",data_type:"Data type",priority:"Priority"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
     return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${bar(x.aa,maxA,"init")}</td><td>${bar(x.af,maxF,"first")}</td><td>${bar(x.ac,maxC,"reso")}</td></tr>`;
   }).join("") || `<tr><td colspan="5" class="muted">No requests match these filters.</td></tr>`;
@@ -738,9 +750,10 @@ function qBoot(){
     `<option value="all">All</option>`+names.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
   document.getElementById("q-assignee").onchange=e=>{qflt.assignee=e.target.value;qRender();};
   document.querySelectorAll("#view-qreport .chip").forEach(ch=>ch.onclick=()=>{
+    const set = ch.dataset.qf==="ext" ? qflt.ext : qflt.src;
     const v=ch.dataset.v;
-    if(qflt.src.has(v)){qflt.src.delete(v);ch.classList.remove("on");}
-    else{qflt.src.add(v);ch.classList.add("on");}
+    if(set.has(v)){set.delete(v);ch.classList.remove("on");}
+    else{set.add(v);ch.classList.add("on");}
     qRender();});
   document.querySelectorAll("#q-range button").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("#q-range button").forEach(x=>x.classList.toggle("on",x===b));
@@ -749,7 +762,7 @@ function qBoot(){
     document.querySelectorAll("#q-dim button").forEach(x=>x.classList.toggle("on",x===b));
     qDim=b.dataset.d; qRender();});
   document.getElementById("q-reset").onclick=()=>{
-    qflt.src=new Set(["Slack","Sprinklr"]); qflt.assignee="all"; qRange=0;
+    qflt.src=new Set(["Slack","Sprinklr"]); qflt.ext=new Set(["External","Internal","Unclassified"]); qflt.assignee="all"; qRange=0;
     document.querySelectorAll("#view-qreport .chip").forEach(c=>c.classList.add("on"));
     document.getElementById("q-assignee").value="all";
     document.querySelectorAll("#q-range button").forEach(x=>x.classList.toggle("on",x.dataset.r==="0"));
@@ -759,7 +772,7 @@ function qBoot(){
 }
 function qCSV(){
   const rows=qCurrent();
-  const head=["source","task_name","assignee","request_arrival_time","Assigned/Emoji initiated","SLA_Assignement","Request_fulfil_time","SLA_completion"];
+  const head=["source","task_name","assignee","external_involved","external_team","request_arrival_time","Assigned/Emoji initiated","SLA_Assignement","Request_fulfil_time","SLA_completion"];
   const q=s=>`"${(s==null?"":s).toString().replace(/"/g,'""')}"`;
   const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(r[k])).join(",")));
   const blob=new Blob([lines.join("\n")],{type:"text/csv"});

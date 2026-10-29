@@ -1,0 +1,242 @@
+{
+  "_doc": "External-team involvement for Sprinklr request-form cases. Keyed by intakeResponseId (the #NNN). external=true means PB routed it to a team outside Premium Blend. Approved by Harsh 2026-10-29. Source: live scrape taskObject.responses (category + request text); handling not observable, content-inferred for 'med' confidence.",
+  "_approved": "2026-10-29",
+  "706": {
+    "external": true,
+    "team": "Sprinklr support",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: bug/sync/data-discrepancy needs Sprinklr/martech"
+  },
+  "705": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "686": {
+    "external": true,
+    "team": "Sprinklr support",
+    "category": "Listening Report Request",
+    "confidence": "med",
+    "basis": "content: bug/sync/data-discrepancy needs Sprinklr/martech"
+  },
+  "646": {
+    "external": true,
+    "team": "Sprinklr product",
+    "category": "Reporting Wish List",
+    "confidence": "high",
+    "basis": "category: Sprinklr product feature request"
+  },
+  "570": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "343": {
+    "external": false,
+    "team": "",
+    "category": "Paid Taxonomy Update Request",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "281": {
+    "external": false,
+    "team": "",
+    "category": "Listening Report Request",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "287": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "276": {
+    "external": true,
+    "team": "Sprinklr product",
+    "category": "Reporting Wish List",
+    "confidence": "high",
+    "basis": "category: Sprinklr product feature request"
+  },
+  "274": {
+    "external": true,
+    "team": "Sprinklr support",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: bug/sync/data-discrepancy needs Sprinklr/martech"
+  },
+  "264": {
+    "external": true,
+    "team": "Sprinklr product",
+    "category": "Beta Feedback",
+    "confidence": "high",
+    "basis": "category: Sprinklr product beta"
+  },
+  "259": {
+    "external": false,
+    "team": "",
+    "category": "Netflix - New Custom Field Value Request [Paid Taxonomy]",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "220": {
+    "external": true,
+    "team": "Sprinklr product",
+    "category": "Beta Feedback",
+    "confidence": "high",
+    "basis": "category: Sprinklr product beta"
+  },
+  "207": {
+    "external": true,
+    "team": "Sprinklr product",
+    "category": "Reporting Wish List Form",
+    "confidence": "high",
+    "basis": "category: Sprinklr product feature request"
+  },
+  "710": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "709": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "708": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "707": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "704": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "703": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "699": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "698": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "697": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "696": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "695": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "694": {
+    "external": true,
+    "team": "Sprinklr support",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: bug/sync/data-discrepancy needs Sprinklr/martech"
+  },
+  "693": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "692": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "691": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "690": {
+    "external": false,
+    "team": "",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: PB answers/config/access"
+  },
+  "689": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "688": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "687": {
+    "external": false,
+    "team": "",
+    "category": "Add or Remove Users",
+    "confidence": "high",
+    "basis": "category: PB access admin"
+  },
+  "685": {
+    "external": true,
+    "team": "Sprinklr support",
+    "category": "Can't Find Something?",
+    "confidence": "med",
+    "basis": "content: bug/sync/data-discrepancy needs Sprinklr/martech"
+  }
+}

@@ -1,0 +1,3001 @@
+{
+ "_comment": "External-involvement for Slack queue requests. Keyed by Slack message-ts, thread-ts, AND Asana task gid (pipeline falls back ts->gid). external=true => a Premium Blend person escalated the request to a team outside PB (Sprinklr support/product/engineering, Netflix MarTech/MarData via !oncall martech-mardata-support, or another Netflix access team). 286 Slack threads + 10 Gmail-reactivation orphan tasks, read 2026-10-29. Regenerate when intake grows.",
+ "_slack_threads": 286,
+ "_orphan_tasks": 10,
+ "_map_entries": 599,
+ "1781511879.459839": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained filters + data sources inline"
+ },
+ "1215735802654207": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained filters + data sources inline"
+ },
+ "1781609433.636689": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh granted agency access"
+ },
+ "1215769779375420": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh granted agency access"
+ },
+ "1781759059.720689": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raise this to the tech team via support; From support they mentioned"
+ },
+ "1215831638407869": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raise this to the tech team via support; From support they mentioned"
+ },
+ "1781777004.223369": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated account"
+ },
+ "1215833980800942": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated account"
+ },
+ "1781802461.911989": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "adding the Data Team; !oncall martech-mardata-support (Piyush/Thanya)"
+ },
+ "1215853192273375": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "adding the Data Team; !oncall martech-mardata-support (Piyush/Thanya)"
+ },
+ "1781805355.434459": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support; Piyush/Thanya fixed tagging"
+ },
+ "1215849571987484": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support; Piyush/Thanya fixed tagging"
+ },
+ "1781807524.851209": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained Trend vs Lifetime directly, no escalation"
+ },
+ "1215850163225872": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained Trend vs Lifetime directly, no escalation"
+ },
+ "1781826496.385609": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku helped login (access)"
+ },
+ "1215858261230903": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku helped login (access)"
+ },
+ "1781683708.975109": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained YouTube view (how-to)"
+ },
+ "1215864793997728": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained YouTube view (how-to)"
+ },
+ "1782098857.952779": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support; Piyush/Thanya Socialite fix"
+ },
+ "1215906195549021": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support; Piyush/Thanya Socialite fix"
+ },
+ "1782140881.075189": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1215940396006386": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1782145536.914529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1215950892951297": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1782183101.326389": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha + Netflix POC Alec on topic/earned config; no vendor escalation [borderline]"
+ },
+ "1215958839383623": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha + Netflix POC Alec on topic/earned config; no vendor escalation [borderline]"
+ },
+ "1782205465.263969": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh created agency user"
+ },
+ "1215965200562735": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh created agency user"
+ },
+ "1782210593.809119": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh checked account status"
+ },
+ "1215967371628372": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh checked account status"
+ },
+ "1215970317958722": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh checked account status"
+ },
+ "1782233642.249879": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz+Netflix POC Alec added filter, explained expected behavior"
+ },
+ "1215982971226161": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz+Netflix POC Alec added filter, explained expected behavior"
+ },
+ "1782235097.016619": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1215983849844768": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1782285284.553029": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Alec explained secondary-campaign filter behavior"
+ },
+ "1215998944636123": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Alec explained secondary-campaign filter behavior"
+ },
+ "1782322688.982529": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis onboarding access + guide"
+ },
+ "1216020527729316": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis onboarding access + guide"
+ },
+ "1782325731.935919": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "A support ticket has been logged with the Sprinklr support team"
+ },
+ "1216021786183014": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "A support ticket has been logged with the Sprinklr support team"
+ },
+ "1782357699.085249": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated (90-day)"
+ },
+ "1216031101432200": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated (90-day)"
+ },
+ "1782384859.904879": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1216038150896097": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1782398154.868359": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis shared dashboard access"
+ },
+ "1216046876806030": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis shared dashboard access"
+ },
+ "1782421170.769829": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Brand Partner custom-field value"
+ },
+ "1216063765961451": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Brand Partner custom-field value"
+ },
+ "1782496727.676869": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz filtered/drilled down, resolved directly"
+ },
+ "1216087977222070": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz filtered/drilled down, resolved directly"
+ },
+ "1782497179.366159": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised with the Sprinklr engineering team; call with Sprinklr SMEs; fix deployed"
+ },
+ "1216088092686699": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised with the Sprinklr engineering team; call with Sprinklr SMEs; fix deployed"
+ },
+ "1782510397.680589": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I will have to submit a Support ticket; working with the Support team (empty-data bug)"
+ },
+ "1216092075461200": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I will have to submit a Support ticket; working with the Support team (empty-data bug)"
+ },
+ "1782512462.480299": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall reactivated"
+ },
+ "1216092305545645": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall reactivated"
+ },
+ "1782541609.676519": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha directed to Add/Remove user form"
+ },
+ "1216100497316210": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha directed to Add/Remove user form"
+ },
+ "1782702922.752179": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Netflix (Alec/Novy/Shan) re ANZ YT retire; no vendor escalation [borderline]"
+ },
+ "1216114428356171": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Netflix (Alec/Novy/Shan) re ANZ YT retire; no vendor escalation [borderline]"
+ },
+ "1782724980.488319": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1216115121821574": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1782753658.431739": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216133009894824": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1782755314.475429": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216133442109379": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1782761993.603129": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1216136476925128": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1782773883.699499": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1216140836356512": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1216141188190483": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1782816107.586629": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1216156685088214": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1782826687.220249": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1216163891735687": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1782924198.022889": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216221181368998": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1782928514.991179": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis+Alec approved, added via Sprinklr request"
+ },
+ "1216222959322566": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis+Alec approved, added via Sprinklr request"
+ },
+ "1782947997.907739": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku/Varsha provisioned agency users via form"
+ },
+ "1216229674752030": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku/Varsha provisioned agency users via form"
+ },
+ "1782948417.503309": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha added Legion agency users via form"
+ },
+ "1216229852990054": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha added Legion agency users via form"
+ },
+ "1783033703.086109": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "brought it to the tech team's notice; reviewed with product team; enhancement request [borderline, PB made the fix]"
+ },
+ "1216264318225922": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "brought it to the tech team's notice; reviewed with product team; enhancement request [borderline, PB made the fix]"
+ },
+ "1783065826.402469": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh processed Dentsu agency onboarding (form)"
+ },
+ "1216265806976885": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh processed Dentsu agency onboarding (form)"
+ },
+ "1783078068.668889": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated account"
+ },
+ "1216269393123640": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated account"
+ },
+ "1783317195.014579": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1216294624534162": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1783329998.470099": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh answered API-access policy directly (no API provided)"
+ },
+ "1216300153839144": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh answered API-access policy directly (no API provided)"
+ },
+ "1783353552.003479": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated + mirrored access"
+ },
+ "1216313584519307": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated + mirrored access"
+ },
+ "1783372260.794249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz confirmed account active"
+ },
+ "1216323122125464": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz confirmed account active"
+ },
+ "1783372473.841719": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Brand Partner values"
+ },
+ "1216336188913273": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Brand Partner values"
+ },
+ "1783373161.680229": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1216323398163905": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1783400283.933509": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained Unified Analytics limitation, no escalation"
+ },
+ "1216332029166381": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained Unified Analytics limitation, no escalation"
+ },
+ "1779236343.028629": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "support team replicated; moved to Engineering for API review; support req 4029520"
+ },
+ "1216332080223441": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "support team replicated; moved to Engineering for API review; support req 4029520"
+ },
+ "1783450238.467619": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1216372360030927": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1783458952.868919": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku created/fixed research queries (PB config)"
+ },
+ "1216375854812540": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku created/fixed research queries (PB config)"
+ },
+ "1783546606.059359": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku built collab-post widget PB-side; Socialite-team need raised but PB resolved"
+ },
+ "1216412527564005": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku built collab-post widget PB-side; Socialite-team need raised but PB resolved"
+ },
+ "1783689530.163649": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1216459832609515": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1783955325.158169": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for scope (consult), no escalation"
+ },
+ "1216539033957297": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for scope (consult), no escalation"
+ },
+ "1783955562.593559": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I am submitting this as a support ticket; Sprinklr support team reported resolved"
+ },
+ "1216539421547719": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I am submitting this as a support ticket; Sprinklr support team reported resolved"
+ },
+ "1783978904.488859": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "Once we hear back from the product team (same X outage as Robin)"
+ },
+ "1216551849847689": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "Once we hear back from the product team (same X outage as Robin)"
+ },
+ "1783990642.612729": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Alec explained query seeding; no vendor escalation [borderline]"
+ },
+ "1216554789046099": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha+Alec explained query seeding; no vendor escalation [borderline]"
+ },
+ "1784045900.684409": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix Donovan added the Canada account; Francis verified; no vendor escalation"
+ },
+ "1216576537855175": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix Donovan added the Canada account; Francis verified; no vendor escalation"
+ },
+ "1784049292.143399": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "further investigation with the Support team; root cause metric mismatch"
+ },
+ "1216578369283245": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "further investigation with the Support team; root cause metric mismatch"
+ },
+ "1784053384.484999": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz access"
+ },
+ "1216580247480909": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz access"
+ },
+ "1781496974.355659": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr tech team has escalated; escalated via product; channel-side fix"
+ },
+ "1216589806374710": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr tech team has escalated; escalated via product; channel-side fix"
+ },
+ "1784098597.002489": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha created user"
+ },
+ "1216591723120049": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha created user"
+ },
+ "1784106155.107129": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh fixed permissions"
+ },
+ "1216595371532900": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh fixed permissions"
+ },
+ "1784119516.681949": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh fixed permissions"
+ },
+ "1216600665640176": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh fixed permissions"
+ },
+ "1784198287.743149": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh shared training"
+ },
+ "1216628915582444": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh shared training"
+ },
+ "1784216587.451769": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated + form guidance"
+ },
+ "1216640705898445": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated + form guidance"
+ },
+ "1784220040.593869": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis granted dashboard access"
+ },
+ "1216642719698337": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis granted dashboard access"
+ },
+ "1784301172.598609": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216670527904643": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1784317791.151769": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained sentiment drill-down"
+ },
+ "1216677347730307": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained sentiment drill-down"
+ },
+ "1784551648.988499": {
+  "external": false,
+  "team": "",
+  "evidence": "no PB reply captured; password-reset error [no escalation evidence]"
+ },
+ "1216726148891638": {
+  "external": false,
+  "team": "",
+  "evidence": "no PB reply captured; password-reset error [no escalation evidence]"
+ },
+ "1784551613.707249": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained X Quotes API limitation"
+ },
+ "1216730354137569": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained X Quotes API limitation"
+ },
+ "1784568672.335759": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216741378839278": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1784572632.412449": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis activated"
+ },
+ "1216745161838711": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis activated"
+ },
+ "1784576793.833849": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Hoku pointed to Raw comments export; PB-side"
+ },
+ "1216746376212880": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Hoku pointed to Raw comments export; PB-side"
+ },
+ "1784596539.004559": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh answered, pointed to DSE pipelines + 10k export limit"
+ },
+ "1216749484684773": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh answered, pointed to DSE pipelines + 10k export limit"
+ },
+ "1784616484.966269": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick set the ad-account tag (PB fix)"
+ },
+ "1216750384045231": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick set the ad-account tag (PB fix)"
+ },
+ "1784657818.408329": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained dashboards"
+ },
+ "1216780266898943": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained dashboards"
+ },
+ "1784664692.198949": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated permissions"
+ },
+ "1216782888031879": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated permissions"
+ },
+ "1784664956.940429": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Lifetime vs Trend"
+ },
+ "1216775906671266": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Lifetime vs Trend"
+ },
+ "1216775668715262": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained dashboards"
+ },
+ "1784674185.667879": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick explained currency filter"
+ },
+ "1216778899786410": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick explained currency filter"
+ },
+ "1784674352.086809": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick investigated HRD spend, clarified total, PB-resolved"
+ },
+ "1216778902333795": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick investigated HRD spend, clarified total, PB-resolved"
+ },
+ "1784702911.581689": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained Inbound vs Post Comments"
+ },
+ "1216784110628918": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained Inbound vs Post Comments"
+ },
+ "1784704659.448219": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1216786080575871": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1784727485.831349": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh cloned/restored dashboard (PB fix)"
+ },
+ "1216794686524064": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh cloned/restored dashboard (PB fix)"
+ },
+ "1784744757.972199": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained SSO access"
+ },
+ "1216806547051298": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained SSO access"
+ },
+ "1784752035.943549": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated widgets PB-side"
+ },
+ "1216811164927187": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated widgets PB-side"
+ },
+ "1784774017.950089": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1216817985081856": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1784774044.565019": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1216817979108252": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1781555621.983779": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku updated user permissions (admin)"
+ },
+ "1216838458385533": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku updated user permissions (admin)"
+ },
+ "1784844921.031249": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku asked for details; socialite project lookup, no escalation"
+ },
+ "1216846505764999": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku asked for details; socialite project lookup, no escalation"
+ },
+ "1784846444.052359": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku directed to form"
+ },
+ "1216846683803249": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku directed to form"
+ },
+ "1784851545.781949": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku removed locked filter (PB fix)"
+ },
+ "1216847663062671": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku removed locked filter (PB fix)"
+ },
+ "1785125597.599599": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained quick filter save"
+ },
+ "1216914400374004": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained quick filter save"
+ },
+ "1785169500.890699": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1216930469611041": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1785180368.394749": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated + login link"
+ },
+ "1216944436446435": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated + login link"
+ },
+ "1785182548.574609": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained paid impressions normal"
+ },
+ "1216936944956107": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained paid impressions normal"
+ },
+ "1785199376.856919": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha gave workaround + explained trend metric (PB-resolved)"
+ },
+ "1216942919857907": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha gave workaround + explained trend metric (PB-resolved)"
+ },
+ "1785264952.254069": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Hoku created account group + persona, added agency users (PB admin)"
+ },
+ "1216971003084587": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Hoku created account group + persona, added agency users (PB admin)"
+ },
+ "1785327658.664439": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh checked; Francis redirected to cs-tech-support/Care admin [redirect]"
+ },
+ "1216995919917366": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh checked; Francis redirected to cs-tech-support/Care admin [redirect]"
+ },
+ "1785352574.478099": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Brand Partner value + explained tagging"
+ },
+ "1217008254769633": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Brand Partner value + explained tagging"
+ },
+ "1785358656.947239": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "working with sprinklr to support; Sprinklr support has indicated the issue has been resolved"
+ },
+ "1217010502664924": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "working with sprinklr to support; Sprinklr support has indicated the issue has been resolved"
+ },
+ "1785397028.907139": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1217019457917252": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1785417212.860559": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1217028978237494": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1785429098.878289": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix (Jarett/Kelli) explained TikTok API limitation; no escalation"
+ },
+ "1217037151789789": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix (Jarett/Kelli) explained TikTok API limitation; no escalation"
+ },
+ "1785440453.027819": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz confirmed account active (requester self-described 'games product team') [prior false-positive, corrected]"
+ },
+ "1217042441405529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz confirmed account active (requester self-described 'games product team') [prior false-positive, corrected]"
+ },
+ "1785517148.270319": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Alec redirected, Advocacy out of PB scope [redirect]"
+ },
+ "1217080686541215": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Alec redirected, Advocacy out of PB scope [redirect]"
+ },
+ "1785550814.666619": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained 60-day capture limit"
+ },
+ "1217092166557993": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained 60-day capture limit"
+ },
+ "1785762501.002269": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217124952621646": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1785765637.376729": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated + navigation guide"
+ },
+ "1217127209790364": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated + navigation guide"
+ },
+ "1785785467.719929": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku helped (naming issue, user renamed project)"
+ },
+ "1217139547478274": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku helped (naming issue, user renamed project)"
+ },
+ "1785788560.272549": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained ad-account/naming reasons; no escalation"
+ },
+ "1217140660979133": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained ad-account/naming reasons; no escalation"
+ },
+ "1785866541.997589": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "open ticket with sprinklr support; I have support ticket out for this"
+ },
+ "1217173515268392": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "open ticket with sprinklr support; I have support ticket out for this"
+ },
+ "1785868807.575029": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained dashboards"
+ },
+ "1217174679543100": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained dashboards"
+ },
+ "1785869930.290639": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained IG stories limitation + Socialite tagging"
+ },
+ "1217175288498163": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained IG stories limitation + Socialite tagging"
+ },
+ "1785935366.848969": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated"
+ },
+ "1217196076157684": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh activated"
+ },
+ "1785948272.555059": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained percentile framework"
+ },
+ "1217205314543734": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained percentile framework"
+ },
+ "1786035462.088979": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217253583370315": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1786132795.437919": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained Trend vs Lifetime"
+ },
+ "1217297255327704": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained Trend vs Lifetime"
+ },
+ "1786403023.185669": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku set up custom scheduled report PB-side"
+ },
+ "1217357313714534": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku set up custom scheduled report PB-side"
+ },
+ "1786479922.082869": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1217389728589534": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1786481775.636929": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1217391166906252": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1786485872.765239": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz created agency user"
+ },
+ "1217392181820482": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz created agency user"
+ },
+ "1786542900.478669": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/Francis diagnosed FB PAC-ads API limitation; no vendor escalation [borderline]"
+ },
+ "1217420622259982": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/Francis diagnosed FB PAC-ads API limitation; no vendor escalation [borderline]"
+ },
+ "1786553687.835339": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Marshall explained AI Compliance backend field"
+ },
+ "1217440898318616": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Marshall explained AI Compliance backend field"
+ },
+ "1786601742.453979": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated (90-day)"
+ },
+ "1217451011061096": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated (90-day)"
+ },
+ "1786609895.159489": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained backfill limits in detail"
+ },
+ "1217456862366201": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained backfill limits in detail"
+ },
+ "1786657236.234079": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1217482483867750": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1786744862.131249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated Nurul permissions"
+ },
+ "1217513914031285": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated Nurul permissions"
+ },
+ "1787068849.505719": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217609732874803": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1787069070.856639": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added brand partner + investigated naming PB-side"
+ },
+ "1217610045223362": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added brand partner + investigated naming PB-side"
+ },
+ "1787069869.551439": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated temp-worker profile"
+ },
+ "1217610643448217": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated temp-worker profile"
+ },
+ "1787071272.123899": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217612839987050": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217612771718010": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1787087824.245769": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated + explorer access"
+ },
+ "1217622731075176": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated + explorer access"
+ },
+ "1787096338.366889": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz built reach/frequency dashboard with PB Paid SME; no vendor escalation"
+ },
+ "1217627989761032": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz built reach/frequency dashboard with PB Paid SME; no vendor escalation"
+ },
+ "1217634477057406": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz built reach/frequency dashboard with PB Paid SME; no vendor escalation"
+ },
+ "1787157936.918149": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1217658858315107": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1787161320.354189": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick/PB tech resolved via metric/widget config; no new vendor escalation"
+ },
+ "1217660792286680": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick/PB tech resolved via metric/widget config; no new vendor escalation"
+ },
+ "1787162486.654639": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reviewed internally, competitor compare not enabled; built new dashboard PB-side"
+ },
+ "1217661171756383": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reviewed internally, competitor compare not enabled; built new dashboard PB-side"
+ },
+ "1787162098.983629": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I will submit a Support ticket; Support confirmed missing account permission"
+ },
+ "1217661434949877": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I will submit a Support ticket; Support confirmed missing account permission"
+ },
+ "1787199960.611539": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support confirmed TikTok API limitation; Product escalated to Engineering"
+ },
+ "1217674286745420": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support confirmed TikTok API limitation; Product escalated to Engineering"
+ },
+ "1787248032.408529": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained <24h trend metric limitation"
+ },
+ "1217699992068502": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained <24h trend metric limitation"
+ },
+ "1787531579.884639": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1217768320258237": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1787561605.688979": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh guided through form + activated"
+ },
+ "1217779962641620": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh guided through form + activated"
+ },
+ "1787595265.706509": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1217806434127152": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1787600377.017139": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised to Sprinklr's support team; escalated with Meta"
+ },
+ "1217809059571656": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised to Sprinklr's support team; escalated with Meta"
+ },
+ "1787627613.783029": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated Ad Account Type tagging PB-side"
+ },
+ "1217817633212347": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated Ad Account Type tagging PB-side"
+ },
+ "1787650159.832119": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1217826598646499": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1787658121.212249": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/Hoku investigated + resolved dashboard access"
+ },
+ "1217829804491439": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/Hoku investigated + resolved dashboard access"
+ },
+ "1787669804.229989": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "open a support ticket; support working with the channel; Sprinklr product backend fix 2027"
+ },
+ "1217838817506641": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "open a support ticket; support working with the channel; Sprinklr product backend fix 2027"
+ },
+ "1787669844.295089": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "reached out to our product team; still working with Sprinklr on YT metric change"
+ },
+ "1217838692958045": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "reached out to our product team; still working with Sprinklr on YT metric change"
+ },
+ "1787682465.706049": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku directed to form; access-denied investigation"
+ },
+ "1217853584163308": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku directed to form; access-denied investigation"
+ },
+ "1787764063.193699": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis changed permissions analyst->community mgr; Alec approved"
+ },
+ "1217884376243289": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis changed permissions analyst->community mgr; Alec approved"
+ },
+ "1787770521.626299": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "double check with product + POV; escalate with Sprinklr support (enhancement request)"
+ },
+ "1217887709584463": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "double check with product + POV; escalate with Sprinklr support (enhancement request)"
+ },
+ "1787838263.292449": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "double check with product + POV; escalate with Sprinklr support (enhancement request)"
+ },
+ "1217914740694087": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "double check with product + POV; escalate with Sprinklr support (enhancement request)"
+ },
+ "1787839089.319789": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh added earned/owned access"
+ },
+ "1217914569680660": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh added earned/owned access"
+ },
+ "1787847341.297939": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated access"
+ },
+ "1217921415873929": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated access"
+ },
+ "1787849702.876569": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis shared dashboard via form/email"
+ },
+ "1217923501336917": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis shared dashboard via form/email"
+ },
+ "1787850524.958139": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall explained X API 1080p limit; published natively; product-check not executed [borderline]"
+ },
+ "1217926770676975": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall explained X API 1080p limit; published natively; product-check not executed [borderline]"
+ },
+ "1787855701.544409": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained boosting negative-number behavior"
+ },
+ "1217927701613804": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained boosting negative-number behavior"
+ },
+ "1787874895.671719": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained Benchmarking module deprecated"
+ },
+ "1217937480669770": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku explained Benchmarking module deprecated"
+ },
+ "1787880431.379059": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "raised with support; !oncall martech-mardata-support (Sherry Yang) for Socialite tagging"
+ },
+ "1217942379892928": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "raised with support; !oncall martech-mardata-support (Sherry Yang) for Socialite tagging"
+ },
+ "1218002964906706": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Alec redirected, Advocacy out of PB scope [redirect]"
+ },
+ "1785774606.481529": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support and Engineering are looking into this; followed-up on the Sprinklr Support ticket"
+ },
+ "1784471212.749829": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support and Engineering are looking into this; followed-up on the Sprinklr Support ticket"
+ },
+ "1218005066582002": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support and Engineering are looking into this; followed-up on the Sprinklr Support ticket"
+ },
+ "1788196865.137019": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1218027944015286": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1788277144.466069": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Rebecka redirected to Sprinklr Success Mgr Joel; Advocacy out of PB scope [redirect]"
+ },
+ "1218064451856646": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Rebecka redirected to Sprinklr Success Mgr Joel; Advocacy out of PB scope [redirect]"
+ },
+ "1788282054.285509": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis fixed Dunkin naming convention (PB config)"
+ },
+ "1218066851428511": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis fixed Dunkin naming convention (PB config)"
+ },
+ "1788365534.808189": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1218106074245152": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1788370698.562549": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated analytics access"
+ },
+ "1218109566376002": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated analytics access"
+ },
+ "1788371159.191389": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis scoped internally; needs backend setup, no escalation"
+ },
+ "1218109844173160": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis scoped internally; needs backend setup, no escalation"
+ },
+ "1788373660.392419": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Patrick added metrics + investigated link-click with PB Paid SME; no vendor escalation"
+ },
+ "1218111745680308": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Patrick added metrics + investigated link-click with PB Paid SME; no vendor escalation"
+ },
+ "1788387501.469199": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1218128124016179": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1788436921.001709": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh declined Sprinklr API; Netflix DSE discussion, out of scope"
+ },
+ "1218144837528013": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh declined Sprinklr API; Netflix DSE discussion, out of scope"
+ },
+ "1788781538.154159": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1218238931574060": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1788897846.093529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz changed persona analyst->community mgr (Mediamint)"
+ },
+ "1218289717789480": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz changed persona analyst->community mgr (Mediamint)"
+ },
+ "1788943953.483029": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1218305816950609": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1788961493.536729": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained channel/form for agency"
+ },
+ "1218325234748262": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained channel/form for agency"
+ },
+ "1789053114.100239": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained custom dashboards admin-only"
+ },
+ "1218366974113943": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained custom dashboards admin-only"
+ },
+ "1789066686.123829": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick tagged country + explained naming; agency taxonomy fix; no vendor escalation"
+ },
+ "1218376103745613": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick tagged country + explained naming; agency taxonomy fix; no vendor escalation"
+ },
+ "1789075265.141409": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Raising it to sprinklr support; submitted Support ticket; !oncall martech-mardata-support (Ann Kettles)"
+ },
+ "1218379869368501": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Raising it to sprinklr support; submitted Support ticket; !oncall martech-mardata-support (Ann Kettles)"
+ },
+ "1789146432.474239": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Patching through to Support; escalated with Sprinklr Support; raised with META"
+ },
+ "1218409776605379": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Patching through to Support; escalated with Sprinklr Support; raised with META"
+ },
+ "1789148996.798859": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1218411574194290": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1789149981.725489": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Pantene brand partner value"
+ },
+ "1218412176433395": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Pantene brand partner value"
+ },
+ "1789166763.717629": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added users"
+ },
+ "1218418079035603": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added users"
+ },
+ "1789362647.857389": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised the issue with the tech team; issue resolved"
+ },
+ "1218438253896359": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raised the issue with the tech team; issue resolved"
+ },
+ "1789392782.572699": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "investigating with Sprinklr Support; Engineering pushed a fix"
+ },
+ "1218461410022119": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "investigating with Sprinklr Support; Engineering pushed a fix"
+ },
+ "1789403168.273599": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained untagged in Socialite"
+ },
+ "1218468955075909": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained untagged in Socialite"
+ },
+ "1789412095.816799": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Ad Objective filter"
+ },
+ "1218482627480829": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Ad Objective filter"
+ },
+ "1789467321.890139": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained IG metric drill-down"
+ },
+ "1218506967579799": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained IG metric drill-down"
+ },
+ "1789498192.119149": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support team still investigating; resolved (same socialite-connection bug)"
+ },
+ "1218522683128110": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr Support team still investigating; resolved (same socialite-connection bug)"
+ },
+ "1789505436.898809": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall gathering export inputs (PB setup)"
+ },
+ "1218526351330484": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall gathering export inputs (PB setup)"
+ },
+ "1789509169.785689": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick: included in upcoming dashboard update"
+ },
+ "1218527926086033": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick: included in upcoming dashboard update"
+ },
+ "1789543242.586169": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha looked into Korea YT data, resolved; no stated escalation [borderline]"
+ },
+ "1218535452650974": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha looked into Korea YT data, resolved; no stated escalation [borderline]"
+ },
+ "1789595495.351379": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "submit a support ticket; update from support (TikTok moderation delay)"
+ },
+ "1218566660936630": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "submit a support ticket; update from support (TikTok moderation delay)"
+ },
+ "1789596869.057239": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr's technical support team looked into the comment discrepancy; TikTok involvement"
+ },
+ "1218567636552971": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr's technical support team looked into the comment discrepancy; TikTok involvement"
+ },
+ "1789599573.133979": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall reactivated"
+ },
+ "1218567601070923": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall reactivated"
+ },
+ "1789638137.156649": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained follower-growth metrics"
+ },
+ "1218578058584991": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained follower-growth metrics"
+ },
+ "1789648043.645029": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1218583550155037": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1789668354.973879": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Joel access"
+ },
+ "1218602375675084": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Joel access"
+ },
+ "1789668412.123699": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1218602375780395": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1789685139.569679": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "Sprinklr team doing feasibility assessment of a Trade Desk integration"
+ },
+ "1218610384339331": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "Sprinklr team doing feasibility assessment of a Trade Desk integration"
+ },
+ "1789744864.811359": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I'll raise this with Sprinklr support; ticket 4084857 (post-matching data model)"
+ },
+ "1218635634731435": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "I'll raise this with Sprinklr support; ticket 4084857 (post-matching data model)"
+ },
+ "1789750175.190919": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis back-end Page Group mapping; Rebecka approved"
+ },
+ "1218639437678183": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis back-end Page Group mapping; Rebecka approved"
+ },
+ "1789957048.207539": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1218687897590952": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1789984020.181779": {
+  "external": false,
+  "team": "",
+  "evidence": "no PB reply; password error [no escalation evidence]"
+ },
+ "1218691908646724": {
+  "external": false,
+  "team": "",
+  "evidence": "no PB reply; password error [no escalation evidence]"
+ },
+ "1790027063.491559": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained query keywords"
+ },
+ "1218724177248950": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained query keywords"
+ },
+ "1790062254.431519": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Hoku explained custom-entity limitation; Netflix paused request"
+ },
+ "1218732097530770": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Hoku explained custom-entity limitation; Netflix paused request"
+ },
+ "1790074761.840269": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated + SSO guidance"
+ },
+ "1218738258354730": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated + SSO guidance"
+ },
+ "1790198665.460949": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Earned Mentions definition"
+ },
+ "1218802074673630": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Earned Mentions definition"
+ },
+ "1790255334.670019": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr (Sateesh Kota) KB-search outage; ticket 4085822, RCA [Care-side direct incident]"
+ },
+ "1218822358550039": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "Sprinklr (Sateesh Kota) KB-search outage; ticket 4085822, RCA [Care-side direct incident]"
+ },
+ "1790278978.288549": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "still under investigation with Sprinklr's technical support team (CSV export)"
+ },
+ "1218841408626330": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "still under investigation with Sprinklr's technical support team (CSV export)"
+ },
+ "1790280746.796259": {
+  "external": false,
+  "team": "",
+  "evidence": "Rebecka redirected to Netflix DSE (connector); Sprinklr support not involved [redirect]"
+ },
+ "1218842529012311": {
+  "external": false,
+  "team": "",
+  "evidence": "Rebecka redirected to Netflix DSE (connector); Sprinklr support not involved [redirect]"
+ },
+ "1790285631.183119": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall provisioned her"
+ },
+ "1218844612538931": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall provisioned her"
+ },
+ "1790328059.898639": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1218856633670179": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1790343346.284759": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1218863313782840": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1790344074.611619": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated agency account access"
+ },
+ "1218863729805410": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated agency account access"
+ },
+ "1790366520.628639": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1218880219772362": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1790554929.035629": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1218919797316937": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated"
+ },
+ "1790561669.538719": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix DSE (Mike) granted warehouse access; not Sprinklr-maintained [redirect]"
+ },
+ "1218917376377160": {
+  "external": false,
+  "team": "",
+  "evidence": "Netflix DSE (Mike) granted warehouse access; not Sprinklr-maintained [redirect]"
+ },
+ "1790564131.341129": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "escalated to the product team; Engineering team is looking into it"
+ },
+ "1218934116164339": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "escalated to the product team; Engineering team is looking into it"
+ },
+ "1790604853.643769": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "sprinklr engineering identified a potential issue pulling TikTok inbound comments"
+ },
+ "1218941546627254": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "sprinklr engineering identified a potential issue pulling TikTok inbound comments"
+ },
+ "1790619699.687889": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/marshall confirmed dashboard access"
+ },
+ "1218952308091056": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/marshall confirmed dashboard access"
+ },
+ "1790653269.049749": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "escalated to the product team; Engineering team is looking into it"
+ },
+ "1218968295692534": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "escalated to the product team; Engineering team is looking into it"
+ },
+ "1790688866.672949": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh changed persona (community mgr)"
+ },
+ "1218978310183861": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh changed persona (community mgr)"
+ },
+ "1790717768.693099": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick tagged region (melbourne X spend)"
+ },
+ "1219002779077500": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick tagged region (melbourne X spend)"
+ },
+ "1790751445.923109": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha recreated user for activation email"
+ },
+ "1219012536044843": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha recreated user for activation email"
+ },
+ "1790763850.811499": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/marshall handled agency paid access + approval"
+ },
+ "1219027569121082": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh/marshall handled agency paid access + approval"
+ },
+ "1790765945.864269": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1219027816121228": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1790778978.894829": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1219035944666156": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated"
+ },
+ "1790867559.336339": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis created external user"
+ },
+ "1219078079493164": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis created external user"
+ },
+ "1790875944.521359": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall updated persona (David EdCal access)"
+ },
+ "1219083371462131": {
+  "external": false,
+  "team": "",
+  "evidence": "marshall updated persona (David EdCal access)"
+ },
+ "1790926076.553299": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/marshall pointed to new dashboard"
+ },
+ "1219103502824678": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/marshall pointed to new dashboard"
+ },
+ "1790957705.202419": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Hoku explained naming convention + back-tagging"
+ },
+ "1219116395745079": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis/Hoku explained naming convention + back-tagging"
+ },
+ "1791190603.341869": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reset password"
+ },
+ "1219164814272262": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reset password"
+ },
+ "1791206876.566089": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained SSO for contractor"
+ },
+ "1219174816973192": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained SSO for contractor"
+ },
+ "1791212762.951939": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "submit a technical support ticket; ticket #4090601"
+ },
+ "1219181772679028": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "submit a technical support ticket; ticket #4090601"
+ },
+ "1791217161.643559": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis built custom listening dashboard"
+ },
+ "1219185131147461": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis built custom listening dashboard"
+ },
+ "1791220075.112579": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained naming convention + back-tagging; agency taxonomy"
+ },
+ "1219186885914836": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained naming convention + back-tagging; agency taxonomy"
+ },
+ "1791293098.021239": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh set up scheduled report"
+ },
+ "1219222131829970": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh set up scheduled report"
+ },
+ "1791309695.927409": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1219235744472572": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1791317012.346039": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Patrick explained naming convention; Netflix Donovan on account connection"
+ },
+ "1219239917117097": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Patrick explained naming convention; Netflix Donovan on account connection"
+ },
+ "1219241022834921": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Patrick explained naming convention; Netflix Donovan on account connection"
+ },
+ "1791381956.278779": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reset password (Sharmarl)"
+ },
+ "1219282338869623": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reset password (Sharmarl)"
+ },
+ "1791382966.332729": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support (Thanya); Sprinklr ticket #4084857 (FB tag push 400)"
+ },
+ "1219269618138059": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "!oncall martech-mardata-support (Thanya); Sprinklr ticket #4084857 (FB tag push 400)"
+ },
+ "1791392152.620709": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raise a technical support ticket with Sprinklr; investigated with X"
+ },
+ "1219280010387190": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "raise a technical support ticket with Sprinklr; investigated with X"
+ },
+ "1791405589.270119": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added WHOOP brand partner"
+ },
+ "1219286096534267": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added WHOOP brand partner"
+ },
+ "1791411441.627779": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1219289392011186": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku reactivated"
+ },
+ "1791446286.425099": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained paid/organic split dashboard"
+ },
+ "1219299803778509": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained paid/organic split dashboard"
+ },
+ "1791458974.597989": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained login (incognito/Meechum)"
+ },
+ "1219306187390467": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh explained login (incognito/Meechum)"
+ },
+ "1791481238.448439": {
+  "external": false,
+  "team": "",
+  "evidence": "self-resolved after re-add; no escalation executed"
+ },
+ "1219322035038305": {
+  "external": false,
+  "team": "",
+  "evidence": "self-resolved after re-add; no escalation executed"
+ },
+ "1791544799.951149": {
+  "external": false,
+  "team": "",
+  "evidence": "cross-post of escalated Empress request; no new handling in this thread"
+ },
+ "1219359782466728": {
+  "external": false,
+  "team": "",
+  "evidence": "cross-post of escalated Empress request; no new handling in this thread"
+ },
+ "1791565979.132699": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1219369602205227": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated"
+ },
+ "1791571663.800669": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated both accounts"
+ },
+ "1219371233992094": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated both accounts"
+ },
+ "1791573439.530599": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz exported Netflix account URLs from Sprinklr"
+ },
+ "1219372145891507": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz exported Netflix account URLs from Sprinklr"
+ },
+ "1791779039.385999": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "check with support; issue raised with TikTok channel"
+ },
+ "1219397230828015": {
+  "external": true,
+  "team": "Sprinklr support",
+  "evidence": "check with support; issue raised with TikTok channel"
+ },
+ "1791806195.074489": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1219414819840156": {
+  "external": false,
+  "team": "",
+  "evidence": "Harsh reactivated"
+ },
+ "1791829925.973849": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Q3 impressions dashboard + discrepancy"
+ },
+ "1219426684500284": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz explained Q3 impressions dashboard + discrepancy"
+ },
+ "1791837766.066939": {
+  "external": false,
+  "team": "",
+  "evidence": "socialite card not searchable, self-resolved, PB to review"
+ },
+ "1219429676003910": {
+  "external": false,
+  "team": "",
+  "evidence": "socialite card not searchable, self-resolved, PB to review"
+ },
+ "1791881108.724499": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Harsh"
+ },
+ "1219451708268320": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Harsh"
+ },
+ "1791884780.952059": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "X impressions=0; Harsh raised with Sprinklr to restore+backfill; routed to re-add account channel"
+ },
+ "1219452580485977": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "X impressions=0; Harsh raised with Sprinklr to restore+backfill; routed to re-add account channel"
+ },
+ "1791905758.753539": {
+  "external": false,
+  "team": "",
+  "evidence": "reels filter returns no data; PB gave Media Type=video workaround"
+ },
+ "1219465439820755": {
+  "external": false,
+  "team": "",
+  "evidence": "reels filter returns no data; PB gave Media Type=video workaround"
+ },
+ "1791925531.897929": {
+  "external": false,
+  "team": "",
+  "evidence": "country tagging question; Hoku explained multi-country account tagging"
+ },
+ "1219478050529291": {
+  "external": false,
+  "team": "",
+  "evidence": "country tagging question; Hoku explained multi-country account tagging"
+ },
+ "1791929557.854769": {
+  "external": false,
+  "team": "",
+  "evidence": "inactive account reactivation by Beatriz"
+ },
+ "1219479652428897": {
+  "external": false,
+  "team": "",
+  "evidence": "inactive account reactivation by Beatriz"
+ },
+ "1791930811.214079": {
+  "external": false,
+  "team": "",
+  "evidence": "dashboard setup/permissions updated by Beatriz"
+ },
+ "1219479738818284": {
+  "external": false,
+  "team": "",
+  "evidence": "dashboard setup/permissions updated by Beatriz"
+ },
+ "1791988402.035539": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member reactivation by Harsh"
+ },
+ "1219512127578855": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member reactivation by Harsh"
+ },
+ "1219514097827410": {
+  "external": true,
+  "team": "Sprinklr product",
+  "evidence": "reached out to our product team; still working with Sprinklr on YT metric change"
+ },
+ "1791999770.168399": {
+  "external": false,
+  "team": "",
+  "evidence": "paid dashboard region filter; Beatriz explained region widgets + alt dashboard"
+ },
+ "1219519014579672": {
+  "external": false,
+  "team": "",
+  "evidence": "paid dashboard region filter; Beatriz explained region widgets + alt dashboard"
+ },
+ "1792019884.187969": {
+  "external": false,
+  "team": "",
+  "evidence": "Games naming convention Ad Set update by Patrick"
+ },
+ "1219527963832089": {
+  "external": false,
+  "team": "",
+  "evidence": "Games naming convention Ad Set update by Patrick"
+ },
+ "1792041623.756349": {
+  "external": true,
+  "team": "Netflix access team",
+  "evidence": "platforms missing: Narnia/Theatrical accounts not in Sprinklr; routed to social-media-access-takedowns to connect"
+ },
+ "1219534453298205": {
+  "external": true,
+  "team": "Netflix access team",
+  "evidence": "platforms missing: Narnia/Theatrical accounts not in Sprinklr; routed to social-media-access-takedowns to connect"
+ },
+ "1792090457.639769": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "thumbnail/timestamp bug; Sprinklr Support reproduced and escalated to Engineering"
+ },
+ "1219562921705345": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "thumbnail/timestamp bug; Sprinklr Support reproduced and escalated to Engineering"
+ },
+ "1792098707.594649": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Hoku"
+ },
+ "1219576881861202": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Hoku"
+ },
+ "1792112490.960409": {
+  "external": true,
+  "team": "Sprinklr/Care",
+  "evidence": "Care env access; routed to cs-tech-support + Joel Kretzinger (Sprinklr) + Paul (Care admin)"
+ },
+ "1219570104787285": {
+  "external": true,
+  "team": "Sprinklr/Care",
+  "evidence": "Care env access; routed to cs-tech-support + Joel Kretzinger (Sprinklr) + Paul (Care admin)"
+ },
+ "1792163963.877329": {
+  "external": false,
+  "team": "",
+  "evidence": "Reddit benchmark 0%; Patrick fixed, now populating"
+ },
+ "1219590862651920": {
+  "external": false,
+  "team": "",
+  "evidence": "Reddit benchmark 0%; Patrick fixed, now populating"
+ },
+ "1792173481.746859": {
+  "external": false,
+  "team": "",
+  "evidence": "untagged ads list questions; Patrick explained categorization"
+ },
+ "1219596061969018": {
+  "external": false,
+  "team": "",
+  "evidence": "untagged ads list questions; Patrick explained categorization"
+ },
+ "1792247019.404789": {
+  "external": true,
+  "team": "Sprinklr/MarTech",
+  "evidence": "FB account not flowing; FB live link issue worked through with Sprinklr engineering; Ann Kettles manual update"
+ },
+ "1219614379956563": {
+  "external": true,
+  "team": "Sprinklr/MarTech",
+  "evidence": "FB account not flowing; FB live link issue worked through with Sprinklr engineering; Ann Kettles manual update"
+ },
+ "1792419068.449869": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member (Anastasiia) reactivation by Francis"
+ },
+ "1219656812340621": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member (Anastasiia) reactivation by Francis"
+ },
+ "1792411871.856429": {
+  "external": false,
+  "team": "",
+  "evidence": "colleague account reactivation by Francis"
+ },
+ "1219656531946277": {
+  "external": false,
+  "team": "",
+  "evidence": "colleague account reactivation by Francis"
+ },
+ "1792503972.359029": {
+  "external": false,
+  "team": "",
+  "evidence": "untagged finance report lines; PB diagnosed naming-convention/RNC rule + granted dashboard access"
+ },
+ "1219704529354824": {
+  "external": false,
+  "team": "",
+  "evidence": "untagged finance report lines; PB diagnosed naming-convention/RNC rule + granted dashboard access"
+ },
+ "1792510449.966929": {
+  "external": false,
+  "team": "",
+  "evidence": "access reactivation by Varsha"
+ },
+ "1219710192134478": {
+  "external": false,
+  "team": "",
+  "evidence": "access reactivation by Varsha"
+ },
+ "1792511392.445199": {
+  "external": false,
+  "team": "",
+  "evidence": "inactive account reactivation by Francis"
+ },
+ "1219710960897763": {
+  "external": false,
+  "team": "",
+  "evidence": "inactive account reactivation by Francis"
+ },
+ "1792516841.540019": {
+  "external": false,
+  "team": "",
+  "evidence": "which dashboard for organic+paid rollup; Francis pointed to Unified dashboard"
+ },
+ "1219714488768383": {
+  "external": false,
+  "team": "",
+  "evidence": "which dashboard for organic+paid rollup; Francis pointed to Unified dashboard"
+ },
+ "1792602951.033719": {
+  "external": false,
+  "team": "",
+  "evidence": "Sprinklr vs Looker impressions discrepancy; Francis explained unified-analytics lifetime data"
+ },
+ "1219755424510564": {
+  "external": false,
+  "team": "",
+  "evidence": "Sprinklr vs Looker impressions discrepancy; Francis explained unified-analytics lifetime data"
+ },
+ "1792620718.144869": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Beatriz"
+ },
+ "1219764503344486": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Beatriz"
+ },
+ "1792627964.748229": {
+  "external": false,
+  "team": "",
+  "evidence": "90-day inactivity reactivation by marshall"
+ },
+ "1219766695708074": {
+  "external": false,
+  "team": "",
+  "evidence": "90-day inactivity reactivation by marshall"
+ },
+ "1792657471.926709": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Harsh"
+ },
+ "1219776220962366": {
+  "external": false,
+  "team": "",
+  "evidence": "account reactivation by Harsh"
+ },
+ "1792737856.792649": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member (Seden) reactivation by Varsha"
+ },
+ "1219822303371723": {
+  "external": false,
+  "team": "",
+  "evidence": "agency member (Seden) reactivation by Varsha"
+ },
+ "1792777549.725309": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "socialite project linkage merge; Francis paged !oncall martech-mardata-support, Sherry Yang/Ann Kettles fixed linkage"
+ },
+ "1219832067881598": {
+  "external": true,
+  "team": "Netflix MarTech",
+  "evidence": "socialite project linkage merge; Francis paged !oncall martech-mardata-support, Sherry Yang/Ann Kettles fixed linkage"
+ },
+ "1793063785.208309": {
+  "external": false,
+  "team": "",
+  "evidence": "101 training request; PB (Varsha/Rebecka) pointed to self-serve resources"
+ },
+ "1219921749606717": {
+  "external": false,
+  "team": "",
+  "evidence": "101 training request; PB (Varsha/Rebecka) pointed to self-serve resources"
+ },
+ "1793067878.913289": {
+  "external": false,
+  "team": "",
+  "evidence": "90-day inactivity reactivation by Varsha"
+ },
+ "1219922658997744": {
+  "external": false,
+  "team": "",
+  "evidence": "90-day inactivity reactivation by Varsha"
+ },
+ "1793086065.236619": {
+  "external": false,
+  "team": "",
+  "evidence": "outbound posts monitoring dashboard build; Varsha handling"
+ },
+ "1219927823712054": {
+  "external": false,
+  "team": "",
+  "evidence": "outbound posts monitoring dashboard build; Varsha handling"
+ },
+ "1793132576.635219": {
+  "external": false,
+  "team": "",
+  "evidence": "confirm event-based data filter setup; Beatriz confirmed"
+ },
+ "1219958581409846": {
+  "external": false,
+  "team": "",
+  "evidence": "confirm event-based data filter setup; Beatriz confirmed"
+ },
+ "1793214665.986989": {
+  "external": false,
+  "team": "",
+  "evidence": "access reactivation by Beatriz"
+ },
+ "1219996430609989": {
+  "external": false,
+  "team": "",
+  "evidence": "access reactivation by Beatriz"
+ },
+ "1218403513354881": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "Gmail reactivation (Fran Cowan fcowan@netflix.com); Francis reactivated (internal), but thread loops joel.kretzinger@sprinklr.com for Ads Voices/advocacy deactivation-policy config -> Sprinklr involved; read 2026-10-29"
+ },
+ "1218389227531566": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Nina Mendoza ninam@netflix.com); Varsha/Hoku reactivated directly; read 2026-10-29"
+ },
+ "1218389322533375": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Sofia Baron sofia.baron@dentsu.com via Sprinklr Deactivation Support google-group); Varsha handled, asked FTE to raise form, closed; no external escalation; read 2026-10-29"
+ },
+ "1218389141073782": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Marion Boeri mboeri@netflix.com); Francis reactivated directly; read 2026-10-29"
+ },
+ "1218388939624500": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Bernadette Marcu bernadette@netflix.com); Beatriz reactivated directly; read 2026-10-29"
+ },
+ "1218389090118067": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Kimberly Kaplan kkaplan@netflix.com); Marshall reactivated directly; read 2026-10-29"
+ },
+ "1218765583423502": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Yna Zuilan yna@juo.sg); Varsha asked FTE to submit, redirected; read 2026-10-29"
+ },
+ "1218950947613281": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Ingrid Ostby iostby@netflix.com); Beatriz reactivated, Rebecka explained 90-day policy; read 2026-10-29"
+ },
+ "1219405868774000": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Yilin Lin yilinl@netflix.com); Varsha reactivated directly; read 2026-10-29"
+ },
+ "1219715966469526": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Kristina Myers kristina@thesource.social); Marshall reactivated directly; read 2026-10-29"
+ }
+}
