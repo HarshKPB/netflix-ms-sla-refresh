@@ -307,6 +307,22 @@ def normalize_assignees(rows):
     return rows
 
 
+def _load_ext_map(path):
+    """key -> {external, team, ...} curated involvement map; '_'-prefixed keys are docs.
+    Missing or unreadable file yields {} so the build never breaks on it."""
+    try:
+        return {k: v for k, v in json.load(open(path)).items() if not str(k).startswith("_")}
+    except Exception:
+        return {}
+
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# External-team involvement, curated out-of-band (cloud has no Slack access): Slack keyed by
+# thread ts, Sprinklr-form keyed by intakeResponseId. external True/False, or absent -> None.
+SLACK_EXT = _load_ext_map(os.path.join(_HERE, "external_map.json"))
+SPR_EXT = _load_ext_map(os.path.join(_HERE, "sprinklr_external.json"))
+
+
 def build_rows(intake, asana, cases):
     rows = []
     for c in cases:
@@ -319,6 +335,8 @@ def build_rows(intake, asana, cases):
         created = c.get("createdTime")
         assigned = (c.get("userAssignmentDetails") or {}).get("assignmentTime")
         done = c.get("statusLastModifiedDate") if str(c.get("taskStatus")).upper() == "COMPLETED" else None
+        rnum = str((c.get("taskObject") or {}).get("intakeResponseId", ""))
+        se = SPR_EXT.get(rnum)
         rows.append({
             "source": "Sprinklr", "task_name": name, "assignee": c.get("assigneeName") or "",
             "request_arrival_time": ms_to_ist(created),
@@ -327,6 +345,8 @@ def build_rows(intake, asana, cases):
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(assigned, done),
             "link": sprinklr_link(c),
+            "external_involved": (se["external"] if se else None),
+            "external_team": (se.get("team", "") if se else ""),
             "_s": int(created) if created else 0,
         })
     for t in asana:
@@ -351,6 +371,10 @@ def build_rows(intake, asana, cases):
                 first_resp = hm(arr, float(fr) * 1000)
             except Exception:
                 first_resp = ""
+        # Resolve external-involvement by the sheet message ts, falling back to the
+        # Asana task gid. The gid fallback covers rows with no intake-sheet match
+        # (e.g. Gmail-inbound [Reactivation] tasks), which have no ts to key on.
+        se = SLACK_EXT.get((info or {}).get("ts", "")) or SLACK_EXT.get(t.get("gid", ""))
         rows.append({
             "source": s, "task_name": t["name"], "assignee": asg,
             "request_arrival_time": ms_to_ist(arr),
@@ -358,6 +382,8 @@ def build_rows(intake, asana, cases):
             "SLA_Assignement": hm(arr, created),
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
+            "external_involved": (se["external"] if se else None),
+            "external_team": (se.get("team", "") if se else ""),
             "first_response_sla": first_resp,
             # region + country = the requester's, resolved by the bot into the intake sheet
             # (Asana's task Region is the fallback). category/data type/priority are task
@@ -561,6 +587,19 @@ def main():
     print("queue request_type (Asana Category):", dict(_collections.Counter(r["request_type"] for r in rows).most_common(12)))
     print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
     print("queue priority:", dict(_collections.Counter(r["priority"] for r in rows).most_common()))
+    # External-involvement coverage, per source. "unknown" = row whose request was not in
+    # external_map (a new intake since the map was last regenerated); it is never counted as
+    # internal. This line is the post-deploy proof that every row resolved (unknown == 0).
+    def _extbucket(r):
+        v = r.get("external_involved")
+        return "external" if v is True else ("internal" if v is False else "unknown")
+    _cov = _collections.defaultdict(_collections.Counter)
+    for r in rows:
+        _cov[r["source"]][_extbucket(r)] += 1
+    for _src in sorted(_cov):
+        _c = _cov[_src]
+        print("external coverage [%s]: external %d, internal %d, unknown %d (of %d)"
+              % (_src, _c["external"], _c["internal"], _c["unknown"], sum(_c.values())))
     print("first-response: filled",
           sum(1 for r in rows if r.get("first_response_sla")), "of",
           sum(1 for r in rows if r.get("source") == "Slack"), "Slack rows (from intake col U)")
@@ -583,6 +622,8 @@ def main():
                              "region": r.get("region", ""), "country": r.get("country", ""),
                              "request_type": r.get("request_type", ""),
                              "data_type": r.get("data_type", ""), "priority": r.get("priority", ""),
+                             "external_involved": r.get("external_involved", None),
+                             "external_team": r.get("external_team", ""),
                              "first_response_sla": r.get("first_response_sla", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
