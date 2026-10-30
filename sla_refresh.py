@@ -101,6 +101,30 @@ def hm(a, b):
     return "" if m < 0 else "%dh %02dm" % (m // 60, m % 60)
 
 
+def user_type_of(email, org=""):
+    """FTE / Contractor / Agency from the requester's email domain: netflix.com is
+    an FTE, netflixcontractors.com is a contractor, any other domain is an agency or
+    partner. Falls back to the bot-resolved Requester Org string when the email is
+    blank, and returns Unknown when neither is present (e.g. Sprinklr-scrape rows,
+    which carry no requester email)."""
+    d = (email or "").strip().lower()
+    d = d.rsplit("@", 1)[-1] if "@" in d else ""
+    if d == "netflix.com":
+        return "FTE"
+    if d == "netflixcontractors.com":
+        return "Contractor"
+    if d:
+        return "Agency"
+    o = (org or "").strip().lower()
+    if o == "netflix":
+        return "FTE"
+    if o.startswith("netflix contractor"):
+        return "Contractor"
+    if o:
+        return "Agency"
+    return "Unknown"
+
+
 def classify(name):
     if name.startswith("["):
         return "Slack"
@@ -201,6 +225,8 @@ def load_intake(gc):
     fr_c = col("first pb reply ts")   # stamped by the Ticket Bot, raw Slack ts / "none" / blank
     rg_c = col("requester region")    # bot-resolved region of the person who raised the request
     co_c = col("requester country")
+    em_c = col("requester email")     # used to bucket the requester as FTE / Contractor / Agency
+    org_c = col("requester org")      # bot-resolved org label, a fallback when email is blank
     from_url = re.compile(r"/task/(\d{6,})")
     slack_ts = re.compile(r"^\d{10}(\.\d+)?$")
     out = {}
@@ -221,7 +247,8 @@ def load_intake(gc):
             continue
         out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c),
                     "channel": cell(ch_c), "ts": raw, "first_reply": cell(fr_c),
-                    "region": cell(rg_c), "country": cell(co_c)}
+                    "region": cell(rg_c), "country": cell(co_c),
+                    "email": cell(em_c), "org": cell(org_c)}
     return out
 
 
@@ -347,6 +374,7 @@ def build_rows(intake, asana, cases):
             "link": sprinklr_link(c),
             "external_involved": (se["external"] if se else None),
             "external_team": (se.get("team", "") if se else ""),
+            "user_type": "Unknown",   # Sprinklr scrape carries no requester email
             "_s": int(created) if created else 0,
         })
     for t in asana:
@@ -375,6 +403,13 @@ def build_rows(intake, asana, cases):
         # Asana task gid. The gid fallback covers rows with no intake-sheet match
         # (e.g. Gmail-inbound [Reactivation] tasks), which have no ts to key on.
         se = SLACK_EXT.get((info or {}).get("ts", "")) or SLACK_EXT.get(t.get("gid", ""))
+        # Requester bucket for the row: the intake-sheet email, else the email embedded
+        # in a Gmail-inbound [Reactivation] task name (those have no sheet row).
+        ut = user_type_of((info or {}).get("email", ""), (info or {}).get("org", ""))
+        if ut == "Unknown":
+            _m = re.search(r"[\w.+-]+@[\w.-]+\.\w+", t.get("name", "") or "")
+            if _m:
+                ut = user_type_of(_m.group(0))
         rows.append({
             "source": s, "task_name": t["name"], "assignee": asg,
             "request_arrival_time": ms_to_ist(arr),
@@ -384,6 +419,7 @@ def build_rows(intake, asana, cases):
             "SLA_completion": hm(created, done),
             "external_involved": (se["external"] if se else None),
             "external_team": (se.get("team", "") if se else ""),
+            "user_type": ut,
             "first_response_sla": first_resp,
             # region + country = the requester's, resolved by the bot into the intake sheet
             # (Asana's task Region is the fallback). category/data type/priority are task
@@ -600,6 +636,7 @@ def main():
         _c = _cov[_src]
         print("external coverage [%s]: external %d, internal %d, unknown %d (of %d)"
               % (_src, _c["external"], _c["internal"], _c["unknown"], sum(_c.values())))
+    print("user type:", dict(_collections.Counter(r.get("user_type", "Unknown") for r in rows).most_common()))
     print("first-response: filled",
           sum(1 for r in rows if r.get("first_response_sla")), "of",
           sum(1 for r in rows if r.get("source") == "Slack"), "Slack rows (from intake col U)")
@@ -624,6 +661,7 @@ def main():
                              "data_type": r.get("data_type", ""), "priority": r.get("priority", ""),
                              "external_involved": r.get("external_involved", None),
                              "external_team": r.get("external_team", ""),
+                             "user_type": r.get("user_type", "Unknown"),
                              "first_response_sla": r.get("first_response_sla", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
