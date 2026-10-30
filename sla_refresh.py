@@ -350,7 +350,34 @@ SLACK_EXT = _load_ext_map(os.path.join(_HERE, "external_map.json"))
 SPR_EXT = _load_ext_map(os.path.join(_HERE, "sprinklr_external.json"))
 
 
-def build_rows(intake, asana, cases):
+def load_form_requesters(gc):
+    """intake_response_id -> requester email, from the "Form Requesters" tab the
+    request-mix pipeline maintains (Sprinklr form author resolved to SCIM). Lets the
+    Sprinklr rows carry a user type, since the dashboard scrape has no requester
+    email. Returns {} if the tab is absent, so a missing tab degrades to Unknown."""
+    try:
+        ws = _gs_retry(lambda: gc.open_by_key(INTAKE_SHEET_ID).worksheet("Form Requesters"))
+        values = _gs_retry(ws.get_all_values)
+    except Exception as e:
+        print("WARNING: Form Requesters tab unavailable (%s); Sprinklr user types stay Unknown" % e)
+        return {}
+    if len(values) < 2:
+        return {}
+    header = [h.strip().lower() for h in values[0]]
+    if "intake_response_id" not in header or "requester_email" not in header:
+        return {}
+    i_id = header.index("intake_response_id")
+    i_em = header.index("requester_email")
+    out = {}
+    for row in values[1:]:
+        if len(row) > max(i_id, i_em):
+            k = str(row[i_id]).strip()
+            if k:
+                out[k] = str(row[i_em]).strip()
+    return out
+
+
+def build_rows(intake, asana, cases, form_req=None):
     rows = []
     for c in cases:
         try:
@@ -374,7 +401,7 @@ def build_rows(intake, asana, cases):
             "link": sprinklr_link(c),
             "external_involved": (se["external"] if se else None),
             "external_team": (se.get("team", "") if se else ""),
-            "user_type": "Unknown",   # Sprinklr scrape carries no requester email
+            "user_type": user_type_of((form_req or {}).get(rnum, "")),  # email from Form Requesters tab
             "_s": int(created) if created else 0,
         })
     for t in asana:
@@ -589,6 +616,7 @@ def main():
     gc = gclient()
     intake = load_intake(gc)
     asana = fetch_asana()
+    form_req = load_form_requesters(gc)
     # A dead Sprinklr session must not take down the whole refresh. If the scrape
     # fails, keep going with Slack + Asana rows so the sheet and dashboard stay
     # current; the Sprinklr rows just go stale until the session is refreshed.
@@ -599,7 +627,7 @@ def main():
         print(f"WARNING: Sprinklr scrape failed ({e}); building without Sprinklr rows")
         cases = []
         sprinklr_ok = False
-    rows = build_rows(intake, asana, cases)
+    rows = build_rows(intake, asana, cases, form_req)
     if not rows:
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
