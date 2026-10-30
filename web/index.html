@@ -220,6 +220,11 @@
     <span class="chip on" data-qf="ext" data-v="External">External</span>
     <span class="chip on src-done" data-qf="ext" data-v="Internal">Internal</span>
     <span class="chip on src-open" data-qf="ext" data-v="Unclassified">Unclassified</span>
+    <span class="rlabel">User type</span>
+    <span class="chip on" data-qf="utype" data-v="FTE">FTE</span>
+    <span class="chip on" data-qf="utype" data-v="Contractor">Contractor</span>
+    <span class="chip on" data-qf="utype" data-v="Agency">Agency</span>
+    <span class="chip on" data-qf="utype" data-v="Unknown">Unknown</span>
     <label>Assignee <select id="q-assignee"></select></label>
     <span class="spacer"></span>
     <span class="rlabel">Arrived in</span>
@@ -667,7 +672,7 @@ function rCSV(){
 // i.e. the ack / emoji-initiated moment). Completion SLA = arrival to fulfilled
 // (SLA_completion). Both are stored as "Xh Ym" strings; blanks (not yet picked up,
 // or not yet finished) are excluded from the averages, never counted as zero.
-const qflt={src:new Set(["Slack","Sprinklr"]), ext:new Set(["External","Internal","Unclassified"]), assignee:"all"};
+const qflt={src:new Set(["Slack","Sprinklr"]), ext:new Set(["External","Internal","Unclassified"]), utype:new Set(["FTE","Contractor","Agency","Unknown"]), assignee:"all"};
 let qRange=0, qDim="assignee";
 // External involvement: a request that a PB person escalated to a team outside Premium
 // Blend (Sprinklr support/product/engineering, Netflix MarTech/MarData, another Netflix
@@ -689,6 +694,7 @@ function qCurrent(){
     if(!isPBqueue(r)) return false;
     if(!qflt.src.has(r.source)) return false;
     if(!qflt.ext.has(qExt(r))) return false;
+    if(!qflt.utype.has(r.user_type||"Unknown")) return false;
     if(qflt.assignee!=="all" && (r.assignee||"Unassigned")!==qflt.assignee) return false;
     return qInRange(r);
   });
@@ -751,7 +757,7 @@ function qBoot(){
     `<option value="all">All</option>`+names.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
   document.getElementById("q-assignee").onchange=e=>{qflt.assignee=e.target.value;qRender();};
   document.querySelectorAll("#view-qreport .chip").forEach(ch=>ch.onclick=()=>{
-    const set = ch.dataset.qf==="ext" ? qflt.ext : qflt.src;
+    const set = ({ext:qflt.ext, utype:qflt.utype, src:qflt.src})[ch.dataset.qf] || qflt.src;
     const v=ch.dataset.v;
     if(set.has(v)){set.delete(v);ch.classList.remove("on");}
     else{set.add(v);ch.classList.add("on");}
@@ -763,7 +769,7 @@ function qBoot(){
     document.querySelectorAll("#q-dim button").forEach(x=>x.classList.toggle("on",x===b));
     qDim=b.dataset.d; qRender();});
   document.getElementById("q-reset").onclick=()=>{
-    qflt.src=new Set(["Slack","Sprinklr"]); qflt.ext=new Set(["External","Internal","Unclassified"]); qflt.assignee="all"; qRange=0;
+    qflt.src=new Set(["Slack","Sprinklr"]); qflt.ext=new Set(["External","Internal","Unclassified"]); qflt.utype=new Set(["FTE","Contractor","Agency","Unknown"]); qflt.assignee="all"; qRange=0;
     document.querySelectorAll("#view-qreport .chip").forEach(c=>c.classList.add("on"));
     document.getElementById("q-assignee").value="all";
     document.querySelectorAll("#q-range button").forEach(x=>x.classList.toggle("on",x.dataset.r==="0"));
