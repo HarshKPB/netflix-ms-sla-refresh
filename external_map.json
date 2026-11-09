@@ -2,7 +2,7 @@
  "_comment": "External-involvement for Slack queue requests. Keyed by Slack message-ts, thread-ts, AND Asana task gid (pipeline falls back ts->gid). external=true => a Premium Blend person escalated the request to a team outside PB (Sprinklr support/product/engineering, Netflix MarTech/MarData via !oncall martech-mardata-support, or another Netflix access team). 286 Slack threads + 10 Gmail-reactivation orphan tasks, read 2026-10-29. Regenerate when intake grows.",
  "_slack_threads": 286,
  "_orphan_tasks": 10,
- "_map_entries": 599,
+ "_map_entries": 632,
  "1781511879.459839": {
   "external": false,
   "team": "",
@@ -2997,5 +2997,170 @@
   "external": false,
   "team": "",
   "evidence": "Gmail reactivation (Kristina Myers kristina@thesource.social); Marshall reactivated directly; read 2026-10-29"
+ },
+ "1793606823.752769": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions directly, shared dashboard link, explained Favorites; no escalation"
+ },
+ "1220130167151606": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions directly, shared dashboard link, explained Favorites; no escalation"
+ },
+ "1793645665.886529": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field"
+ },
+ "1220148295847546": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field"
+ },
+ "1793655193.930399": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions from reference user"
+ },
+ "1220152642214251": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions from reference user"
+ },
+ "1793699242.027939": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account"
+ },
+ "1220168392441763": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account"
+ },
+ "1793715388.987389": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigating untagged Movie ID; configuring new naming convention internally; no outside escalation"
+ },
+ "1220175740992157": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigating untagged Movie ID; configuring new naming convention internally; no outside escalation"
+ },
+ "1793818157.946619": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked requester for report details to review internally; no escalation"
+ },
+ "1220227576062550": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked requester for report details to review internally; no escalation"
+ },
+ "1793822071.155299": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1220235184454360": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1793830829.710619": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1220235364714529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1793836497.152249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account and gave login link fix"
+ },
+ "1220237629169304": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account and gave login link fix"
+ },
+ "1793866233.256249": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account"
+ },
+ "1220246320856350": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account"
+ },
+ "1793878007.725259": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained demographic widgets/API limits, checking internally; no escalation"
+ },
+ "1220254049854841": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained demographic widgets/API limits, checking internally; no escalation"
+ },
+ "1793887219.880549": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis acknowledged metric-formula question, validating internally; no escalation seen as of read 2026-11-09"
+ },
+ "1220258768744740": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis acknowledged metric-formula question, validating internally; no escalation seen as of read 2026-11-09"
+ },
+ "1220259630121538": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis acknowledged metric-formula question, validating internally; no escalation seen as of read 2026-11-09"
+ },
+ "1793892981.139949": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated user access to match reference user"
+ },
+ "1220267058797545": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated user access to match reference user"
+ },
+ "1793910594.931729": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1220283758598808": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1793914994.569479": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1220285564366168": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account"
+ },
+ "1794193615.390029": {
+  "external": false,
+  "team": "",
+  "evidence": "Metric discrepancy question; only requester follow-up, no PB reply or escalation as of read 2026-11-09"
+ },
+ "1220340547562127": {
+  "external": false,
+  "team": "",
+  "evidence": "Metric discrepancy question; only requester follow-up, no PB reply or escalation as of read 2026-11-09"
  }
 }
