@@ -21,6 +21,8 @@
   h1{font-size:19px;margin:0;font-weight:700;letter-spacing:.2px}
   header .sub{color:var(--dim);font-size:12px;margin-left:auto;text-align:right}
   .wrap{padding:20px 28px;max-width:1400px;margin:0 auto}
+  #sprk-banner{background:var(--amber-dim,#3a2a0a);border:1px solid var(--amber,#e0a000);color:#ffe3a3;
+    padding:10px 16px;margin:0 0 2px;font-size:13px;font-weight:600;text-align:center}
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
   .kpi .n{font-size:26px;font-weight:700}
@@ -51,6 +53,7 @@
   .bar{position:relative;background:var(--line);border-radius:5px;height:18px;min-width:40px;overflow:hidden}
   .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;opacity:.85}
   .bar.init .fill{background:var(--blue)}
+  .bar.first .fill{background:var(--amber)}
   .bar.reso .fill{background:var(--green)}
   .bar b{position:relative;z-index:1;font-size:11px;font-weight:700;padding:0 6px;line-height:18px;color:var(--txt);white-space:nowrap}
   input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--txt);
@@ -127,6 +130,7 @@
   <h1>Netflix MS SLA Tracker</h1>
   <div class="sub" id="gen"></div>
 </header>
+<div id="sprk-banner" hidden>Sprinklr feed is not refreshing (session expired upstream), so this shows Slack requests only right now. Sprinklr-sourced requests will return once the session is re-minted.</div>
 <nav class="tabs">
   <button class="tabbtn on" data-view="sla">SLA Queue</button>
   <button class="tabbtn" data-view="tickets">Sprinklr Support Tickets</button>
@@ -212,6 +216,15 @@
   <div class="controls rctl">
     <span class="chip on" data-qf="src" data-v="Slack">Slack</span>
     <span class="chip on" data-qf="src" data-v="Sprinklr">Sprinklr</span>
+    <span class="rlabel">Involvement</span>
+    <span class="chip on" data-qf="ext" data-v="External">External</span>
+    <span class="chip on src-done" data-qf="ext" data-v="Internal">Internal</span>
+    <span class="chip on src-open" data-qf="ext" data-v="Unclassified">Unclassified</span>
+    <span class="rlabel">User type</span>
+    <span class="chip on" data-qf="utype" data-v="FTE">FTE</span>
+    <span class="chip on" data-qf="utype" data-v="Contractor">Contractor</span>
+    <span class="chip on" data-qf="utype" data-v="Agency">Agency</span>
+    <span class="chip on" data-qf="utype" data-v="Unknown">Unknown</span>
     <label>Assignee <select id="q-assignee"></select></label>
     <span class="spacer"></span>
     <span class="rlabel">Arrived in</span>
@@ -225,7 +238,7 @@
     <div class="rbhead">
       <span>Break down by</span>
       <span class="seg" id="q-dim">
-        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button>
+        <button data-d="assignee" class="on">Assignee</button><button data-d="source">Source</button><button data-d="external">Involvement</button><button data-d="user_type">User type</button><button data-d="region">Region</button><button data-d="country">Country</button><button data-d="request_type">Category</button><button data-d="data_type">Data type</button><button data-d="priority">Priority</button>
       </span>
       <span class="spacer"></span>
       <button class="btn" id="q-csv">Export CSV</button>
@@ -382,6 +395,10 @@ fetch("data.json").then(r=>r.json()).then(j=>{
   DATA=j.rows; GEN=j.generated||"";
   const when=j.generated_at||j.generated||"";
   document.getElementById("gen").textContent = "Updated "+when+" IST  ·  auto-refreshed every 6h";
+  // Sprinklr feed health: the pipeline sets sprinklr_ok=false when the Sprinklr scrape
+  // failed (expired session). Surface it so a Slack-only dashboard is not mistaken for reality.
+  const sprkDown = j.sprinklr_ok===false || !(DATA||[]).some(r=>r.source==="Sprinklr");
+  document.getElementById("sprk-banner").hidden = !sprkDown;
   render(); qBoot();
 }).catch(e=>{document.getElementById("body").innerHTML=`<tr><td colspan="8">Could not load data.json: ${e}</td></tr>`;});
 
@@ -568,11 +585,11 @@ const resoVals=rows=>rows.map(r=>r.resolution_sla_hours).filter(v=>v!=null);
 
 function rKpis(rows){
   const iv=initVals(rows), rv=resoVals(rows);
+  // Median is the headline (a few long tickets skew the mean); mean shown underneath.
   const cards=[
     {n:rows.length,l:"Cases in view"},
-    {n:fmtH(mean(iv)),l:"Avg initial SLA",c:"blue",d:iv.length+" measured"},
-    {n:fmtH(mean(rv)),l:"Avg resolution SLA",c:"green",d:rv.length+" measured"},
-    {n:fmtH(median(rv)),l:"Median resolution SLA",c:"amber",d:"half resolve faster"},
+    {n:fmtH(median(iv)),l:"Initial SLA",c:"blue",d:"mean "+fmtH(mean(iv))+", n "+iv.length},
+    {n:fmtH(median(rv)),l:"Resolution SLA",c:"green",d:"mean "+fmtH(mean(rv))+", n "+rv.length},
   ];
   document.getElementById("r-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
@@ -590,11 +607,11 @@ function rBreakdown(rows){
   rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
     const iv=initVals(g[k]), rv=resoVals(g[k]);
-    return {k,n:g[k].length,ai:mean(iv),ni:iv.length,ar:mean(rv),nr:rv.length};
+    return {k,n:g[k].length,ai:median(iv),ni:iv.length,ar:median(rv),nr:rv.length};
   }).sort((a,b)=>(b.ar??-1)-(a.ar??-1) || b.n-a.n);
   const maxI=Math.max(1,...groups.map(x=>x.ai||0)), maxR=Math.max(1,...groups.map(x=>x.ar||0));
   document.getElementById("r-bhead").innerHTML=
-    `<tr><th>${DIM_LABEL[rDim]}</th><th>Cases</th><th>Avg initial SLA</th><th>Avg resolution SLA</th></tr>`;
+    `<tr><th>${DIM_LABEL[rDim]}</th><th>Cases</th><th>Initial SLA</th><th>Resolution SLA</th></tr>`;
   document.getElementById("r-bbody").innerHTML=groups.map(x=>{
     const ib=x.ai==null?'<span class="muted">–</span>':
       `<div class="bar init" style="width:${Math.max(12,100*x.ai/maxI)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.ai)}</b></div>`;
@@ -607,7 +624,7 @@ function rRender(){
   const rows=rCurrent();
   rKpis(rows); rBreakdown(rows);
   document.getElementById("r-foot").textContent=
-    `${rows.length} of ${TDATA.length} cases in view  ·  SLA counts business + calendar hours from the email timeline  ·  cases with no human reply yet (initial) or not resolved (resolution) are excluded from the average, never counted as zero`;
+    `${rows.length} of ${TDATA.length} cases in view  ·  numbers are medians (mean shown on each card, n = measured)  ·  cases with no human reply yet (initial) or not resolved (resolution) are excluded, never counted as zero`;
 }
 function rFill(id,field,def){
   const vals=[...new Set(TDATA.map(r=>r[field]||def))].sort();
@@ -655,8 +672,14 @@ function rCSV(){
 // i.e. the ack / emoji-initiated moment). Completion SLA = arrival to fulfilled
 // (SLA_completion). Both are stored as "Xh Ym" strings; blanks (not yet picked up,
 // or not yet finished) are excluded from the averages, never counted as zero.
-const qflt={src:new Set(["Slack","Sprinklr"]), assignee:"all"};
+const qflt={src:new Set(["Slack","Sprinklr"]), ext:new Set(["External","Internal","Unclassified"]), utype:new Set(["FTE","Contractor","Agency","Unknown"]), assignee:"all"};
 let qRange=0, qDim="assignee";
+// External involvement: a request that a PB person escalated to a team outside Premium
+// Blend (Sprinklr support/product/engineering, Netflix MarTech/MarData, another Netflix
+// access team). external_involved is true / false / null; null = not yet classified
+// (a new intake since the map was last built) and is shown as its own "Unclassified"
+// bucket, never folded into Internal.
+const qExt=r=> r.external_involved===true ? "External" : (r.external_involved===false ? "Internal" : "Unclassified");
 const QDAY=864e5;
 const qRef=()=>GEN?new Date(GEN+"T23:59:59"):new Date();
 function qHrs(s){ const m=(""+(s||"")).match(/(\d+)\s*h\s*(\d+)\s*m/); return m? (+m[1])+(+m[2])/60 : null; }
@@ -670,50 +693,61 @@ function qCurrent(){
   return (DATA||[]).filter(r=>{
     if(!isPBqueue(r)) return false;
     if(!qflt.src.has(r.source)) return false;
+    if(!qflt.ext.has(qExt(r))) return false;
+    if(!qflt.utype.has(r.user_type||"Unknown")) return false;
     if(qflt.assignee!=="all" && (r.assignee||"Unassigned")!==qflt.assignee) return false;
     return qInRange(r);
   });
 }
 const qAck=rows=>rows.map(r=>qHrs(r.SLA_Assignement)).filter(v=>v!=null);
+const qFirst=rows=>rows.map(r=>qHrs(r.first_response_sla)).filter(v=>v!=null);
 const qComp=rows=>rows.map(r=>qHrs(r.SLA_completion)).filter(v=>v!=null);
 function qKpis(rows){
-  const av=qAck(rows), cv=qComp(rows);
-  const pct = rows.length? Math.round(100*cv.length/rows.length) : 0;
-  // Median is the headline: pickup is usually minutes, but a few stale requests
-  // (one sat weeks) make the mean read in hours/days and misstate the typical case.
+  const av=qAck(rows), fv=qFirst(rows), cv=qComp(rows);
+  // Three stages of a request: emoji ack (picked up) -> first human response ->
+  // completion. One card each: big number is the median, mean + count underneath.
   const cards=[
     {n:rows.length,l:"Requests in view"},
-    {n:fmtH(median(av)),l:"Median acknowledgement SLA",c:"blue",d:"typical pickup, mean "+fmtH(mean(av))},
-    {n:fmtH(median(cv)),l:"Median completion SLA",c:"green",d:"typical finish, mean "+fmtH(mean(cv))},
-    {n:cv.length+"/"+rows.length,l:"Completed",c:"amber",d:pct+"% finished"},
+    {n:fmtH(median(av)),l:"Emoji ack",c:"blue",d:"mean "+fmtH(mean(av))+", n "+av.length},
+    {n:fmtH(median(fv)),l:"First response",c:"amber",d:"mean "+fmtH(mean(fv))+", n "+fv.length},
+    {n:fmtH(median(cv)),l:"Completion",c:"green",d:"mean "+fmtH(mean(cv))+", n "+cv.length},
   ];
   document.getElementById("q-kpis").innerHTML=cards.map(c=>
     `<div class="kpi ${c.c||''}"><div class="n">${c.n}</div><div class="l">${c.l}</div>`+
     (c.d?`<div class="d flat">${c.d}</div>`:"")+`</div>`).join("");
 }
 function qBreakdown(rows){
-  const key=r=> qDim==="assignee" ? (r.assignee||"Unassigned") : (r.source||"?");
+  const key=r=>{
+    if(qDim==="source") return r.source||"?";
+    if(qDim==="external") return qExt(r);
+    if(qDim==="user_type") return r.user_type||"Unknown";
+    if(qDim==="region") return r.region||"Unknown";
+    if(qDim==="country") return r.country||"Unknown";
+    if(qDim==="request_type") return r.request_type||"Uncategorized";
+    if(qDim==="data_type") return r.data_type||"Unknown";
+    if(qDim==="priority") return r.priority||"Normal";
+    return r.assignee||"Unassigned";
+  };
   const g={}; rows.forEach(r=>{(g[key(r)]=g[key(r)]||[]).push(r);});
   const groups=Object.keys(g).map(k=>{
-    const av=qAck(g[k]), cv=qComp(g[k]);
-    return {k,n:g[k].length,aa:median(av),na:av.length,ac:median(cv),nc:cv.length};
+    const av=qAck(g[k]), fv=qFirst(g[k]), cv=qComp(g[k]);
+    return {k,n:g[k].length,aa:median(av),af:median(fv),ac:median(cv)};
   }).sort((a,b)=>(b.ac??-1)-(a.ac??-1) || b.n-a.n);
-  const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxC=Math.max(1,...groups.map(x=>x.ac||0));
+  const maxA=Math.max(1,...groups.map(x=>x.aa||0)), maxF=Math.max(1,...groups.map(x=>x.af||0)),
+        maxC=Math.max(1,...groups.map(x=>x.ac||0));
+  const bar=(v,max,cls)=> v==null?'<span class="muted">–</span>':
+    `<div class="bar ${cls}" style="width:${Math.max(12,100*v/max)}%"><span class="fill" style="width:100%"></span><b>${fmtH(v)}</b></div>`;
   document.getElementById("q-bhead").innerHTML=
-    `<tr><th>${qDim==="assignee"?"Assignee":"Source"}</th><th>Requests</th><th>Median acknowledgement SLA</th><th>Median completion SLA</th></tr>`;
+    `<tr><th>${({assignee:"Assignee",source:"Source",external:"Involvement",user_type:"User type",region:"Region",country:"Country",request_type:"Category",data_type:"Data type",priority:"Priority"})[qDim]||qDim}</th><th>Requests</th><th>Emoji ack</th><th>First response</th><th>Completion</th></tr>`;
   document.getElementById("q-bbody").innerHTML=groups.map(x=>{
-    const ab=x.aa==null?'<span class="muted">–</span>':
-      `<div class="bar init" style="width:${Math.max(12,100*x.aa/maxA)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.aa)}</b></div>`;
-    const cb=x.ac==null?'<span class="muted">–</span>':
-      `<div class="bar reso" style="width:${Math.max(12,100*x.ac/maxC)}%"><span class="fill" style="width:100%"></span><b>${fmtH(x.ac)}</b></div>`;
-    return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${ab}</td><td>${cb}</td></tr>`;
-  }).join("") || `<tr><td colspan="4" class="muted">No requests match these filters.</td></tr>`;
+    return `<tr><td>${esc(x.k)}</td><td class="dur">${x.n}</td><td>${bar(x.aa,maxA,"init")}</td><td>${bar(x.af,maxF,"first")}</td><td>${bar(x.ac,maxC,"reso")}</td></tr>`;
+  }).join("") || `<tr><td colspan="5" class="muted">No requests match these filters.</td></tr>`;
 }
 function qRender(){
   const rows=qCurrent();
   qKpis(rows); qBreakdown(rows);
   document.getElementById("q-foot").textContent=
-    `${rows.length} of ${(DATA||[]).length} requests in view  ·  acknowledgement = time to pick up, completion = time to fulfil  ·  shown as the median (typical case); the mean is skewed by a few requests that sat for weeks  ·  requests not yet picked up or not yet finished are excluded, never counted as zero`;
+    `${rows.length} of ${(DATA||[]).length} requests in view  ·  emoji ack = time to pick up, first response = first human reply, completion = time to fulfil  ·  numbers are medians (n = how many had that stage); blanks are excluded, never counted as zero`;
 }
 let qBooted=false;
 function qBoot(){
@@ -723,9 +757,10 @@ function qBoot(){
     `<option value="all">All</option>`+names.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
   document.getElementById("q-assignee").onchange=e=>{qflt.assignee=e.target.value;qRender();};
   document.querySelectorAll("#view-qreport .chip").forEach(ch=>ch.onclick=()=>{
+    const set = ({ext:qflt.ext, utype:qflt.utype, src:qflt.src})[ch.dataset.qf] || qflt.src;
     const v=ch.dataset.v;
-    if(qflt.src.has(v)){qflt.src.delete(v);ch.classList.remove("on");}
-    else{qflt.src.add(v);ch.classList.add("on");}
+    if(set.has(v)){set.delete(v);ch.classList.remove("on");}
+    else{set.add(v);ch.classList.add("on");}
     qRender();});
   document.querySelectorAll("#q-range button").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("#q-range button").forEach(x=>x.classList.toggle("on",x===b));
@@ -734,7 +769,7 @@ function qBoot(){
     document.querySelectorAll("#q-dim button").forEach(x=>x.classList.toggle("on",x===b));
     qDim=b.dataset.d; qRender();});
   document.getElementById("q-reset").onclick=()=>{
-    qflt.src=new Set(["Slack","Sprinklr"]); qflt.assignee="all"; qRange=0;
+    qflt.src=new Set(["Slack","Sprinklr"]); qflt.ext=new Set(["External","Internal","Unclassified"]); qflt.utype=new Set(["FTE","Contractor","Agency","Unknown"]); qflt.assignee="all"; qRange=0;
     document.querySelectorAll("#view-qreport .chip").forEach(c=>c.classList.add("on"));
     document.getElementById("q-assignee").value="all";
     document.querySelectorAll("#q-range button").forEach(x=>x.classList.toggle("on",x.dataset.r==="0"));
@@ -744,7 +779,7 @@ function qBoot(){
 }
 function qCSV(){
   const rows=qCurrent();
-  const head=["source","task_name","assignee","request_arrival_time","Assigned/Emoji initiated","SLA_Assignement","Request_fulfil_time","SLA_completion"];
+  const head=["source","task_name","assignee","user_type","external_involved","external_team","request_arrival_time","Assigned/Emoji initiated","SLA_Assignement","Request_fulfil_time","SLA_completion"];
   const q=s=>`"${(s==null?"":s).toString().replace(/"/g,'""')}"`;
   const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>q(r[k])).join(",")));
   const blob=new Blob([lines.join("\n")],{type:"text/csv"});

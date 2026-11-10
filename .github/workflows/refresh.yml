@@ -12,6 +12,11 @@ concurrency:
   group: sla-refresh
   cancel-in-progress: false
 
+# GITHUB_TOKEN needs issue write for the Sprinklr-expiry alert; checkout needs contents read.
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -50,6 +55,7 @@ jobs:
       # laptop was off or the session expired. Idempotent: it links existing tasks
       # by case id, so a fresh runner with no state file does not create duplicates.
       - name: Sync Sprinklr to Asana
+        id: sync
         if: success()
         continue-on-error: true   # a dead Sprinklr session must not fail the whole job
         env:
@@ -57,11 +63,11 @@ jobs:
         run: python sprinklr_to_asana.py
 
       # Keep the Sprinklr session alive. The scrape re-saves a refreshed cookie to
-      # this file on success (sprinklr_to_asana line 257). Push it back into the
-      # secret so the next run starts from a fresh, slid-forward session instead of
-      # the frozen original. No-ops safely until GH_PAT is added.
+      # this file ONLY on a successful scrape (sprinklr_to_asana line 257). Gate on the
+      # sync step actually succeeding, so a failed (expired) run does not re-write the
+      # stale session back over itself. No-ops safely until GH_PAT is added.
       - name: Persist refreshed Sprinklr session
-        if: success()
+        if: steps.sync.outcome == 'success'
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
@@ -100,3 +106,26 @@ jobs:
           cd web
           vercel deploy --prod --yes --token="$VERCEL_TOKEN"
           echo "Dashboard deployed to Vercel."
+
+      # Alert when the Sprinklr session has expired (dashboard went Slack-only). The
+      # session needs a manual SSO + 2FA re-login that cannot be automated, so the
+      # sturdy fix is to make the failure loud instead of silent: open one GitHub issue
+      # (which emails the repo owner). Deduped: skip if an open issue already exists.
+      - name: Alert if Sprinklr session expired
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ok=$(python -c "import json; print(json.load(open('web/data.json')).get('sprinklr_ok', True))" 2>/dev/null || echo "True")
+          if [ "$ok" != "False" ]; then
+            echo "Sprinklr feed OK, no alert."; exit 0
+          fi
+          title="Sprinklr session expired: dashboard is Slack-only"
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number -q '.[0].number' 2>/dev/null)
+          if [ -n "$existing" ]; then
+            echo "Alert issue #$existing already open, not duplicating."; exit 0
+          fi
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --body "The Sprinklr scrape returned SESSION_EXPIRED, so the SLA dashboard is showing Slack requests only (no Sprinklr rows). This needs a manual re-login. Fix: on the Mac run \`./remint_sprinklr.sh\` (signs into Sprinklr, updates the SPRINKLR_SESSION_JSON secret, re-runs this workflow). Close this issue once Sprinklr rows return. Filed automatically by refresh.yml."
+          echo "Opened Sprinklr-expiry alert issue."

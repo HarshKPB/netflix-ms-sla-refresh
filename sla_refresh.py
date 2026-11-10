@@ -21,6 +21,10 @@ import sys
 import time
 import logging
 
+# Ensure the repo root (this file's dir) is importable so `from tickets_pipeline
+# import classify` works under Actions (`python sla_refresh.py`) regardless of cwd.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 logging.basicConfig(level=logging.CRITICAL)
 
 import requests
@@ -97,6 +101,30 @@ def hm(a, b):
     return "" if m < 0 else "%dh %02dm" % (m // 60, m % 60)
 
 
+def user_type_of(email, org=""):
+    """FTE / Contractor / Agency from the requester's email domain: netflix.com is
+    an FTE, netflixcontractors.com is a contractor, any other domain is an agency or
+    partner. Falls back to the bot-resolved Requester Org string when the email is
+    blank, and returns Unknown when neither is present (e.g. Sprinklr-scrape rows,
+    which carry no requester email)."""
+    d = (email or "").strip().lower()
+    d = d.rsplit("@", 1)[-1] if "@" in d else ""
+    if d == "netflix.com":
+        return "FTE"
+    if d == "netflixcontractors.com":
+        return "Contractor"
+    if d:
+        return "Agency"
+    o = (org or "").strip().lower()
+    if o == "netflix":
+        return "FTE"
+    if o.startswith("netflix contractor"):
+        return "Contractor"
+    if o:
+        return "Agency"
+    return "Unknown"
+
+
 def classify(name):
     if name.startswith("["):
         return "Slack"
@@ -118,7 +146,9 @@ def fetch_asana():
     out, off = [], None
     while True:
         q = {"project": NETFLIX_PROJECT, "limit": 100,
-             "opt_fields": "name,created_at,completed,completed_at,assignee.name"}
+             "opt_fields": ("name,created_at,completed,completed_at,assignee.name,"
+                            "tags.name,memberships.section.name,"
+                            "custom_fields.name,custom_fields.display_value")}
         if off:
             q["offset"] = off
         r = requests.get(f"{ASANA_BASE}/tasks", headers=H, params=q, timeout=60)
@@ -128,6 +158,14 @@ def fetch_asana():
         off = (j.get("next_page") or {}).get("offset")
         if not off:
             return out
+
+
+def asana_cf(task, name):
+    """Return an Asana task's custom-field display_value by field name, or ''."""
+    for cf in (task.get("custom_fields") or []):
+        if cf.get("name") == name:
+            return (cf.get("display_value") or "").strip()
+    return ""
 
 
 _GS_TRANSIENT = {429, 500, 502, 503, 504}
@@ -184,6 +222,11 @@ def load_intake(gc):
     ts_c = col("message ts")
     re_c = col("reactor (slack)")
     ch_c = col("channel id")
+    fr_c = col("first pb reply ts")   # stamped by the Ticket Bot, raw Slack ts / "none" / blank
+    rg_c = col("requester region")    # bot-resolved region of the person who raised the request
+    co_c = col("requester country")
+    em_c = col("requester email")     # used to bucket the requester as FTE / Contractor / Agency
+    org_c = col("requester org")      # bot-resolved org label, a fallback when email is blank
     from_url = re.compile(r"/task/(\d{6,})")
     slack_ts = re.compile(r"^\d{10}(\.\d+)?$")
     out = {}
@@ -203,7 +246,9 @@ def load_intake(gc):
         if not gid:
             continue
         out[gid] = {"ms": int(round(float(raw) * 1000)), "reactor": cell(re_c),
-                    "channel": cell(ch_c), "ts": raw}
+                    "channel": cell(ch_c), "ts": raw, "first_reply": cell(fr_c),
+                    "region": cell(rg_c), "country": cell(co_c),
+                    "email": cell(em_c), "org": cell(org_c)}
     return out
 
 
@@ -289,7 +334,50 @@ def normalize_assignees(rows):
     return rows
 
 
-def build_rows(intake, asana, cases):
+def _load_ext_map(path):
+    """key -> {external, team, ...} curated involvement map; '_'-prefixed keys are docs.
+    Missing or unreadable file yields {} so the build never breaks on it."""
+    try:
+        return {k: v for k, v in json.load(open(path)).items() if not str(k).startswith("_")}
+    except Exception:
+        return {}
+
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# External-team involvement, curated out-of-band (cloud has no Slack access): Slack keyed by
+# thread ts, Sprinklr-form keyed by intakeResponseId. external True/False, or absent -> None.
+SLACK_EXT = _load_ext_map(os.path.join(_HERE, "external_map.json"))
+SPR_EXT = _load_ext_map(os.path.join(_HERE, "sprinklr_external.json"))
+
+
+def load_form_requesters(gc):
+    """intake_response_id -> requester email, from the "Form Requesters" tab the
+    request-mix pipeline maintains (Sprinklr form author resolved to SCIM). Lets the
+    Sprinklr rows carry a user type, since the dashboard scrape has no requester
+    email. Returns {} if the tab is absent, so a missing tab degrades to Unknown."""
+    try:
+        ws = _gs_retry(lambda: gc.open_by_key(INTAKE_SHEET_ID).worksheet("Form Requesters"))
+        values = _gs_retry(ws.get_all_values)
+    except Exception as e:
+        print("WARNING: Form Requesters tab unavailable (%s); Sprinklr user types stay Unknown" % e)
+        return {}
+    if len(values) < 2:
+        return {}
+    header = [h.strip().lower() for h in values[0]]
+    if "intake_response_id" not in header or "requester_email" not in header:
+        return {}
+    i_id = header.index("intake_response_id")
+    i_em = header.index("requester_email")
+    out = {}
+    for row in values[1:]:
+        if len(row) > max(i_id, i_em):
+            k = str(row[i_id]).strip()
+            if k:
+                out[k] = str(row[i_em]).strip()
+    return out
+
+
+def build_rows(intake, asana, cases, form_req=None):
     rows = []
     for c in cases:
         try:
@@ -301,6 +389,8 @@ def build_rows(intake, asana, cases):
         created = c.get("createdTime")
         assigned = (c.get("userAssignmentDetails") or {}).get("assignmentTime")
         done = c.get("statusLastModifiedDate") if str(c.get("taskStatus")).upper() == "COMPLETED" else None
+        rnum = str((c.get("taskObject") or {}).get("intakeResponseId", ""))
+        se = SPR_EXT.get(rnum)
         rows.append({
             "source": "Sprinklr", "task_name": name, "assignee": c.get("assigneeName") or "",
             "request_arrival_time": ms_to_ist(created),
@@ -309,6 +399,9 @@ def build_rows(intake, asana, cases):
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(assigned, done),
             "link": sprinklr_link(c),
+            "external_involved": (se["external"] if se else None),
+            "external_team": (se.get("team", "") if se else ""),
+            "user_type": user_type_of((form_req or {}).get(rnum, "")),  # email from Form Requesters tab
             "_s": int(created) if created else 0,
         })
     for t in asana:
@@ -325,6 +418,25 @@ def build_rows(intake, asana, cases):
         arr = info["ms"] if info else None
         asg = (t["assignee"]["name"] if (t.get("assignee") and t["assignee"].get("name"))
                else (info["reactor"] if info and info.get("reactor") else ""))
+        # first human response = Ticket Bot's "First PB Reply TS" (raw Slack ts) minus arrival
+        fr = (info or {}).get("first_reply", "")
+        first_resp = ""
+        if fr and fr.strip().lower() != "none":
+            try:
+                first_resp = hm(arr, float(fr) * 1000)
+            except Exception:
+                first_resp = ""
+        # Resolve external-involvement by the sheet message ts, falling back to the
+        # Asana task gid. The gid fallback covers rows with no intake-sheet match
+        # (e.g. Gmail-inbound [Reactivation] tasks), which have no ts to key on.
+        se = SLACK_EXT.get((info or {}).get("ts", "")) or SLACK_EXT.get(t.get("gid", ""))
+        # Requester bucket for the row: the intake-sheet email, else the email embedded
+        # in a Gmail-inbound [Reactivation] task name (those have no sheet row).
+        ut = user_type_of((info or {}).get("email", ""), (info or {}).get("org", ""))
+        if ut == "Unknown":
+            _m = re.search(r"[\w.+-]+@[\w.-]+\.\w+", t.get("name", "") or "")
+            if _m:
+                ut = user_type_of(_m.group(0))
         rows.append({
             "source": s, "task_name": t["name"], "assignee": asg,
             "request_arrival_time": ms_to_ist(arr),
@@ -332,6 +444,18 @@ def build_rows(intake, asana, cases):
             "SLA_Assignement": hm(arr, created),
             "Request_fulfil_time": ms_to_ist(done),
             "SLA_completion": hm(created, done),
+            "external_involved": (se["external"] if se else None),
+            "external_team": (se.get("team", "") if se else ""),
+            "user_type": ut,
+            "first_response_sla": first_resp,
+            # region + country = the requester's, resolved by the bot into the intake sheet
+            # (Asana's task Region is the fallback). category/data type/priority are task
+            # attributes, from the Asana custom fields. None guessed from the request text.
+            "region": (info or {}).get("region") or asana_cf(t, "Region"),
+            "country": (info or {}).get("country", ""),
+            "request_type": asana_cf(t, "Category"),
+            "data_type": asana_cf(t, "Data Type"),
+            "priority": asana_cf(t, "Priority"),
             "link": slack_link(info),
             "_s": int(created) if created else 0,
         })
@@ -492,22 +616,58 @@ def main():
     gc = gclient()
     intake = load_intake(gc)
     asana = fetch_asana()
+    form_req = load_form_requesters(gc)
     # A dead Sprinklr session must not take down the whole refresh. If the scrape
     # fails, keep going with Slack + Asana rows so the sheet and dashboard stay
     # current; the Sprinklr rows just go stale until the session is refreshed.
+    sprinklr_ok = True
     try:
         cases = p.fetch_cases_from_dashboard()
     except Exception as e:
         print(f"WARNING: Sprinklr scrape failed ({e}); building without Sprinklr rows")
         cases = []
-    rows = build_rows(intake, asana, cases)
+        sprinklr_ok = False
+    rows = build_rows(intake, asana, cases, form_req)
     if not rows:
         print("no rows built, refusing to overwrite the sheet")
         sys.exit(1)
     normalize_assignees(rows)  # one person -> one canonical name, before sheet + data.json
+    # Derive the reporting dimensions from the request text, using the one shared
+    # Reporting dimensions come straight from the Asana custom fields set in build_rows
+    # (Region / Category / Data Type / Priority). Rows with no Asana value (Sprinklr-source
+    # rows, or tasks not yet triaged in Asana) fall back to a neutral default, so the
+    # buckets stay one consistent Netflix taxonomy instead of mixing in text guesses.
+    for r in rows:
+        r["region"] = r.get("region") or "Unknown"
+        r["country"] = r.get("country") or "Unknown"
+        r["request_type"] = r.get("request_type") or "Uncategorized"
+        r["data_type"] = r.get("data_type") or "Unknown"
+        r["priority"] = r.get("priority") or "Normal"
     import collections as _collections
-    _ac = _collections.Counter((r.get("assignee") or "(blank)") for r in rows)
-    print("assignees after normalize:", dict(_ac.most_common()))
+    print("assignees after normalize:",
+          dict(_collections.Counter((r.get("assignee") or "(blank)") for r in rows).most_common()))
+    print("queue region:", dict(_collections.Counter(r["region"] for r in rows).most_common()))
+    print("queue country:", dict(_collections.Counter(r["country"] for r in rows).most_common(12)))
+    print("queue request_type (Asana Category):", dict(_collections.Counter(r["request_type"] for r in rows).most_common(12)))
+    print("queue data_type:", dict(_collections.Counter(r["data_type"] for r in rows).most_common()))
+    print("queue priority:", dict(_collections.Counter(r["priority"] for r in rows).most_common()))
+    # External-involvement coverage, per source. "unknown" = row whose request was not in
+    # external_map (a new intake since the map was last regenerated); it is never counted as
+    # internal. This line is the post-deploy proof that every row resolved (unknown == 0).
+    def _extbucket(r):
+        v = r.get("external_involved")
+        return "external" if v is True else ("internal" if v is False else "unknown")
+    _cov = _collections.defaultdict(_collections.Counter)
+    for r in rows:
+        _cov[r["source"]][_extbucket(r)] += 1
+    for _src in sorted(_cov):
+        _c = _cov[_src]
+        print("external coverage [%s]: external %d, internal %d, unknown %d (of %d)"
+              % (_src, _c["external"], _c["internal"], _c["unknown"], sum(_c.values())))
+    print("user type:", dict(_collections.Counter(r.get("user_type", "Unknown") for r in rows).most_common()))
+    print("first-response: filled",
+          sum(1 for r in rows if r.get("first_response_sla")), "of",
+          sum(1 for r in rows if r.get("source") == "Slack"), "Slack rows (from intake col U)")
     ss = write_sheet(gc, rows)
 
     now = dt.datetime.now(IST)
@@ -520,9 +680,17 @@ def main():
         os.makedirs(web_dir, exist_ok=True)
         payload = {"generated": now.strftime("%Y-%m-%d"),
                    "generated_at": run_at,
+                   "sprinklr_ok": sprinklr_ok,
                    "headers": HEADERS,
                    "history": history,
-                   "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", "")} for r in rows]}
+                   "rows": [{**{h: r[h] for h in HEADERS}, "link": r.get("link", ""),
+                             "region": r.get("region", ""), "country": r.get("country", ""),
+                             "request_type": r.get("request_type", ""),
+                             "data_type": r.get("data_type", ""), "priority": r.get("priority", ""),
+                             "external_involved": r.get("external_involved", None),
+                             "external_team": r.get("external_team", ""),
+                             "user_type": r.get("user_type", "Unknown"),
+                             "first_response_sla": r.get("first_response_sla", "")} for r in rows]}
         with open(os.path.join(web_dir, "data.json"), "w") as fh:
             json.dump(payload, fh)
         print(f"wrote {web_dir}/data.json ({len(history)} history rows)")
