@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-17",
-  "generated_at": "2026-11-17 02:52",
+  "generated": "2026-11-18",
+  "generated_at": "2026-11-18 02:39",
   "source": "Gmail: care@prod.sprinklrsupport.com",
   "rows": [
     {
@@ -23,8 +23,8 @@
       "evidence": "Re: Netflix - New user welcome email directing users to v3 UI error Hi Marshall, Greetings! I believe this ticket was created to check for incorrect redirection",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 208,
-      "days_idle": 144,
+      "days_open": 209,
+      "days_idle": 145,
       "conversation_id": ""
     },
     {
@@ -47,8 +47,8 @@
       "evidence": "Re: Netflix [50754] – Issue: Not able to find \"Platform Emails\" after enabling the Feature Thank you, Marshall. BR, Sateesh M Marshall Mitchell marshall@premium",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 190,
-      "days_idle": 187,
+      "days_open": 191,
+      "days_idle": 188,
       "conversation_id": ""
     },
     {
@@ -71,8 +71,8 @@
       "evidence": "Sprinklr Support Satisfaction Survey Dear Harsh Khandelwal, We are sending you this survey because you’ve recently engaged with Sprinklr Support Recurring TikTo",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 188,
-      "days_idle": 186,
+      "days_open": 189,
+      "days_idle": 187,
       "conversation_id": ""
     },
     {
@@ -95,8 +95,8 @@
       "evidence": "Re: Netflix [50754] – Request: Please change \"email ID\" in 90 day deactivation email Hi Marshall, Thank you for contacting Sprinklr Global Technical Support. Co",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 187,
-      "days_idle": 166,
+      "days_open": 188,
+      "days_idle": 167,
       "conversation_id": ""
     },
     {
@@ -119,8 +119,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 183,
-      "days_idle": 175,
+      "days_open": 184,
+      "days_idle": 176,
       "conversation_id": ""
     },
     {
@@ -143,33 +143,9 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 180,
-      "days_idle": 168,
+      "days_open": 181,
+      "days_idle": 169,
       "conversation_id": ""
-    },
-    {
-      "case_id": "4028992",
-      "conversation_id": "6a0de8bdefd28727c6530a7e",
-      "title": "Inconsistent TikTok Boosted Data",
-      "topic": "TikTok",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 142.2,
-      "resolution_sla_hours": null,
-      "owner": "francis",
-      "agent": "Sateesh Kota",
-      "opened": "2026-05-24",
-      "last_update": "2026-11-16",
-      "n_msgs": 8,
-      "portal_link": "https://community.sprinklr.com/support/requests/4028992",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1876424641057719785",
-      "evidence": "Re: Netflix: Inconsistent TikTok Boosted Data Hi Joel and Team, Sharing a quick update that the fix is being tracked for our 27.1 release scheduled for Feb 2027",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 177,
-      "days_idle": 1
     },
     {
       "case_id": "4040456",
@@ -191,8 +167,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 168,
-      "days_idle": 117,
+      "days_open": 169,
+      "days_idle": 118,
       "conversation_id": ""
     },
     {
@@ -215,8 +191,8 @@
       "evidence": "Thank you, Durgesh. *Upcoming OOO → June 19, July 3-9*",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 166,
-      "days_idle": 165,
+      "days_open": 167,
+      "days_idle": 166,
       "conversation_id": ""
     },
     {
@@ -239,8 +215,8 @@
       "evidence": "Re: Netflix - Backup Account Authentication Token Export Hi Hoku, Thanks for the confirmation. You’ll be receiving a CSAT survey shortly after receiving this me",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 165,
-      "days_idle": 162,
+      "days_open": 166,
+      "days_idle": 163,
       "conversation_id": ""
     },
     {
@@ -263,8 +239,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 164,
-      "days_idle": 161,
+      "days_open": 165,
+      "days_idle": 162,
       "conversation_id": ""
     },
     {
@@ -287,8 +263,8 @@
       "evidence": "Re: Netflix - Exposing Email Address in Sprinklr Tasks Hi Francis, Thank you very much for your patience! We would like to inform you that at this time, we do n",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 162,
-      "days_idle": 160,
+      "days_open": 163,
+      "days_idle": 161,
       "conversation_id": ""
     },
     {
@@ -311,8 +287,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 160,
-      "days_idle": 117,
+      "days_open": 161,
+      "days_idle": 118,
       "conversation_id": ""
     },
     {
@@ -335,8 +311,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 152,
-      "days_idle": 147,
+      "days_open": 153,
+      "days_idle": 148,
       "conversation_id": ""
     },
     {
@@ -359,8 +335,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 146,
-      "days_idle": 133,
+      "days_open": 147,
+      "days_idle": 134,
       "conversation_id": ""
     },
     {
@@ -383,8 +359,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 134,
-      "days_idle": 127,
+      "days_open": 135,
+      "days_idle": 128,
       "conversation_id": ""
     },
     {
@@ -407,8 +383,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 133,
-      "days_idle": 131,
+      "days_open": 134,
+      "days_idle": 132,
       "conversation_id": ""
     },
     {
@@ -431,8 +407,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 133,
-      "days_idle": 124,
+      "days_open": 134,
+      "days_idle": 125,
       "conversation_id": ""
     },
     {
@@ -455,8 +431,8 @@
       "evidence": "Re: [Urgent] Netflix - X Impressions Not Pulling Hi Francis, Thanks for the update. This was just an intermittent issue where the data was present in the API, a",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 127,
-      "days_idle": 125,
+      "days_open": 128,
+      "days_idle": 126,
       "conversation_id": ""
     },
     {
@@ -479,8 +455,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 122,
-      "days_idle": 111,
+      "days_open": 123,
+      "days_idle": 112,
       "conversation_id": ""
     },
     {
@@ -503,8 +479,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 120,
-      "days_idle": 81,
+      "days_open": 121,
+      "days_idle": 82,
       "conversation_id": ""
     },
     {
@@ -527,8 +503,8 @@
       "evidence": "Re: Netflix: Posts Showing Different Spend Data by Timzezone Hi Francis, Thanks for the confirmation. We are marking case closed. Best regards Rekha Kumari Prod",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 112,
-      "days_idle": 83,
+      "days_open": 113,
+      "days_idle": 84,
       "conversation_id": ""
     },
     {
@@ -551,8 +527,8 @@
       "evidence": "Re: Netflix - Feature Check Sure, you are welcome Varsha! V Varsha Anjanappa varsha-a@premium-blend.com",
       "needs_review": true,
       "source": "Auto",
-      "days_open": 112,
-      "days_idle": 112,
+      "days_open": 113,
+      "days_idle": 113,
       "conversation_id": ""
     },
     {
@@ -575,8 +551,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 111,
-      "days_idle": 110,
+      "days_open": 112,
+      "days_idle": 111,
       "conversation_id": ""
     },
     {
@@ -599,8 +575,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 110,
-      "days_idle": 109,
+      "days_open": 111,
+      "days_idle": 110,
       "conversation_id": ""
     },
     {
@@ -623,8 +599,8 @@
       "evidence": "Re: [Urgent] Netflix | Error Message Shown In Widgets Thank you for the confirmation, Beatriz. We are closing this ticket. Please feel free to reach out to us f",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 109,
-      "days_idle": 109,
+      "days_open": 110,
+      "days_idle": 110,
       "conversation_id": ""
     },
     {
@@ -647,8 +623,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 106,
-      "days_idle": 91,
+      "days_open": 107,
+      "days_idle": 92,
       "conversation_id": ""
     },
     {
@@ -671,8 +647,8 @@
       "evidence": "👍 Patrick Bamba reacted via Gmail <",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 106,
-      "days_idle": 83,
+      "days_open": 107,
+      "days_idle": 84,
       "conversation_id": ""
     },
     {
@@ -695,8 +671,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 106,
-      "days_idle": 103,
+      "days_open": 107,
+      "days_idle": 104,
       "conversation_id": ""
     },
     {
@@ -719,8 +695,8 @@
       "evidence": "Re: Netflix - Campaign go-live notification Hi Hoku, Glad to hear that the event went smoothly. We are closing this case. Please feel free to reach out to us fo",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 105,
-      "days_idle": 99,
+      "days_open": 106,
+      "days_idle": 100,
       "conversation_id": ""
     },
     {
@@ -743,8 +719,8 @@
       "evidence": "Re: Netflix: Export Missing Data Hi Francis, Thank you for the confirmation, We will proceed with the closure of this ticket. Best regards Venu Prasad Product S",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 103,
-      "days_idle": 83,
+      "days_open": 104,
+      "days_idle": 84,
       "conversation_id": ""
     },
     {
@@ -767,8 +743,8 @@
       "evidence": "Re: Netflix - Ad Comments Not Captured by Inbound Analytics Widgets Hi Hoku, With this, we’ll proceed to mark the case as solved. Should you have any further qu",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 102,
-      "days_idle": 89,
+      "days_open": 103,
+      "days_idle": 90,
       "conversation_id": ""
     },
     {
@@ -791,8 +767,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 97,
-      "days_idle": 84,
+      "days_open": 98,
+      "days_idle": 85,
       "conversation_id": ""
     },
     {
@@ -815,8 +791,8 @@
       "evidence": "Re: Netflix | Grapevine Performance Marketing Creative Report Dashboard Error Message Hi Beatriz, Thank you for your patience while we investigated this issue. ",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 90,
-      "days_idle": 85,
+      "days_open": 91,
+      "days_idle": 86,
       "conversation_id": ""
     },
     {
@@ -839,8 +815,8 @@
       "evidence": "Amazing thank you! I'll let you know if I have any issues or need additional permissions. Thanks, Elisa",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 85,
-      "days_idle": 83,
+      "days_open": 86,
+      "days_idle": 84,
       "conversation_id": ""
     },
     {
@@ -857,15 +833,15 @@
       "owner": "patrick",
       "agent": "Venu Prasad",
       "opened": "2026-08-25",
-      "last_update": "2026-11-13",
-      "n_msgs": 39,
+      "last_update": "2026-11-17",
+      "n_msgs": 40,
       "portal_link": "https://community.sprinklr.com/support/requests/4073494",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874454878048849043",
-      "evidence": "Re: NFLX | Meta Campaign Spend Discrepancy Hi Hoku, Unfortunately, there is no definition for the high-volume ad sets yet. The high-volume ad sets are the ones ",
+      "evidence": "I see an internal note saying the team was reaching out to see if there is a way to know which campaigns have the discrepancy. Have we heard back from them? Tha",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 84,
-      "days_idle": 4
+      "days_open": 85,
+      "days_idle": 1
     },
     {
       "case_id": "4073719",
@@ -877,19 +853,19 @@
       "priority": "Normal",
       "status": "Resolved",
       "initial_sla_hours": 354.2,
-      "resolution_sla_hours": 2007.0,
+      "resolution_sla_hours": null,
       "owner": "harsh",
       "agent": "Binaya Mund",
       "opened": "2026-08-25",
       "last_update": "2026-11-17",
-      "n_msgs": 21,
+      "n_msgs": 23,
       "portal_link": "https://community.sprinklr.com/support/requests/4073719",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1874491598444050019",
-      "evidence": "+ @Joel Kretzinger <joel.kretzinger@sprinklr.com> for vis. Thanks, Marshall *Holiday: Nov. 26 – 27* *Premium Blend Winter Disconnect: Dec. 22 – Jan. 1 (Returnin",
+      "evidence": "Thank you. Adding @Siddhartha Malani<mailto:siddhartha.malani@sprinklr.com> to help with clarification on this. We can connect internally on Teams. Joel _______",
       "needs_review": false,
       "source": "Override",
-      "days_open": 84,
-      "days_idle": 0
+      "days_open": 85,
+      "days_idle": 1
     },
     {
       "case_id": "4029520",
@@ -912,8 +888,8 @@
       "evidence": "Re: Netflix: Threads - Inconsisitent Engagement Data Hi Varsha, Our Product team is continuing to follow-up with Channel/Meta, and will share an update as soon ",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 84,
-      "days_idle": 4
+      "days_open": 85,
+      "days_idle": 5
     },
     {
       "case_id": "4073958",
@@ -935,8 +911,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 84,
-      "days_idle": 55,
+      "days_open": 85,
+      "days_idle": 56,
       "conversation_id": ""
     },
     {
@@ -959,8 +935,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 83,
-      "days_idle": 78,
+      "days_open": 84,
+      "days_idle": 79,
       "conversation_id": ""
     },
     {
@@ -983,8 +959,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 82,
-      "days_idle": 76,
+      "days_open": 83,
+      "days_idle": 77,
       "conversation_id": ""
     },
     {
@@ -1007,8 +983,8 @@
       "evidence": "Re: [Urgent] Netflix | X/Twitter 4K Video Publishing Failing Hi Beatriz, Thank you for the confirmation! Do contact Sprinklr Support for any further queries, We",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 82,
-      "days_idle": 78,
+      "days_open": 83,
+      "days_idle": 79,
       "conversation_id": ""
     },
     {
@@ -1031,8 +1007,8 @@
       "evidence": "Re: Netflix - Reporting tagging issue Hi Varsha, Greetings! I’m not seeing the custom field tagged in the post properties as well. Could you please share how th",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 81,
-      "days_idle": 79,
+      "days_open": 82,
+      "days_idle": 80,
       "conversation_id": ""
     },
     {
@@ -1055,8 +1031,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 67,
-      "days_idle": 57,
+      "days_open": 68,
+      "days_idle": 58,
       "conversation_id": ""
     },
     {
@@ -1079,8 +1055,8 @@
       "evidence": "Re: Urgent: Netflix - Scheduled Post Failure Dear Customer, Thank you for your response. We'll go forward and mark this thread as closed, Feel free to reach out",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 67,
-      "days_idle": 63,
+      "days_open": 68,
+      "days_idle": 64,
       "conversation_id": ""
     },
     {
@@ -1103,8 +1079,8 @@
       "evidence": "Re: [High Priority] Netflix - Data Fetch Issue Hi Hoku, We are closing this case now. Please feel free to reopen the case if you have any additional questions. ",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 64,
-      "days_idle": 56,
+      "days_open": 65,
+      "days_idle": 57,
       "conversation_id": ""
     },
     {
@@ -1127,8 +1103,8 @@
       "evidence": "Re: Netflix - TikTok Reach & Frequency Validation Hi Patrick, Thank you for following up. Engineering has confirmed that the data correction for the affected Ti",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 61,
-      "days_idle": 41,
+      "days_open": 62,
+      "days_idle": 42,
       "conversation_id": ""
     },
     {
@@ -1151,8 +1127,8 @@
       "evidence": "Re: Netflix [50754] – Question/Issue: Activity Trail has Moderation User \"Sent\" Twice Hi Marshall, Thank you for the confirmation! Do contact Sprinklr Support f",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 61,
-      "days_idle": 60,
+      "days_open": 62,
+      "days_idle": 61,
       "conversation_id": ""
     },
     {
@@ -1175,8 +1151,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 54,
-      "days_idle": 53,
+      "days_open": 55,
+      "days_idle": 54,
       "conversation_id": ""
     },
     {
@@ -1191,17 +1167,17 @@
       "initial_sla_hours": 1.8,
       "resolution_sla_hours": 882.0,
       "owner": "varsha-a",
-      "agent": "Tejas Bansal",
+      "agent": "RaviTeja Palingi",
       "opened": "2026-09-28",
       "last_update": "2026-11-04",
       "n_msgs": 26,
       "portal_link": "https://community.sprinklr.com/support/requests/4086852",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1880777155649598585",
-      "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
+      "evidence": "Re: Netflix - Publishing Verification on Feeds Hi Marshall, Thank you for the confirmation! Do contact Sprinklr Support for any further queries. We are setting ",
       "needs_review": false,
       "source": "Override",
-      "days_open": 50,
-      "days_idle": 13
+      "days_open": 51,
+      "days_idle": 14
     },
     {
       "case_id": "4075421",
@@ -1213,43 +1189,19 @@
       "priority": "Normal",
       "status": "Awaiting Sprinklr",
       "initial_sla_hours": 0.0,
-      "resolution_sla_hours": 53.3,
+      "resolution_sla_hours": null,
       "owner": "hoku",
-      "agent": "Sateesh Kota",
-      "opened": "2026-10-01",
-      "last_update": "2026-11-13",
-      "n_msgs": 4,
+      "agent": "Ishani Chatterjee",
+      "opened": "2026-10-06",
+      "last_update": "2026-11-17",
+      "n_msgs": 5,
       "portal_link": "https://community.sprinklr.com/support/requests/4075421",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1881646131820548403",
-      "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 47,
-      "days_idle": 4
-    },
-    {
-      "case_id": "4071815",
-      "conversation_id": "6a8644aaa6ddfd0a8072ca7b",
-      "title": "Cumulative Post Spent Issue for X campaign",
-      "topic": "X/Twitter",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "francis",
-      "agent": "Sateesh Kota",
-      "opened": "2026-10-05",
-      "last_update": "2026-11-05",
-      "n_msgs": 1,
-      "portal_link": "https://community.sprinklr.com/support/requests/4071815",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1881023860224355523",
-      "evidence": "Re: Netflix | Cumulative Post Spent Issue for X campaign Hi Francis, We are continuing to work with the Channel team, and will share an update as soon as more i",
+      "evidence": "Re: Netflix - Comments not captured by inbound analytics widgets Hi Hoku, Thank you for your patience while our engineering team investigated the remaining disc",
       "needs_review": false,
       "source": "Auto",
       "days_open": 43,
-      "days_idle": 12
+      "days_idle": 1
     },
     {
       "case_id": "4090601",
@@ -1271,8 +1223,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 42,
-      "days_idle": 41,
+      "days_open": 43,
+      "days_idle": 42,
       "conversation_id": ""
     },
     {
@@ -1296,8 +1248,8 @@
       "evidence": "Thanks, Arjo – Looking good on my end. Marshall *OOO: Oct. 12, Nov. 2 – 6 🌴 *",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 41,
-      "days_idle": 39
+      "days_open": 42,
+      "days_idle": 40
     },
     {
       "case_id": "4091322",
@@ -1320,32 +1272,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 39,
-      "days_idle": 35
-    },
-    {
-      "case_id": "4088971",
-      "conversation_id": "6abeb4292a1c050bdbb3dfcc",
-      "title": "Netflix [50754] – Issue: Title/Campaign Custom Entity Field does not appear in Excel/CSV table Exports",
-      "topic": "Paid/Spend",
-      "request_type": "Issue",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Awaiting Sprinklr",
-      "initial_sla_hours": 0.0,
-      "resolution_sla_hours": null,
-      "owner": "marshall",
-      "agent": "Mami Yamashita",
-      "opened": "2026-10-13",
-      "last_update": "2026-11-11",
-      "n_msgs": 3,
-      "portal_link": "https://community.sprinklr.com/support/requests/4088971",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1881025482823686987",
-      "evidence": "Re: Netflix [50754] – Issue: Title/Campaign Custom Entity Field does not appear in Excel/CSV table Exports Hi Marshall, Thank you very much for the update. Cert",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 35,
-      "days_idle": 6
+      "days_open": 40,
+      "days_idle": 36
     },
     {
       "case_id": "4089274",
@@ -1368,8 +1296,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 35,
-      "days_idle": 33
+      "days_open": 36,
+      "days_idle": 34
     },
     {
       "case_id": "4094304",
@@ -1392,8 +1320,8 @@
       "evidence": "Re: Access to Sprinklr Glad to know the issue has been resolved. A Andrea Centeno andreacenteno@netflix.com",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 35,
-      "days_idle": 35
+      "days_open": 36,
+      "days_idle": 36
     },
     {
       "case_id": "4093954",
@@ -1407,17 +1335,17 @@
       "initial_sla_hours": 0.0,
       "resolution_sla_hours": null,
       "owner": "varsha-a",
-      "agent": "Sayali Pendharkar",
+      "agent": "Gopal Kumar",
       "opened": "2026-10-14",
-      "last_update": "2026-11-11",
-      "n_msgs": 18,
+      "last_update": "2026-11-17",
+      "n_msgs": 20,
       "portal_link": "https://community.sprinklr.com/support/requests/4093954",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1879086162106204754",
-      "evidence": "Re: Re: Netflix - TikTok Thailand Account - Data Inconsistency Hi Marshall, Apologies for any delay caused. We are still waiting to hear back from the channel o",
+      "evidence": "Re: Re: Netflix - TikTok Thailand Account - Data Inconsistency Hi Joel, Greetings! Apologies for the delay. We are still waiting to hear back from the channel o",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 34,
-      "days_idle": 6
+      "days_open": 35,
+      "days_idle": 1
     },
     {
       "case_id": "4095395",
@@ -1433,15 +1361,15 @@
       "owner": "beatriz",
       "agent": "Sateesh Kota",
       "opened": "2026-10-15",
-      "last_update": "2026-11-05",
-      "n_msgs": 18,
+      "last_update": "2026-11-17",
+      "n_msgs": 19,
       "portal_link": "https://community.sprinklr.com/support/requests/4095395",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1879145235430530287",
-      "evidence": "Re: NFLX | Thumbnail Issues Thank you for letting us know that the workaround is helpful. Marshall. We are tracking the permanent fix for our 27.1 release sched",
+      "evidence": "+Joel Kretzinger <joel.kretzinger@sprinklr.com> for vis. @Francis Villavicencio <francis@premium-blend.com> – Does the workaround provided on Friday, October 30",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 33,
-      "days_idle": 12
+      "days_open": 34,
+      "days_idle": 1
     },
     {
       "case_id": "4094141",
@@ -1464,8 +1392,8 @@
       "evidence": "Sprinklr Support Satisfaction Survey Dear Harsh Khandelwal, Thank you again for being a Sprinklr customer. As a follow up to the survey sent 2 days ago, we’d ap",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 31,
-      "days_idle": 31
+      "days_open": 32,
+      "days_idle": 32
     },
     {
       "case_id": "4097330",
@@ -1488,8 +1416,8 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 27,
-      "days_idle": 19
+      "days_open": 28,
+      "days_idle": 20
     },
     {
       "case_id": "4084857",
@@ -1512,60 +1440,36 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 27,
-      "days_idle": 26
+      "days_open": 28,
+      "days_idle": 27
     },
     {
       "case_id": "4097749",
-      "conversation_id": "6ada31b3533b70adc65bd43c",
+      "conversation_id": "",
       "title": "User Account Deatctivation",
       "topic": "General",
       "request_type": "Other",
       "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
-      "initial_sla_hours": 127.8,
-      "resolution_sla_hours": 160.0,
-      "owner": "varsha-a",
-      "agent": "Jagriti Joshi",
-      "opened": "2026-10-22",
+      "initial_sla_hours": null,
+      "resolution_sla_hours": 8.3,
+      "owner": "marshall",
+      "agent": "",
+      "opened": "2026-10-27",
       "last_update": "2026-10-29",
-      "n_msgs": 7,
+      "n_msgs": 2,
       "portal_link": "https://community.sprinklr.com/support/requests/4097749",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1879766025831099325",
-      "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1880338971461181767",
+      "evidence": "Hello, Can close this request. Thank you :)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 26,
-      "days_idle": 19
-    },
-    {
-      "case_id": "4100240",
-      "conversation_id": "6ae273f6bd2faa2f870b5690",
-      "title": "WhatsApp Business Metrics",
-      "topic": "Analytics",
-      "request_type": "Other",
-      "region": "Global/Unknown",
-      "priority": "Normal",
-      "status": "Resolved",
-      "initial_sla_hours": 120.3,
-      "resolution_sla_hours": 145.0,
-      "owner": "beatriz",
-      "agent": "Kirti Sharma",
-      "opened": "2026-10-28",
-      "last_update": "2026-11-03",
-      "n_msgs": 8,
-      "portal_link": "https://community.sprinklr.com/support/requests/4100240",
-      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1880333510464511766",
-      "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
-      "needs_review": false,
-      "source": "Auto",
-      "days_open": 20,
-      "days_idle": 14
+      "days_open": 22,
+      "days_idle": 20
     },
     {
       "case_id": "4099951",
-      "conversation_id": "6ae1e7e36266f3d47028ebb7",
+      "conversation_id": "",
       "title": "Sprinklr API Access | Netflix India Social Dashboard",
       "topic": "Reporting",
       "request_type": "Request",
@@ -1575,8 +1479,8 @@
       "initial_sla_hours": 4.3,
       "resolution_sla_hours": 28.3,
       "owner": "unassigned",
-      "agent": "Vishwajit Kumar",
-      "opened": "2026-10-28",
+      "agent": "",
+      "opened": "2026-10-29",
       "last_update": "2026-10-29",
       "n_msgs": 3,
       "portal_link": "https://community.sprinklr.com/support/requests/4099951",
@@ -1585,7 +1489,31 @@
       "needs_review": false,
       "source": "Auto",
       "days_open": 20,
-      "days_idle": 19
+      "days_idle": 20
+    },
+    {
+      "case_id": "4100240",
+      "conversation_id": "",
+      "title": "WhatsApp Business Metrics",
+      "topic": "Analytics",
+      "request_type": "Other",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Resolved",
+      "initial_sla_hours": 0.0,
+      "resolution_sla_hours": 145.0,
+      "owner": "beatriz",
+      "agent": "",
+      "opened": "2026-11-02",
+      "last_update": "2026-11-03",
+      "n_msgs": 8,
+      "portal_link": "https://community.sprinklr.com/support/requests/4100240",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1880333510464511766",
+      "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 16,
+      "days_idle": 15
     },
     {
       "case_id": "4103295",
@@ -1596,10 +1524,10 @@
       "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
-      "initial_sla_hours": 84.7,
+      "initial_sla_hours": 0.5,
       "resolution_sla_hours": 262.3,
       "owner": "francis",
-      "agent": "Binaya Mund",
+      "agent": "",
       "opened": "2026-11-05",
       "last_update": "2026-11-16",
       "n_msgs": 11,
@@ -1608,7 +1536,55 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 12,
+      "days_open": 13,
+      "days_idle": 2
+    },
+    {
+      "case_id": "4088971",
+      "conversation_id": "",
+      "title": "Netflix [50754] – Issue: Title/Campaign Custom Entity Field does not appear in Excel/CSV table Exports",
+      "topic": "Paid/Spend",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 0.0,
+      "resolution_sla_hours": null,
+      "owner": "marshall",
+      "agent": "",
+      "opened": "2026-11-05",
+      "last_update": "2026-11-11",
+      "n_msgs": 3,
+      "portal_link": "https://community.sprinklr.com/support/requests/4088971",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1881025482823686987",
+      "evidence": "Hi Marshall, Thank you very much for the update. Certainly, we will keep you posted on progress.",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 13,
+      "days_idle": 7
+    },
+    {
+      "case_id": "4071815",
+      "conversation_id": "",
+      "title": "Cumulative Post Spent Issue for X campaign",
+      "topic": "X/Twitter",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Awaiting Sprinklr",
+      "initial_sla_hours": 0.0,
+      "resolution_sla_hours": 297.1,
+      "owner": "marshall",
+      "agent": "",
+      "opened": "2026-11-05",
+      "last_update": "2026-11-17",
+      "n_msgs": 2,
+      "portal_link": "https://community.sprinklr.com/support/requests/4071815",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1881023860224355523",
+      "evidence": "+Joel Kretzinger for vis Thanks, Marshall",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 13,
       "days_idle": 1
     },
     {
@@ -1620,7 +1596,7 @@
       "region": "Global/Unknown",
       "priority": "Normal",
       "status": "Resolved",
-      "initial_sla_hours": null,
+      "initial_sla_hours": 0.1,
       "resolution_sla_hours": 97.2,
       "owner": "varsha-a",
       "agent": "Ramya M",
@@ -1632,8 +1608,32 @@
       "evidence": "auto follow-up nudge (Sprinklr auto-closing the case)",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 5,
-      "days_idle": 1
+      "days_open": 6,
+      "days_idle": 2
+    },
+    {
+      "case_id": "4028992",
+      "conversation_id": "",
+      "title": "Inconsistent TikTok Boosted Data",
+      "topic": "TikTok",
+      "request_type": "Issue",
+      "region": "Global/Unknown",
+      "priority": "Normal",
+      "status": "Resolved",
+      "initial_sla_hours": 0.0,
+      "resolution_sla_hours": null,
+      "owner": "francis",
+      "agent": "Sateesh Kota",
+      "opened": "2026-11-16",
+      "last_update": "2026-11-16",
+      "n_msgs": 8,
+      "portal_link": "https://community.sprinklr.com/support/requests/4028992",
+      "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1876424641057719785",
+      "evidence": "Re: Netflix: Inconsistent TikTok Boosted Data Hi Joel and Team, Sharing a quick update that the fix is being tracked for our 27.1 release scheduled for Feb 2027",
+      "needs_review": false,
+      "source": "Auto",
+      "days_open": 2,
+      "days_idle": 2
     },
     {
       "case_id": "4106456",
@@ -1647,16 +1647,16 @@
       "initial_sla_hours": null,
       "resolution_sla_hours": null,
       "owner": "marshall",
-      "agent": "pawan LNU",
+      "agent": "Radhika Agrawal",
       "opened": "2026-11-16",
-      "last_update": "2026-11-16",
-      "n_msgs": 2,
+      "last_update": "2026-11-17",
+      "n_msgs": 4,
       "portal_link": "https://community.sprinklr.com/support/requests/4106456",
       "gmail_link": "https://mail.google.com/mail/?authuser=harsh@premium-blend.com#all/thread-f:1882040831491045322",
-      "evidence": "Re: Netflix [50754] – Issue: JSSDK Unknown Host domain Hi Marshall, Hope you are doing well. I understand this reported issue is of importance and acknowledge t",
-      "needs_review": true,
+      "evidence": "Hey Radhika – The client ended up using space-prod2.sprinklr.com and it worked? Curious if there is something we don't know about that would ultimately block it",
+      "needs_review": false,
       "source": "Auto",
-      "days_open": 1,
+      "days_open": 2,
       "days_idle": 1
     },
     {
@@ -1680,8 +1680,8 @@
       "evidence": "Re: Netflix [50754] | Issue: Platform Reporting Configuration missing for: _c_owned_post_creator_team Hi Marshall, Greetings! We are currently consulting with o",
       "needs_review": false,
       "source": "Auto",
-      "days_open": 1,
-      "days_idle": 1
+      "days_open": 2,
+      "days_idle": 2
     }
   ]
 }
