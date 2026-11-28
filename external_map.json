@@ -1,8 +1,8 @@
 {
  "_comment": "External-involvement for Slack queue requests. Keyed by Slack message-ts, thread-ts, AND Asana task gid (pipeline falls back ts->gid). external=true => a Premium Blend person escalated the request to a team outside PB (Sprinklr support/product/engineering, Netflix MarTech/MarData via !oncall martech-mardata-support, or another Netflix access team). 286 Slack threads + 10 Gmail-reactivation orphan tasks, read 2026-10-29. Regenerate when intake grows.",
- "_slack_threads": 286,
- "_orphan_tasks": 10,
- "_map_entries": 599,
+ "_slack_threads": 327,
+ "_orphan_tasks": 12,
+ "_map_entries": 688,
  "1781511879.459839": {
   "external": false,
   "team": "",
@@ -2997,5 +2997,450 @@
   "external": false,
   "team": "",
   "evidence": "Gmail reactivation (Kristina Myers kristina@thesource.social); Marshall reactivated directly; read 2026-10-29"
+ },
+ "1793606823.752769": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions, pointed to report link, how-to on Favorites; resolved by PB; read 2026-11-23"
+ },
+ "1220130167151606": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions, pointed to report link, how-to on Favorites; resolved by PB; read 2026-11-23"
+ },
+ "1793645665.886529": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field (config change); read 2026-11-23"
+ },
+ "1220148295847546": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field (config change); read 2026-11-23"
+ },
+ "1793655193.930399": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions to match Cyrus (access grant); read 2026-11-23"
+ },
+ "1220152642214251": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions to match Cyrus (access grant); read 2026-11-23"
+ },
+ "1793699242.027939": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220168392441763": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1793715388.987389": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigated untagged Movie ID; naming-convention/tagging config handled with Rebecka (Netflix owner), no outside escalation; read 2026-11-23"
+ },
+ "1220175740992157": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigated untagged Movie ID; naming-convention/tagging config handled with Rebecka (Netflix owner), no outside escalation; read 2026-11-23"
+ },
+ "1793818157.946619": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for report details to review feasibility internally; no escalation seen; read 2026-11-23"
+ },
+ "1220227576062550": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for report details to review feasibility internally; no escalation seen; read 2026-11-23"
+ },
+ "1793822071.155299": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1220235184454360": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1793830829.710619": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1220235364714529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1793836497.152249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account, how-to link fix for dashboard visibility; read 2026-11-23"
+ },
+ "1220237629169304": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account, how-to link fix for dashboard visibility; read 2026-11-23"
+ },
+ "1793866233.256249": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220246320856350": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1793878007.725259": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained API demographics limits and re-validated; how-to/explanation; read 2026-11-23"
+ },
+ "1220254049854841": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained API demographics limits and re-validated; how-to/explanation; read 2026-11-23"
+ },
+ "1793887219.880549": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained metric mapping and fixed/updated custom metric config; \"validate internally\", no outside team looped (Netflix staff only); read 2026-11-23"
+ },
+ "1220258768744740": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained metric mapping and fixed/updated custom metric config; \"validate internally\", no outside team looped (Netflix staff only); read 2026-11-23"
+ },
+ "1220259630121538": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained metric mapping and fixed/updated custom metric config; \"validate internally\", no outside team looped (Netflix staff only); read 2026-11-23"
+ },
+ "1793892981.139949": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated access to match another user (permission grant); read 2026-11-23"
+ },
+ "1220267058797545": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis updated access to match another user (permission grant); read 2026-11-23"
+ },
+ "1793910594.931729": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1220283758598808": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1793914994.569479": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1220285564366168": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1794193615.390029": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained widget logic (how-to explanation); read 2026-11-23"
+ },
+ "1220340547562127": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained widget logic (how-to explanation); read 2026-11-23"
+ },
+ "1794220340.163009": {
+  "external": true,
+  "team": "Netflix MarTech/MarData on-call",
+  "evidence": "Varsha paged !oncall martech-mardata-support; Netflix engineers Ann Kettles/Cristina Sargu diagnosed Socialite->Sprinklr tag sync bug; read 2026-11-23"
+ },
+ "1220349708222796": {
+  "external": true,
+  "team": "Netflix MarTech/MarData on-call",
+  "evidence": "Varsha paged !oncall martech-mardata-support; Netflix engineers Ann Kettles/Cristina Sargu diagnosed Socialite->Sprinklr tag sync bug; read 2026-11-23"
+ },
+ "1794235085.264859": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly (duplicate row re-triggered by bot); read 2026-11-23"
+ },
+ "1220357796998215": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly (duplicate row re-triggered by bot); read 2026-11-23"
+ },
+ "1794307031.607799": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly (duplicate row re-triggered by bot); read 2026-11-23"
+ },
+ "1220388180464266": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly (duplicate row re-triggered by bot); read 2026-11-23"
+ },
+ "1794315626.033399": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly; read 2026-11-23"
+ },
+ "1220391961206596": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly; read 2026-11-23"
+ },
+ "1794333066.937639": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1220406313104522": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated account directly; read 2026-11-23"
+ },
+ "1794339323.086079": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis pointed to Sprinklr help-center page (how-to); read 2026-11-23"
+ },
+ "1220407052164206": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis pointed to Sprinklr help-center page (how-to); read 2026-11-23"
+ },
+ "1794344645.091339": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated permissions to replicate another user (permission grant); read 2026-11-23"
+ },
+ "1220409865517904": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz updated permissions to replicate another user (permission grant); read 2026-11-23"
+ },
+ "1794350564.998349": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Placement filter to dashboard (config change); consulted Patrick (PB); read 2026-11-23"
+ },
+ "1220412597400340": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Placement filter to dashboard (config change); consulted Patrick (PB); read 2026-11-23"
+ },
+ "1794391598.110109": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account (90-day inactivity) directly; read 2026-11-23"
+ },
+ "1220428534432584": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account (90-day inactivity) directly; read 2026-11-23"
+ },
+ "1794391605.430189": {
+  "external": false,
+  "team": "",
+  "evidence": "Duplicate follow-up message from requester in same issue as 1794391598.110109; no PB escalation; resolved by PB reactivation; read 2026-11-23"
+ },
+ "1220428534432457": {
+  "external": false,
+  "team": "",
+  "evidence": "Duplicate follow-up message from requester in same issue as 1794391598.110109; no PB escalation; resolved by PB reactivation; read 2026-11-23"
+ },
+ "1794401317.647839": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220433032332303": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1794472951.089609": {
+  "external": true,
+  "team": "Sprinklr Support",
+  "evidence": "Varsha added requester to Sprinklr support thread; \"support wanted some information\"; Marshall following up on the ticket; read 2026-11-23"
+ },
+ "1220476634941321": {
+  "external": true,
+  "team": "Sprinklr Support",
+  "evidence": "Varsha added requester to Sprinklr support thread; \"support wanted some information\"; Marshall following up on the ticket; read 2026-11-23"
+ },
+ "1794477396.739959": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh updated permissions after Netflix FTE approval (requester-side); no outside team escalated; read 2026-11-23"
+ },
+ "1220481453650829": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh updated permissions after Netflix FTE approval (requester-side); no outside team escalated; read 2026-11-23"
+ },
+ "1794494986.427059": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220490486380986": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1794504852.880659": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220497372657872": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1794514284.530309": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1220502311005228": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account directly; read 2026-11-23"
+ },
+ "1794530603.066129": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "Hoku: \"we got confirmation from Sprinklr\" that Pinterest/LinkedIn metrics include boosted data (consulted Sprinklr); read 2026-11-23"
+ },
+ "1220508396917928": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "Hoku: \"we got confirmation from Sprinklr\" that Pinterest/LinkedIn metrics include boosted data (consulted Sprinklr); read 2026-11-23"
+ },
+ "1794616975.179469": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis changed persona/permissions after Rebecka (Netflix admin) approval; explained timestamps; permission grant by PB; read 2026-11-23"
+ },
+ "1220539993397914": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis changed persona/permissions after Rebecka (Netflix admin) approval; explained timestamps; permission grant by PB; read 2026-11-23"
+ },
+ "1794838278.790099": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis processed agent access after Rebecka (Netflix admin) approval (access grant); read 2026-11-23"
+ },
+ "1220589055796223": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis processed agent access after Rebecka (Netflix admin) approval (access grant); read 2026-11-23"
+ },
+ "1794846865.279549": {
+  "external": true,
+  "team": "Sprinklr Product",
+  "evidence": "PB looped Joel Kretzinger (Sprinklr), who contacted X Product Manager and Product/Engineering on 20-asset limit; read 2026-11-23"
+ },
+ "1220589106122234": {
+  "external": true,
+  "team": "Sprinklr Product",
+  "evidence": "PB looped Joel Kretzinger (Sprinklr), who contacted X Product Manager and Product/Engineering on 20-asset limit; read 2026-11-23"
+ },
+ "1794865888.921479": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick/Marshall explained benchmarks and proposed workaround config; only hypothetical product escalation; PB-resolved; read 2026-11-23"
+ },
+ "1220597336882452": {
+  "external": false,
+  "team": "",
+  "evidence": "Patrick/Marshall explained benchmarks and proposed workaround config; only hypothetical product escalation; PB-resolved; read 2026-11-23"
+ },
+ "1794942993.716169": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly; read 2026-11-23"
+ },
+ "1220635563413613": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis reactivated account directly; read 2026-11-23"
+ },
+ "1795010416.731319": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall added requester to existing Sprinklr ticket via email (access grant); read 2026-11-23"
+ },
+ "1220676639733688": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall added requester to existing Sprinklr ticket via email (access grant); read 2026-11-23"
+ },
+ "1795024981.283629": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall explained LinkedIn account auto-deactivation and had it re-added (PB config); read 2026-11-23"
+ },
+ "1220685986339234": {
+  "external": false,
+  "team": "",
+  "evidence": "Marshall explained LinkedIn account auto-deactivation and had it re-added (PB config); read 2026-11-23"
+ },
+ "1795081147.358819": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh updated permissions after Netflix FTE approval (requester-side); no outside team escalated; read 2026-11-23"
+ },
+ "1220706435409199": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Harsh updated permissions after Netflix FTE approval (requester-side); no outside team escalated; read 2026-11-23"
+ },
+ "1795108398.738009": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Farmers Insurance to Brand Partner field (config change); read 2026-11-23"
+ },
+ "1220721538696243": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Farmers Insurance to Brand Partner field (config change); read 2026-11-23"
+ },
+ "1795212119.454219": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku redirected requester to cs-tech-support (Care environment, out of scope); no escalation; read 2026-11-23"
+ },
+ "1220761547330183": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku redirected requester to cs-tech-support (Care environment, out of scope); no escalation; read 2026-11-23"
+ },
+ "1220519570790797": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Anthony van Es anthony@truus.co); Varsha reactivated directly (thread 2026-11-13); read 2026-11-23"
+ },
+ "1220445842519611": {
+  "external": false,
+  "team": "",
+  "evidence": "Gmail reactivation (Andrea Arellano andreaarellano@netflix.com); Varsha reactivated directly after 90-day inactivity (thread 2026-11-11); read 2026-11-23"
  }
 }
