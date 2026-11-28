@@ -1,8 +1,8 @@
 {
  "_comment": "External-involvement for Slack queue requests. Keyed by Slack message-ts, thread-ts, AND Asana task gid (pipeline falls back ts->gid). external=true => a Premium Blend person escalated the request to a team outside PB (Sprinklr support/product/engineering, Netflix MarTech/MarData via !oncall martech-mardata-support, or another Netflix access team). 286 Slack threads + 10 Gmail-reactivation orphan tasks, read 2026-10-29. Regenerate when intake grows.",
- "_slack_threads": 286,
+ "_slack_threads": 319,
  "_orphan_tasks": 10,
- "_map_entries": 599,
+ "_map_entries": 665,
  "1781511879.459839": {
   "external": false,
   "team": "",
@@ -2997,5 +2997,335 @@
   "external": false,
   "team": "",
   "evidence": "Gmail reactivation (Kristina Myers kristina@thesource.social); Marshall reactivated directly; read 2026-10-29"
+ },
+ "1793606823.752769": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions, shared report link; how-to on favorites; read 2026-11-16"
+ },
+ "1220130167151606": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha/Patrick checked permissions, shared report link; how-to on favorites; read 2026-11-16"
+ },
+ "1220148295847546": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field (config change); read 2026-11-16"
+ },
+ "1793645665.886529": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis added Colgate to Brand Partner custom field (config change); read 2026-11-16"
+ },
+ "1220152642214251": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions (access grant); read 2026-11-16"
+ },
+ "1793655193.930399": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz reactivated accounts and mirrored permissions (access grant); read 2026-11-16"
+ },
+ "1793699242.027939": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220168392441763": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220175740992157": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigated untagged Movie ID, set up naming convention (internal config; no escalation); read 2026-11-16"
+ },
+ "1793715388.987389": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis investigated untagged Movie ID, set up naming convention (internal config; no escalation); read 2026-11-16"
+ },
+ "1793818157.946619": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for report details to review internally; no escalation; read 2026-11-16"
+ },
+ "1220227576062550": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis asked for report details to review internally; no escalation; read 2026-11-16"
+ },
+ "1220235184454360": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793822071.155299": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793830829.710619": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220235364714529": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220237629169304": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793836497.152249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220246320856350": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793866233.256249": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793878007.725259": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained post-level demographics API limitation; read 2026-11-16"
+ },
+ "1220254049854841": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained post-level demographics API limitation; read 2026-11-16"
+ },
+ "1793887219.880549": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis answered metric formula questions, offered to update custom metric internally; no PB escalation; read 2026-11-16"
+ },
+ "1220258768744740": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis answered metric formula questions, offered to update custom metric internally; no PB escalation; read 2026-11-16"
+ },
+ "1220267058797545": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793892981.139949": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220283758598808": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793910594.931729": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220285564366168": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1793914994.569479": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220340547562127": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained widget logic (how-to); read 2026-11-16"
+ },
+ "1794193615.390029": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha explained widget logic (how-to); read 2026-11-16"
+ },
+ "1794220340.163009": {
+  "external": true,
+  "team": "Netflix MarTech/MarData",
+  "evidence": "Varsha paged !oncall martech-mardata-support; Netflix engineers (Ann Kettles, Cristina Sargu) diagnosed Socialite->Sprinklr tag-matching issue; read 2026-11-16"
+ },
+ "1220349708222796": {
+  "external": true,
+  "team": "Netflix MarTech/MarData",
+  "evidence": "Varsha paged !oncall martech-mardata-support; Netflix engineers (Ann Kettles, Cristina Sargu) diagnosed Socialite->Sprinklr tag-matching issue; read 2026-11-16"
+ },
+ "1794235085.264859": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220357796998215": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220391961206596": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794315626.033399": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220406313104522": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794333066.937639": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220407052164206": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis linked help-center page (how-to); read 2026-11-16"
+ },
+ "1794339323.086079": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis linked help-center page (how-to); read 2026-11-16"
+ },
+ "1220409865517904": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794344645.091339": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794350564.998349": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Placement filter to dashboard (config); read 2026-11-16"
+ },
+ "1220412597400340": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz added Placement filter to dashboard (config); read 2026-11-16"
+ },
+ "1794391598.110109": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account (90-day inactivity); read 2026-11-16"
+ },
+ "1220428534432584": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha reactivated account (90-day inactivity); read 2026-11-16"
+ },
+ "1794391605.430189": {
+  "external": false,
+  "team": "",
+  "evidence": "Duplicate stray message (\"Waht can I do?\") with no reply; no escalation; read 2026-11-16"
+ },
+ "1220428534432457": {
+  "external": false,
+  "team": "",
+  "evidence": "Duplicate stray message (\"Waht can I do?\") with no reply; no escalation; read 2026-11-16"
+ },
+ "1220433032332303": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794401317.647839": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220476634941321": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "Varsha added requester to Sprinklr support thread; \"support wanted some information\" - escalated to Sprinklr support; read 2026-11-16"
+ },
+ "1794472951.089609": {
+  "external": true,
+  "team": "Sprinklr",
+  "evidence": "Varsha added requester to Sprinklr support thread; \"support wanted some information\" - escalated to Sprinklr support; read 2026-11-16"
+ },
+ "1220481453650829": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha updated permissions after FTE approval (access grant); read 2026-11-16"
+ },
+ "1794477396.739959": {
+  "external": false,
+  "team": "",
+  "evidence": "Varsha updated permissions after FTE approval (access grant); read 2026-11-16"
+ },
+ "1220490486380986": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794494986.427059": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794504852.880659": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220497372657872": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220502311005228": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1794514284.530309": {
+  "external": false,
+  "team": "",
+  "evidence": "Beatriz/Francis/Varsha reactivated or granted access directly in thread; read 2026-11-16"
+ },
+ "1220508396917928": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku/Marshall investigating internally; no escalation; read 2026-11-16"
+ },
+ "1794530603.066129": {
+  "external": false,
+  "team": "",
+  "evidence": "Hoku/Marshall investigating internally; no escalation; read 2026-11-16"
+ },
+ "1220539993397914": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained timestamps; persona/permission change approved by Netflix (Rebecka) - PB made change; read 2026-11-16"
+ },
+ "1794616975.179469": {
+  "external": false,
+  "team": "",
+  "evidence": "Francis explained timestamps; persona/permission change approved by Netflix (Rebecka) - PB made change; read 2026-11-16"
  }
 }
